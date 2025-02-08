@@ -9,56 +9,23 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "Software",
+      href: "/software",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
+      label: "Programming",
+      href: "/programming",
     },
     {
-      label: "Blog",
-      href: "/blog",
+      label: "AI",
+      href: "/ai",
     },
     {
-      label: "About",
-      href: "/about",
+      label: "Machine Learning",
+      href: "/machine-learning",
     },
   ],
-  navMenuItems: [
-    {
-      label: "Profile",
-      href: "/profile",
-    },
-    {
-      label: "Dashboard",
-      href: "/dashboard",
-    },
-    {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
-      label: "Team",
-      href: "/team",
-    },
-    {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
-    },
-  ],
+
   links: {
     github: "https://github.com/heroui-inc/heroui",
     twitter: "https://twitter.com/hero_ui",
