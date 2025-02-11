@@ -1,6 +1,8 @@
-import React from "react";
+import getLatestPosts from "@/src/services/latestPosts";
 
-const LatestPost = () => {
+const LatestPost = async () => {
+  const { data: posts } = await getLatestPosts();
+  console.log(posts.result);
   return (
     <div className="py-10">
       <div className="border-l-5 border-primary pl-2">
