@@ -1,6 +1,7 @@
-import { Navbar } from "@/src/components/navbar";
 import { Link } from "@heroui/link";
 import { ReactNode } from "react";
+
+import { Navbar } from "@/src/components/navbar";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (

@@ -1,7 +1,7 @@
 import * as React from "react";
+import Image from "next/image";
 
 import { IconSvgProps } from "@/src/types";
-import Image from "next/image";
 
 export const Logo = () => (
   <Image alt="Technify Today" height={30} src="/logo.png" width={30} />
