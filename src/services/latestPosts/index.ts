@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 
+import { delay } from "@/src/utils/delay";
 import { envConfig } from "./../../config/envConfig";
 
 const getLatestPosts = async () => {
@@ -13,6 +14,8 @@ const getLatestPosts = async () => {
     `${envConfig.backendUrl}/posts?sort=-createdAt`,
     fetchOptions
   );
+
+  await delay(2000);
 
   return res.json();
 };

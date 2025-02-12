@@ -1,11 +1,11 @@
 import { Button } from "@heroui/button";
-import { Card, CardHeader } from "@heroui/card";
+import { Card } from "@heroui/card";
 import { Divider } from "@heroui/divider";
 import { Input } from "@heroui/input";
 
 const Footer = () => {
   return (
-    <footer className="bg-background py-6">
+    <footer className=" py-6">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-start">
         <div className="space-y-3">
           <div>
