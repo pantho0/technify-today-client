@@ -9,20 +9,16 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Software",
-      href: "/software",
+      label: "Feeds",
+      href: "/feeds",
     },
     {
-      label: "Programming",
-      href: "/programming",
+      label: "About",
+      href: "/about",
     },
     {
-      label: "AI",
-      href: "/ai",
-    },
-    {
-      label: "Machine Learning",
-      href: "/machine-learning",
+      label: "Contact",
+      href: "/contact",
     },
   ],
 
