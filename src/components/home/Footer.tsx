@@ -47,12 +47,12 @@ const Footer = () => {
                 Get latest articles and updates
               </p>
               <Input
-                type="email"
-                size="lg"
-                placeholder="Enter your email"
                 className="mt-5"
+                placeholder="Enter your email"
+                size="lg"
+                type="email"
               />
-              <Button color="primary" className="mt-3 w-full rounded-md">
+              <Button className="mt-3 w-full rounded-md" color="primary">
                 Subscribe
               </Button>
             </div>

@@ -1,12 +1,14 @@
-import SidebarCard from "@/src/components/ui/SidebarCard";
-import { getSinglePost } from "@/src/services/post";
-import { IPost } from "@/src/types";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import Image from "next/image";
-import { type } from "./../../../../types/index";
-import CommentCard from "@/src/components/ui/CommentCard";
 import { Divider } from "@heroui/divider";
+
+import SidebarCard from "@/src/components/ui/SidebarCard";
+import { getSinglePost } from "@/src/services/post";
+import { IPost } from "@/src/types";
+import CommentCard from "@/src/components/ui/CommentCard";
+import { Heart, ThumbsDown } from "lucide-react";
+import { Tooltip } from "@heroui/tooltip";
 
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params.postId);
@@ -24,42 +26,56 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
           {postData?.title}
         </h2>
         <Image
-          src={postData?.image}
           alt={postData?.title}
-          width={600}
-          height={600}
           className="w-full h-[400px] object-cover rounded-lg"
+          height={600}
+          src={postData?.image}
+          width={600}
         />
         <p>{postData?.details}</p>
 
         <Divider className="my-4" />
 
+        <div className="flex items-center gap-2 gap-2">
+          <Tooltip content="Up vote" className="rounded-full">
+            <Button variant="flat" color="primary" className="rounded-full">
+              <Heart />
+            </Button>
+          </Tooltip>
+          <Tooltip content="Down vote" className="rounded-full">
+            <Button variant="flat" color="primary" className="rounded-full">
+              <ThumbsDown />
+            </Button>
+          </Tooltip>
+        </div>
+
         <div className="border-1 border-foreground/20 rounded-lg p-4">
           <div className="flex gap-4 border border-foreground/20 rounded-lg p-3">
             <div className="w-14 h-14">
               <Image
-                src="https://i.pravatar.cc/150?u=a04258114e29026702d"
                 alt="user"
-                width={40}
-                height={40}
                 className="rounded-full"
+                height={40}
+                src="https://i.pravatar.cc/150?u=a04258114e29026702d"
+                width={40}
               />
             </div>
             <div className="flex-1">
               <div className="flex relative">
-                <Input size="lg" type="text" placeholder="Add a comment" />
+                <Input placeholder="Add a comment" size="lg" type="text" />
                 <Button
-                  color="primary"
-                  type="submit"
-                  size="md"
-                  variant="solid"
                   className="absolute right-2 top-1/2 -translate-y-1/2  "
+                  color="primary"
+                  size="md"
+                  type="submit"
+                  variant="solid"
                 >
                   Post
                 </Button>
               </div>
             </div>
           </div>
+
           <div className="mt-4 space-y-4 h-[300px] overflow-y-auto">
             {[...Array(5)].map((_, index) => (
               <CommentCard key={index} />

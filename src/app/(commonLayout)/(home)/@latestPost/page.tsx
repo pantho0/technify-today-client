@@ -1,7 +1,8 @@
+import { Link } from "@heroui/link";
+
 import PostCard from "@/src/components/home/PostCard";
 import getLatestPosts from "@/src/services/latestPosts";
 import { IPost } from "@/src/types";
-import { Link } from "@heroui/link";
 
 const LatestPost = async () => {
   const { data: posts } = await getLatestPosts();

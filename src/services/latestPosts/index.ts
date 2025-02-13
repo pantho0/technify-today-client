@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 
-import { delay } from "@/src/utils/delay";
 import { envConfig } from "./../../config/envConfig";
+
+import { delay } from "@/src/utils/delay";
 
 const getLatestPosts = async () => {
   const fetchOptions = {

@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
+import { Divider } from "@heroui/divider";
 
 import { Navbar } from "@/src/components/navbar";
 import Footer from "@/src/components/home/Footer";
-import { Divider } from "@heroui/divider";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (

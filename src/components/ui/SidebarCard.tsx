@@ -1,8 +1,9 @@
-import { IUser } from "@/src/types";
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
 import { Divider } from "@heroui/divider";
 import { Link } from "@heroui/link";
 import Image from "next/image";
+
+import { IUser } from "@/src/types";
 
 const SidebarCard = ({ authorInfo }: { authorInfo: IUser }) => {
   return (
@@ -10,10 +11,10 @@ const SidebarCard = ({ authorInfo }: { authorInfo: IUser }) => {
       <CardHeader className="flex gap-3">
         <Image
           alt={authorInfo?.fullName}
+          className="rounded-full"
           height={40}
           src="https://i.pravatar.cc/150?u=a04258114e29026702d"
           width={40}
-          className="rounded-full"
         />
         <div className="flex flex-col">
           <p className="text-md">{authorInfo?.fullName}</p>
