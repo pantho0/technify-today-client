@@ -6,6 +6,7 @@ import { Input } from "@heroui/input";
 import Image from "next/image";
 import { type } from "./../../../../types/index";
 import CommentCard from "@/src/components/ui/CommentCard";
+import { Divider } from "@heroui/divider";
 
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params.postId);
@@ -29,8 +30,10 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
           height={600}
           className="w-full h-[400px] object-cover rounded-lg"
         />
-
         <p>{postData?.details}</p>
+
+        <Divider className="my-4" />
+
         <div className="border-1 border-foreground/20 rounded-lg p-4">
           <div className="flex gap-4 border border-foreground/20 rounded-lg p-3">
             <div className="w-14 h-14">
