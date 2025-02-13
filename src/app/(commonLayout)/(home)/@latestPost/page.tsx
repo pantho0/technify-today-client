@@ -1,5 +1,6 @@
 import PostCard from "@/src/components/home/PostCard";
 import getLatestPosts from "@/src/services/latestPosts";
+import { IPost } from "@/src/types";
 import { Link } from "@heroui/link";
 
 const LatestPost = async () => {
@@ -11,8 +12,8 @@ const LatestPost = async () => {
         <h1 className="text-2xl font-semibold ">Latest Post</h1>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
-        {posts?.result?.map((post) => (
-          <Link href={`/posts/${post?._id}`} key={post?._id}>
+        {posts?.result?.map((post: IPost) => (
+          <Link key={post?._id} href={`/posts/${post?._id}`}>
             <PostCard key={post?._id} post={post} />
           </Link>
         ))}
