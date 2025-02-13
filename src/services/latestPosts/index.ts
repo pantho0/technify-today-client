@@ -18,6 +18,10 @@ const getLatestPosts = async () => {
 
   await delay(2000);
 
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
+
   return res.json();
 };
 

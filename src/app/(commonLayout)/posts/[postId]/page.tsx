@@ -2,13 +2,13 @@ import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import Image from "next/image";
 import { Divider } from "@heroui/divider";
+import { Heart, ThumbsDown } from "lucide-react";
+import { Tooltip } from "@heroui/tooltip";
 
 import SidebarCard from "@/src/components/ui/SidebarCard";
 import { getSinglePost } from "@/src/services/post";
 import { IPost } from "@/src/types";
 import CommentCard from "@/src/components/ui/CommentCard";
-import { Heart, ThumbsDown } from "lucide-react";
-import { Tooltip } from "@heroui/tooltip";
 
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params.postId);
@@ -37,13 +37,13 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
         <Divider className="my-4" />
 
         <div className="flex items-center gap-2 gap-2">
-          <Tooltip content="Up vote" className="rounded-full">
-            <Button variant="flat" color="primary" className="rounded-full">
+          <Tooltip className="rounded-full" content="Up vote">
+            <Button className="rounded-full" color="primary" variant="flat">
               <Heart />
             </Button>
           </Tooltip>
-          <Tooltip content="Down vote" className="rounded-full">
-            <Button variant="flat" color="primary" className="rounded-full">
+          <Tooltip className="rounded-full" content="Down vote">
+            <Button className="rounded-full" color="primary" variant="flat">
               <ThumbsDown />
             </Button>
           </Tooltip>
