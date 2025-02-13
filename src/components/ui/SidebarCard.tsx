@@ -7,7 +7,7 @@ import Image from "next/image";
 const SidebarCard = ({ authorInfo }: { authorInfo: IUser }) => {
   console.log(authorInfo);
   return (
-    <Card className="max-w-[300px]">
+    <Card className="max-w-[350px]">
       <CardHeader className="flex gap-3">
         <Image
           alt={authorInfo?.fullName}
