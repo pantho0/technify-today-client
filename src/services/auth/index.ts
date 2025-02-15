@@ -19,3 +19,13 @@ export const loginUser = async (userData: FieldValues) => {
     throw new Error(error);
   }
 };
+
+export const registerUser = async (userData: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.post("/auth/create-user", userData);
+
+    return data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
