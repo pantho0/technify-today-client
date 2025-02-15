@@ -25,6 +25,7 @@ import {
   SearchIcon,
   Logo,
 } from "@/src/components/icons";
+import { LogIn } from "lucide-react";
 
 export const Navbar = () => {
   const searchInput = (
@@ -65,7 +66,7 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
+                  "data-[active=true]:text-primary data-[active=true]:font-medium"
                 )}
                 color="foreground"
                 href={item.href}
@@ -87,12 +88,11 @@ export const Navbar = () => {
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
-            isExternal
             as={Link}
-            className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
-            variant="flat"
+            className="text-sm font-normal text-default-600 "
+            href={"/login"}
+            startContent={<LogIn className="text-primary" />}
+            variant="ghost"
           >
             Login
           </Button>

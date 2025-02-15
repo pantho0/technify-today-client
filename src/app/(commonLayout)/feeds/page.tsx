@@ -23,7 +23,7 @@ const FeedsPage = async () => {
       <div className="grid grid-cols-1 w-2/4 mx-auto gap-10">
         {posts?.result?.map((post: IPost) => (
           <Link key={post?._id} href={`/posts/${post?._id}`}>
-            <PostCard key={post?._id} post={post} />
+            <PostCard post={post} />
           </Link>
         ))}
       </div>

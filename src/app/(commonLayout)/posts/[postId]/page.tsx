@@ -11,7 +11,7 @@ import { IPost } from "@/src/types";
 import CommentCard from "@/src/components/ui/CommentCard";
 
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
-  const { data } = await getSinglePost(params.postId);
+  const { data } = await getSinglePost(params?.postId);
 
   const authorInfo = data?.user;
   const postData = data as IPost;
