@@ -1,9 +1,11 @@
+"use server";
+
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
 
-const loginUser = async (userData: FieldValues) => {
+export const loginUser = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/auth/login", userData);
 

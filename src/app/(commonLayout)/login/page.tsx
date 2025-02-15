@@ -1,19 +1,24 @@
 "use client";
-import TTForm from "@/src/components/form/TTForm";
-import TTInput from "@/src/components/form/TTInput";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import Image from "next/image";
 import React from "react";
+import { FieldValues, SubmitErrorHandler } from "react-hook-form";
+
+import TTInput from "@/src/components/form/TTInput";
+import TTForm from "@/src/components/form/TTForm";
+import { useLogin } from "@/src/hooks/auth.hooks";
 
 const LoginPage = () => {
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const { mutate: handleLogin, isPending, isSuccess } = useLogin();
+
+  const onSubmit: SubmitErrorHandler<FieldValues> = (data) => {
+    handleLogin(data);
   };
 
   return (
     <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center space-y-2">
-      <Image src={"/logo.png"} alt="logo" width={100} height={100} />
+      <Image alt="logo" height={100} src={"/logo.png"} width={100} />
       <h3 className="my-2 text-2xl font-bold">User Login</h3>
       <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
       <div className="w-[35%]">
