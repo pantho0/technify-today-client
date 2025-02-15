@@ -12,9 +12,9 @@ export interface IPost {
   category: string;
   details: string;
   isPremium: boolean;
-  upVote: any[];
-  downVote: any[];
-  comments: any[];
+  upVote: string[];
+  downVote: string[];
+  comments: string[];
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
