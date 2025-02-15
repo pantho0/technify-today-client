@@ -12,13 +12,16 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center space-y-2">
+    <div className="flex  w-full flex-col items-center justify-center space-y-2">
       <Image src={"/logo.png"} alt="logo" width={100} height={100} />
       <h3 className="my-2 text-2xl font-bold">Register User</h3>
       <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
       <div className="w-[35%]">
         <TTForm onSubmit={onSubmit}>
           <div className="space-y-4">
+            <TTInput label="First Name" name="firstName" type="text" />
+            <TTInput label="Middle Name" name="middleName" type="text" />
+            <TTInput label="Last Name" name="lastName" type="text" />
             <TTInput label="Email" name="email" type="email" />
             <TTInput label="Password" name="password" type="password" />
 
@@ -34,7 +37,7 @@ const RegisterPage = () => {
         </TTForm>
 
         <div className="text-center mt-4">
-          Don&lsquo;t have account ? <Link href={"/register"}>Register</Link>
+          Already have an account ? <Link href={"/login"}>Login Here</Link>
         </div>
       </div>
     </div>
