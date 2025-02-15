@@ -22,7 +22,7 @@ export const loginUser = async (userData: FieldValues) => {
 
 export const registerUser = async (userData: FieldValues) => {
   try {
-    const { data } = await axiosInstance.post("/auth/create-user", userData);
+    const { data } = await axiosInstance.post("/users/create-user", userData);
 
     return data;
   } catch (error: any) {
