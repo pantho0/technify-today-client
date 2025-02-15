@@ -13,24 +13,24 @@ const LoginPage = () => {
       <div className="w-[35%] space-y-4">
         <form>
           <Input
-            size="md"
-            radius="none"
-            type="email"
-            placeholder="Email"
             className="my-2"
+            placeholder="Email"
+            radius="none"
+            size="md"
+            type="email"
           />
           <Input
-            size="md"
-            radius="none"
-            type="password"
-            placeholder="Password"
             className="my-2"
+            placeholder="Password"
+            radius="none"
+            size="md"
+            type="password"
           />
           <Button
-            radius="none"
-            type="submit"
             className="w-full"
             color="primary"
+            radius="none"
+            type="submit"
           >
             Login
           </Button>

@@ -1,3 +1,4 @@
+"use client";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 interface FormConfig {
