@@ -26,6 +26,7 @@ import {
   Logo,
 } from "@/src/components/icons";
 import { LogIn } from "lucide-react";
+import NavDropDown from "./ui/NavDropDown";
 
 export const Navbar = () => {
   const searchInput = (
@@ -87,15 +88,7 @@ export const Navbar = () => {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
-          <Button
-            as={Link}
-            className="text-sm font-normal text-default-600 "
-            href={"/login"}
-            startContent={<LogIn className="text-primary" />}
-            variant="ghost"
-          >
-            Login
-          </Button>
+          <NavDropDown />
         </NavbarItem>
       </NavbarContent>
 

@@ -1,3 +1,4 @@
+import { Avatar } from "@heroui/avatar";
 import { Button } from "@heroui/button";
 import {
   Dropdown,
@@ -17,7 +18,11 @@ const NavDropDown = () => {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button variant="bordered">Open Menu</Button>
+        <Avatar
+          className="cursor-pointer"
+          size="md"
+          src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+        />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem key="profile" onPress={() => handleNavigate("/profile")}>
