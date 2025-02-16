@@ -4,10 +4,12 @@ import { Link } from "@heroui/link";
 import Image from "next/image";
 import React from "react";
 import { FieldValues, SubmitErrorHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import TTInput from "@/src/components/form/TTInput";
 import TTForm from "@/src/components/form/TTForm";
 import { useLogin } from "@/src/hooks/auth.hooks";
+import { loginSchema } from "@/src/schemas/login.validation";
 
 const LoginPage = () => {
   const { mutate: handleLogin, isPending, isSuccess } = useLogin();
@@ -22,7 +24,7 @@ const LoginPage = () => {
       <h3 className="my-2 text-2xl font-bold">User Login</h3>
       <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
       <div className="w-[35%]">
-        <TTForm onSubmit={onSubmit}>
+        <TTForm resolver={zodResolver(loginSchema)} onSubmit={onSubmit}>
           <div className="space-y-4">
             <TTInput label="Email" name="email" type="email" />
             <TTInput label="Password" name="password" type="password" />
