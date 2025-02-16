@@ -27,8 +27,11 @@ import {
 } from "@/src/components/icons";
 import { LogIn } from "lucide-react";
 import NavDropDown from "./ui/NavDropDown";
+import { useUser } from "../context/user.provider";
 
 export const Navbar = () => {
+  const { user } = useUser();
+
   const searchInput = (
     <Input
       aria-label="Search"
@@ -88,7 +91,15 @@ export const Navbar = () => {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
-          <NavDropDown />
+          {user?.email ? (
+            <NavDropDown />
+          ) : (
+            <Link href="/login">
+              <Button color="primary" variant="bordered">
+                Login
+              </Button>
+            </Link>
+          )}
         </NavbarItem>
       </NavbarContent>
 

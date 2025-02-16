@@ -12,15 +12,18 @@ import TTForm from "@/src/components/form/TTForm";
 import { useLogin } from "@/src/hooks/auth.hooks";
 import { loginSchema } from "@/src/schemas/login.validation";
 import Loading from "@/src/components/ui/Loading";
+import { useUser } from "@/src/context/user.provider";
 
 const LoginPage = () => {
   const { mutate: handleLogin, isPending, isSuccess } = useLogin();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
   const router = useRouter();
+  const { setLoading } = useUser();
 
   const onSubmit: SubmitErrorHandler<FieldValues> = (data) => {
     handleLogin(data);
+    setLoading(true);
   };
 
   useEffect(() => {

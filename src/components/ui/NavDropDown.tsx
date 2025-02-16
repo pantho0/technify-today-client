@@ -1,3 +1,4 @@
+import { useUser } from "@/src/context/user.provider";
 import { logoutUser } from "@/src/services/auth";
 import { Avatar } from "@heroui/avatar";
 import {
@@ -10,9 +11,15 @@ import { useRouter } from "next/navigation";
 
 const NavDropDown = () => {
   const router = useRouter();
+  const { user, setLoading } = useUser();
 
   const handleNavigate = (path: string) => {
     router.push(path);
+  };
+
+  const handleLogout = () => {
+    logoutUser();
+    setLoading(true);
   };
 
   return (
@@ -28,7 +35,7 @@ const NavDropDown = () => {
         <DropdownItem key="profile" onPress={() => handleNavigate("/profile")}>
           Profile
         </DropdownItem>
-        <DropdownItem key="logout" onPress={() => logoutUser()}>
+        <DropdownItem key="logout" onPress={handleLogout}>
           Logout
         </DropdownItem>
       </DropdownMenu>

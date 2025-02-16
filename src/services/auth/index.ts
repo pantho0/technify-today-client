@@ -2,13 +2,14 @@
 
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
+import { jwtDecode } from "jwt-decode";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
-import { jwtDecode } from "jwt-decode";
 
 export const loginUser = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/auth/login", userData);
+
     if (data.success) {
       (await cookies()).set("accessToken", data.data?.accessToken);
       // (await cookies()).set("refreshToken", data.refreshToken);
