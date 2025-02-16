@@ -8,6 +8,8 @@ import { FieldValues, SubmitErrorHandler } from "react-hook-form";
 import TTInput from "@/src/components/form/TTInput";
 import TTForm from "@/src/components/form/TTForm";
 import { useUserRegistration } from "@/src/hooks/auth.hooks";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema } from "@/src/schemas/login.validation";
 
 const RegisterPage = () => {
   const {
@@ -31,7 +33,7 @@ const RegisterPage = () => {
       <h3 className="my-2 text-2xl font-bold">Register User</h3>
       <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
       <div className="w-[35%]">
-        <TTForm onSubmit={onSubmit}>
+        <TTForm resolver={zodResolver(registerSchema)} onSubmit={onSubmit}>
           <div className="space-y-4">
             <TTInput label="First Name" name="firstName" type="text" />
             <TTInput label="Middle Name" name="middleName" type="text" />
