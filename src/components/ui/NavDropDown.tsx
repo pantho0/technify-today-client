@@ -1,3 +1,4 @@
+import { logoutUser } from "@/src/services/auth";
 import { Avatar } from "@heroui/avatar";
 import {
   Dropdown,
@@ -27,7 +28,7 @@ const NavDropDown = () => {
         <DropdownItem key="profile" onPress={() => handleNavigate("/profile")}>
           Profile
         </DropdownItem>
-        <DropdownItem key="logout" onPress={() => handleNavigate("/profile")}>
+        <DropdownItem key="logout" onPress={() => logoutUser()}>
           Logout
         </DropdownItem>
       </DropdownMenu>
