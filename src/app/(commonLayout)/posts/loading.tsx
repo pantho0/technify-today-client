@@ -1,5 +1,7 @@
+import Loading from "@/src/components/ui/Loading";
+
 const loading = () => {
-  return <div>this is post details loading.......</div>;
+  return <Loading />;
 };
 
 export default loading;
