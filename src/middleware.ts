@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 
 import { NextResponse } from "next/server";
+
 import { getCurrentUser } from "./services/auth";
 
 const AuthRoutes = ["/login", "/register"];
@@ -17,13 +18,9 @@ export async function middleware(request: NextRequest) {
 
   const user = await getCurrentUser();
 
-  if (!user) {
+  if (user) {
     if (AuthRoutes.includes(pathname)) {
-      return NextResponse.next();
-    } else {
-      return NextResponse.redirect(
-        new URL(`/login?redirect=${pathname}`, request.url)
-      );
+      return NextResponse.redirect(new URL(`/`, request.url));
     }
   }
 
@@ -32,12 +29,16 @@ export async function middleware(request: NextRequest) {
 
     if (routes.some((route) => pathname.match(route))) {
       return NextResponse.next();
+    } else {
+      return NextResponse.redirect(new URL(`/`, request.url));
     }
   }
 
-  return NextResponse.redirect(new URL("/", request.url));
+  return NextResponse.redirect(
+    new URL(`/login?redirect=${pathname}`, request.url)
+  );
 }
 
 export const config = {
-  matcher: ["/user", "/user/:page*", "/admin", "/admin/:page*"],
+  matcher: ["/admin", "/admin/:page*", "/user", "/user/:page*"],
 };

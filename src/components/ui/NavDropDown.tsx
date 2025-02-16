@@ -1,5 +1,4 @@
 import { Avatar } from "@heroui/avatar";
-import { Button } from "@heroui/button";
 import {
   Dropdown,
   DropdownItem,
@@ -28,7 +27,7 @@ const NavDropDown = () => {
         <DropdownItem key="profile" onPress={() => handleNavigate("/profile")}>
           Profile
         </DropdownItem>
-        <DropdownItem key="profile" onPress={() => handleNavigate("/profile")}>
+        <DropdownItem key="logout" onPress={() => handleNavigate("/profile")}>
           Logout
         </DropdownItem>
       </DropdownMenu>

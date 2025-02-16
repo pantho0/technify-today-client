@@ -2,9 +2,10 @@
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { FieldValues, SubmitErrorHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import TTInput from "@/src/components/form/TTInput";
 import TTForm from "@/src/components/form/TTForm";
@@ -14,10 +15,19 @@ import Loading from "@/src/components/ui/Loading";
 
 const LoginPage = () => {
   const { mutate: handleLogin, isPending, isSuccess } = useLogin();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+  const router = useRouter();
 
   const onSubmit: SubmitErrorHandler<FieldValues> = (data) => {
     handleLogin(data);
   };
+
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      router.push(redirect || "/");
+    }
+  }, [isPending, isSuccess]);
 
   return (
     <>
