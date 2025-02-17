@@ -34,7 +34,7 @@ const NavDropDown = () => {
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem
           key="profile"
-          onPress={() => handleNavigate(`${user?.role}/profile`)}
+          onPress={() => handleNavigate(`/${user?.role}/profile`)}
         >
           Profile
         </DropdownItem>
