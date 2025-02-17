@@ -16,6 +16,18 @@ type Role = keyof typeof roleBasedRoutes;
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  const accessToken = request.cookies.get("accessToken");
+
+  if (!accessToken) {
+    if (AuthRoutes.includes(pathname)) {
+      return NextResponse.next();
+    }
+
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${pathname}`, request.url)
+    );
+  }
+
   const user = await getCurrentUser();
 
   if (user) {
@@ -40,5 +52,12 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/:page*", "/user", "/user/:page*"],
+  matcher: [
+    "/admin",
+    "/admin/:page*",
+    "/user",
+    "/user/:page*",
+    "/login",
+    "/register",
+  ],
 };

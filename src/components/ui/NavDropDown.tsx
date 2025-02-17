@@ -32,7 +32,10 @@ const NavDropDown = () => {
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="profile" onPress={() => handleNavigate("/profile")}>
+        <DropdownItem
+          key="profile"
+          onPress={() => handleNavigate(`${user?.role}/profile`)}
+        >
           Profile
         </DropdownItem>
         <DropdownItem key="logout" onPress={handleLogout}>
