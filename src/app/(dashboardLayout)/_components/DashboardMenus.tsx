@@ -1,13 +1,14 @@
-import { Button } from "@heroui/button";
-import { Link } from "@heroui/link";
-import { ReactNode } from "react";
+import { useUser } from "@/src/context/user.provider";
+import { adminMenus, userMenus } from "../constants/constants";
+
 import SidebarOptions from "./SidebarOptions";
-import { userMenus } from "../constants/constants";
 
 const DashboardMenus = () => {
+  const { user } = useUser();
+
   return (
     <div className="flex flex-col gap-2 p-5">
-      <SidebarOptions links={userMenus} />
+      <SidebarOptions links={user?.role === "admin" ? adminMenus : userMenus} />
     </div>
   );
 };
