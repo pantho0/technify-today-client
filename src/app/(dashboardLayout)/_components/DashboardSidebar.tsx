@@ -8,6 +8,7 @@ import Image from "next/image";
 import { logoutUser } from "@/src/services/auth";
 import { useUser } from "@/src/context/user.provider";
 import { ThemeSwitch } from "@/src/components/theme-switch";
+import DashboardMenus from "./DashboardMenus";
 
 const DashboardSidebar = () => {
   const { setLoading } = useUser();
@@ -41,20 +42,7 @@ const DashboardSidebar = () => {
 
       <Divider className="my-3" />
 
-      <div className="flex flex-col gap-2 p-5">
-        <Link href="/dashboard">
-          <Button className="w-full justify-start" variant="ghost">
-            <HomeIcon className="w-5 h-5 mr-2" />
-            Dashboard
-          </Button>
-        </Link>
-        <Link href="/dashboard/settings">
-          <Button className="w-full justify-start" variant="ghost">
-            <SettingsIcon className="w-5 h-5 mr-2" />
-            Settings
-          </Button>
-        </Link>
-      </div>
+      <DashboardMenus />
     </div>
   );
 };
