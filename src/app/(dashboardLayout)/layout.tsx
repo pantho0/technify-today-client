@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+
 import DashboardLayout from "./_components/layout/DashboardLayout";
 
 const Layout = ({ children }: { children: ReactNode }) => {

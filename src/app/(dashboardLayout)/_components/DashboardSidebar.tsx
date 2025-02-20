@@ -1,21 +1,28 @@
-import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
 import { Link } from "@heroui/link";
 import { Tooltip } from "@heroui/tooltip";
-import { HomeIcon, LogOut, SettingsIcon } from "lucide-react";
+import { LogOut } from "lucide-react";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+
+import DashboardMenus from "./DashboardMenus";
 
 import { logoutUser } from "@/src/services/auth";
 import { useUser } from "@/src/context/user.provider";
 import { ThemeSwitch } from "@/src/components/theme-switch";
-import DashboardMenus from "./DashboardMenus";
+import { protectedRoutes } from "@/src/constants";
 
 const DashboardSidebar = () => {
   const { setLoading } = useUser();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleLogout = () => {
     logoutUser();
     setLoading(true);
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/login");
+    }
   };
 
   return (

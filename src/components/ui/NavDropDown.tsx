@@ -7,10 +7,11 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/dropdown";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const NavDropDown = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, setLoading } = useUser();
 
   const handleNavigate = (path: string) => {
@@ -20,6 +21,9 @@ const NavDropDown = () => {
   const handleLogout = () => {
     logoutUser();
     setLoading(true);
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/login");
+    }
   };
 
   return (

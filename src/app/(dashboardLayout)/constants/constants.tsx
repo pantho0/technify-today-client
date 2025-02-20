@@ -1,18 +1,18 @@
 import { PlusIcon, SettingsIcon, UserIcon, UserRoundCog } from "lucide-react";
 
 export const userMenus = [
-  { href: "/profile", icon: <UserIcon />, label: "Profile" },
-  { href: "/create-post", icon: <PlusIcon />, label: "Create Post" },
-  { href: "/settings", icon: <SettingsIcon />, label: "Settings" },
+  { href: "/user/profile", icon: <UserIcon />, label: "Profile" },
+  { href: "/user/create-post", icon: <PlusIcon />, label: "Create Post" },
+  { href: "/user/settings", icon: <SettingsIcon />, label: "Settings" },
 ];
 
 export const adminMenus = [
-  { href: "/profile", icon: <UserIcon />, label: "Profile" },
+  { href: "/admin/profile", icon: <UserIcon />, label: "Profile" },
   {
-    href: "/user-management",
+    href: "/admin/user-management",
     icon: <UserRoundCog />,
     label: "User Management",
   },
-  { href: "/create-post", icon: <PlusIcon />, label: "Create Post" },
-  { href: "/settings", icon: <SettingsIcon />, label: "Settings" },
+  { href: "/admin/create-post", icon: <PlusIcon />, label: "Create Post" },
+  { href: "/admin/settings", icon: <SettingsIcon />, label: "Settings" },
 ];

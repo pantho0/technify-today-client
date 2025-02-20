@@ -1,7 +1,8 @@
-import { useUser } from "@/src/context/user.provider";
 import { adminMenus, userMenus } from "../constants/constants";
 
 import SidebarOptions from "./SidebarOptions";
+
+import { useUser } from "@/src/context/user.provider";
 
 const DashboardMenus = () => {
   const { user } = useUser();
