@@ -1,0 +1,25 @@
+import { Select, SelectItem } from "@heroui/select";
+
+import { IInput } from "@/src/types";
+import { useFormContext } from "react-hook-form";
+
+interface ISelectProps extends IInput {
+  options: { key: string; label: string }[];
+}
+
+const TTSelect = ({ options, label, name, disabled }: ISelectProps) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
+  return (
+    <Select disabled={disabled} label={label} {...register(name)}>
+      {options?.map((option) => (
+        <SelectItem key={option.key}>{option.label}</SelectItem>
+      ))}
+    </Select>
+  );
+};
+
+export default TTSelect;
