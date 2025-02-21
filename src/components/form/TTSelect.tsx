@@ -1,7 +1,7 @@
 import { Select, SelectItem } from "@heroui/select";
+import { useFormContext } from "react-hook-form";
 
 import { IInput } from "@/src/types";
-import { useFormContext } from "react-hook-form";
 
 interface ISelectProps extends IInput {
   options: { key: string; label: string }[];
