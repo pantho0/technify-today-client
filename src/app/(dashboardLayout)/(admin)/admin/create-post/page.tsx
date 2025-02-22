@@ -6,30 +6,33 @@ import React from "react";
 import TTForm from "@/src/components/form/TTForm";
 import TTInput from "@/src/components/form/TTInput";
 import TTSelect from "@/src/components/form/TTSelect";
-import { postCategories } from "@/src/constants";
-import { Select, SelectItem } from "@heroui/select";
-
+import { postCategories, postStatus } from "@/src/constants";
 
 export const animals = [
-  {key: "cat", label: "Cat"},
-  {key: "dog", label: "Dog"},
-  {key: "elephant", label: "Elephant"},
-  {key: "lion", label: "Lion"},
-  {key: "tiger", label: "Tiger"},
-  {key: "giraffe", label: "Giraffe"},
-  {key: "dolphin", label: "Dolphin"},
-  {key: "penguin", label: "Penguin"},
-  {key: "zebra", label: "Zebra"},
-  {key: "shark", label: "Shark"},
-  {key: "whale", label: "Whale"},
-  {key: "otter", label: "Otter"},
-  {key: "crocodile", label: "Crocodile"},
+  { key: "cat", label: "Cat" },
+  { key: "dog", label: "Dog" },
+  { key: "elephant", label: "Elephant" },
+  { key: "lion", label: "Lion" },
+  { key: "tiger", label: "Tiger" },
+  { key: "giraffe", label: "Giraffe" },
+  { key: "dolphin", label: "Dolphin" },
+  { key: "penguin", label: "Penguin" },
+  { key: "zebra", label: "Zebra" },
+  { key: "shark", label: "Shark" },
+  { key: "whale", label: "Whale" },
+  { key: "otter", label: "Otter" },
+  { key: "crocodile", label: "Crocodile" },
 ];
-
 
 const CreatePostPage = () => {
   const onSubmit = (data: any) => {
-    console.log(data);
+    data.isPremium = data?.isPremium === "true";
+
+    const postData = {
+      ...data,
+    };
+
+    console.log(postData);
   };
 
   return (
@@ -47,14 +50,13 @@ const CreatePostPage = () => {
               options={postCategories}
             />
             <TTSelect
-              label="Category"
-              name="premium"
-              options={postCategories}
+              label="Is Premium"
+              name="isPremium"
+              options={postStatus}
             />
-
           </div>
           <div className="w-1/2 mx-auto p-2">
-            <Button type="submit" size="lg" className="w-full">
+            <Button className="w-full" size="lg" type="submit">
               Create
             </Button>
           </div>

@@ -4,7 +4,11 @@ import { useFormContext } from "react-hook-form";
 import { IInput } from "@/src/types";
 
 interface ISelectProps extends IInput {
-  options: { key: string; label: string }[];
+  options: {
+    key: string;
+
+    label: string;
+  }[];
 }
 
 const TTSelect = ({ options, label, name, disabled }: ISelectProps) => {

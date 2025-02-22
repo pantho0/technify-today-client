@@ -20,3 +20,8 @@ export const postCategories = [
   { key: "database", label: "Database" },
   { key: "other", label: "Other" },
 ];
+
+export const postStatus = [
+  { key: "true", label: "Yes" },
+  { key: "false", label: "No" },
+];

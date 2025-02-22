@@ -1,5 +1,3 @@
-import { useUser } from "@/src/context/user.provider";
-import { logoutUser } from "@/src/services/auth";
 import { Avatar } from "@heroui/avatar";
 import {
   Dropdown,
@@ -8,6 +6,9 @@ import {
   DropdownTrigger,
 } from "@heroui/dropdown";
 import { usePathname, useRouter } from "next/navigation";
+
+import { logoutUser } from "@/src/services/auth";
+import { useUser } from "@/src/context/user.provider";
 
 const NavDropDown = () => {
   const router = useRouter();

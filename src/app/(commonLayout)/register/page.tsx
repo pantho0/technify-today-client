@@ -4,11 +4,11 @@ import { Link } from "@heroui/link";
 import Image from "next/image";
 import React from "react";
 import { FieldValues, SubmitErrorHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import TTInput from "@/src/components/form/TTInput";
 import TTForm from "@/src/components/form/TTForm";
 import { useUserRegistration } from "@/src/hooks/auth.hooks";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "@/src/schemas/login.validation";
 
 const RegisterPage = () => {
