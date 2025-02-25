@@ -1,3 +1,4 @@
+"use client";
 import { Select, SelectItem } from "@heroui/select";
 import { useFormContext } from "react-hook-form";
 
