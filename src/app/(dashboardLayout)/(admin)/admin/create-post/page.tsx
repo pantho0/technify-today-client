@@ -9,17 +9,22 @@ import TTInput from "@/src/components/form/TTInput";
 import TTSelect from "@/src/components/form/TTSelect";
 import { postCategories, postStatus } from "@/src/constants";
 import CkEditor from "@/src/components/form/CkEditor";
+import { useUser } from "@/src/context/user.provider";
 
 const CreatePostPage = () => {
+  const { user } = useUser();
+
   const [editorData, setEditorData] = useState<string>("");
   const [data, setData] = useState<string>("");
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
-  console.log(imagePreview);
+  console.log(imageFile);
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
+
+    setImageFile(file);
 
     if (file) {
       const reader = new FileReader();
@@ -41,14 +46,22 @@ const CreatePostPage = () => {
   };
 
   const onSubmit = (postInfo: any) => {
+    const formData = new FormData();
+
     postInfo.isPremium = postInfo?.isPremium === "true";
 
     const postData = {
       ...postInfo,
+      user: user?.userId,
       details: data,
     };
 
-    console.log(postData);
+    formData.append("data", JSON.stringify(postData));
+
+    formData.append("file", imageFile!);
+
+    console.log(formData.get("data"));
+    console.log(formData.get("file"));
   };
 
   return (
