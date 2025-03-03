@@ -1,5 +1,6 @@
 "use server";
 import { envConfig } from "@/src/config/envConfig";
+import axiosInstance from "@/src/lib/AxiosInstance";
 
 export const getSinglePost = async (id: string) => {
   let fetchOptions = {};
@@ -15,4 +16,19 @@ export const getSinglePost = async (id: string) => {
   }
 
   return await res.json();
+};
+
+export const createPost = async (formData: FormData): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.post("/posts/create-post", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error("Failed to create post");
+  }
 };
