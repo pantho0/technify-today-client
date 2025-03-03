@@ -10,10 +10,14 @@ import TTSelect from "@/src/components/form/TTSelect";
 import { postCategories, postStatus } from "@/src/constants";
 import CkEditor from "@/src/components/form/CkEditor";
 import { useUser } from "@/src/context/user.provider";
+import { useCreatePost } from "@/src/hooks/post.hooks";
+import Loading from "@/src/components/ui/Loading";
+import { useRouter } from "next/navigation";
 
 const CreatePostPage = () => {
   const { user } = useUser();
-
+  const { mutate: handleCreatePost, isPending, isSuccess } = useCreatePost();
+  const router = useRouter();
   const [editorData, setEditorData] = useState<string>("");
   const [data, setData] = useState<string>("");
 
@@ -59,13 +63,16 @@ const CreatePostPage = () => {
     formData.append("data", JSON.stringify(postData));
 
     formData.append("file", imageFile!);
+    handleCreatePost(formData);
 
-    console.log(formData.get("data"));
-    console.log(formData.get("file"));
+    if (!isPending && isSuccess) {
+      router.push("/");
+    }
   };
 
   return (
     <div className="max-w-7xl mx-auto p-10">
+      {isPending && <Loading />}
       <TTForm onSubmit={onSubmit}>
         <div className="space-y-4">
           <TTInput label="Title" name="title" />
