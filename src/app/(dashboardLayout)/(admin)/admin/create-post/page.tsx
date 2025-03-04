@@ -3,27 +3,23 @@
 
 import { Button } from "@heroui/button";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import TTForm from "@/src/components/form/TTForm";
 import TTInput from "@/src/components/form/TTInput";
 import TTSelect from "@/src/components/form/TTSelect";
 import { postCategories, postStatus } from "@/src/constants";
-import CkEditor from "@/src/components/form/CkEditor";
 import { useUser } from "@/src/context/user.provider";
 import { useCreatePost } from "@/src/hooks/post.hooks";
 import Loading from "@/src/components/ui/Loading";
-import { useRouter } from "next/navigation";
 
 const CreatePostPage = () => {
   const { user } = useUser();
   const { mutate: handleCreatePost, isPending, isSuccess } = useCreatePost();
   const router = useRouter();
-  const [editorData, setEditorData] = useState<string>("");
-  const [data, setData] = useState<string>("");
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
-  console.log(imageFile);
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
@@ -41,14 +37,6 @@ const CreatePostPage = () => {
     }
   };
 
-  const handleOnUpdate = (editor: string, field: string): void => {
-    if (field === "description") {
-      console.log("Editor data field:", editor);
-      console.log("Editor data field:", editor);
-      setData(editor);
-    }
-  };
-
   const onSubmit = (postInfo: any) => {
     const formData = new FormData();
 
@@ -57,17 +45,20 @@ const CreatePostPage = () => {
     const postData = {
       ...postInfo,
       user: user?.userId,
-      details: data,
     };
 
     formData.append("data", JSON.stringify(postData));
 
     formData.append("file", imageFile!);
-    handleCreatePost(formData);
 
-    if (!isPending && isSuccess) {
-      router.push("/");
-    }
+    console.log(formData.get("file"));
+    console.log(formData.get("data"));
+
+    // handleCreatePost(formData);
+
+    // if (!isPending && isSuccess) {
+    //   router.push("/");
+    // }
   };
 
   return (
@@ -89,16 +80,6 @@ const CreatePostPage = () => {
             />
           </div>
 
-          <CkEditor
-            editorData={editorData}
-            handleOnUpdate={handleOnUpdate}
-            setEditorData={setEditorData}
-          />
-
-          <div
-            dangerouslySetInnerHTML={{ __html: data }}
-            className="text-black"
-          />
           <div>
             {imagePreview && (
               <div>
@@ -112,7 +93,6 @@ const CreatePostPage = () => {
               </div>
             )}
           </div>
-
           <div>
             <label className="flex h-14 w-full bg-primary text-white cursor-pointer items-center justify-center rounded-md border-2 border-default-100 shadow-sm  transition-all duration-100 hover:border-default-400">
               Upload Image:
@@ -124,7 +104,6 @@ const CreatePostPage = () => {
               />
             </label>
           </div>
-
           <div className="w-1/2 mx-auto p-2">
             <Button className="w-full" size="lg" type="submit">
               Create

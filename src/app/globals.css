@@ -1,3 +1,4 @@
+@import '@/src/styles/ckeditor.css';
 
 .ck-content > blockquote,
 .ck-content > dl,

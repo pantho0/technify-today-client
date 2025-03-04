@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 
-import DashboardLayout from "./_components/layout/DashboardLayout";
+import { DashboardWrapper } from "./_components/layout/DashboardWrapper";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
-      <DashboardLayout>{children}</DashboardLayout>
+      <DashboardWrapper>{children}</DashboardWrapper>
     </div>
   );
 };
