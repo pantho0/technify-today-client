@@ -25,7 +25,7 @@ const Toolbar: React.FC<ToolbarOptionsProps> = ({ editor, content }) => {
   if (!editor) return null;
 
   return (
-    <div className="px-4 py-3 rounded-tl-md rounded-tr-md flex justify-between items-start gap-5 w-full flex-wrap border border-gray-700">
+    <div className="px-4 py-3 rounded-tl-md rounded-tr-md flex justify-between items-start gap-5 w-full flex-wrap border border-gray-700 bg-white tiptap-toolbar">
       <div className="flex justify-start items-center gap-5 w-full lg:w-10/12 flex-wrap">
         <button
           onClick={(e) => {
@@ -132,10 +132,7 @@ const Toolbar: React.FC<ToolbarOptionsProps> = ({ editor, content }) => {
           <ListOrdered className="w-5 h-5" />
         </button>
         <button
-          onClick={(e) => {
-            e.preventDefault();
-            editor.chain().focus().toggleBlockquote().run();
-          }}
+          onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={
             editor.isActive("blockquote")
               ? "bg-sky-700 text-white p-2 rounded-lg"

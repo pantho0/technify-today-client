@@ -10,7 +10,7 @@
   overflow-y: auto !important;
 }
 
-.ck.ck-editor__main>.ck-editor__editable {
+.ck.ck-editor__main > .ck-editor__editable {
   background-color: #fff;
   border: 1px solid #dfe3e8 !important;
   border-radius: 0 0 var(--ck-border-radius) var(--ck-border-radius);
