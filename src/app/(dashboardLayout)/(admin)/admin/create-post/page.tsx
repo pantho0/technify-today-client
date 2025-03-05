@@ -12,14 +12,20 @@ import { postCategories, postStatus } from "@/src/constants";
 import { useUser } from "@/src/context/user.provider";
 import { useCreatePost } from "@/src/hooks/post.hooks";
 import Loading from "@/src/components/ui/Loading";
+import Tiptap from "@/src/app/components/form/Tiptap";
 
 const CreatePostPage = () => {
+  const [content, setContent] = useState<string>("");
   const { user } = useUser();
   const { mutate: handleCreatePost, isPending, isSuccess } = useCreatePost();
   const router = useRouter();
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
+
+  const handleContentChange = (value: string) => {
+    setContent(value);
+  };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
@@ -44,6 +50,7 @@ const CreatePostPage = () => {
 
     const postData = {
       ...postInfo,
+      details: content,
       user: user?.userId,
     };
 
@@ -79,7 +86,10 @@ const CreatePostPage = () => {
               options={postStatus}
             />
           </div>
-
+          <Tiptap
+            content={content}
+            onChange={(newContent: string) => handleContentChange(newContent)}
+          />
           <div>
             {imagePreview && (
               <div>
