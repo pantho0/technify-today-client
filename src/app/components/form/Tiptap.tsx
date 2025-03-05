@@ -3,6 +3,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "./Toolbar";
+import Underline from "@tiptap/extension-underline";
 
 const Tiptap = ({
   content,
@@ -16,7 +17,7 @@ const Tiptap = ({
   };
 
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [StarterKit, Underline],
     editorProps: {
       attributes: {
         class:
