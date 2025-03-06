@@ -11,7 +11,11 @@ const PostCard = ({ post }: { post: IPost }) => {
     <Card className="py-4">
       <CardBody className="overflow-visible">
         <div className="space-y-6">
-          <img className="rounded-md" src={post.image} alt={post.title} />
+          <img
+            className="rounded-md w-full h-[250px] object-cover"
+            src={post.image}
+            alt={post.title}
+          />
 
           <div className="bg-primary/30 inset-0 backdrop-blur-md inline-block px-3 py-1 rounded-md">
             <h3 className="inline-block text-primary text-[14px] font-semibold">

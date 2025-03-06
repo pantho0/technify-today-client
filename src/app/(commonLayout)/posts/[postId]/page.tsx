@@ -13,6 +13,8 @@ import CommentCard from "@/src/components/ui/CommentCard";
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params?.postId);
 
+  console.log(data);
+
   const authorInfo = data?.user;
   const postData = data as IPost;
 
@@ -77,9 +79,13 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
           </div>
 
           <div className="mt-4 space-y-4 h-[300px] overflow-y-auto">
-            {[...Array(5)].map((_, index) => (
-              <CommentCard key={index} />
-            ))}
+            {data?.comments?.length > 0 ? (
+              data?.comments?.map((comment, index) => (
+                <CommentCard key={index} comment={comment} />
+              ))
+            ) : (
+              <p>No body commented yet</p>
+            )}
           </div>
         </div>
       </div>
