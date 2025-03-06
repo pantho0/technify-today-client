@@ -144,10 +144,10 @@ const Toolbar: React.FC<ToolbarOptionsProps> = ({ editor, content }) => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            editor.chain().focus().setCode().run();
+            editor.chain().focus().setCodeBlock().run();
           }}
           className={
-            editor.isActive("code")
+            editor.isActive("codeBlock")
               ? "bg-sky-700 text-white p-2 rounded-lg"
               : "text-sky-400"
           }

@@ -5,6 +5,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "./Toolbar";
 import Underline from "@tiptap/extension-underline";
 import Blockquote from "@tiptap/extension-blockquote";
+import CodeBlock from "@tiptap/extension-code-block";
 
 const Tiptap = ({
   content,
@@ -18,7 +19,7 @@ const Tiptap = ({
   };
 
   const editor = useEditor({
-    extensions: [StarterKit, Underline, Blockquote],
+    extensions: [StarterKit, Underline, Blockquote, CodeBlock],
     editorProps: {
       attributes: {
         class:
