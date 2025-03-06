@@ -17,22 +17,22 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const postData = data as IPost;
 
   return (
-    <div className="container flex  justify-between gap-14 mx-auto px-4 py-8">
-      <div className="w-[350px]">
-        <SidebarCard authorInfo={authorInfo} />
-      </div>
-      <div className="space-y-8 w-3/4">
-        <h2 className="text-4xl font-semibold w-3/4 leading-snug">
+    <div className="container  px-4 py-8">
+      <div className="space-y-8">
+        <h2 className="text-4xl font-semibold leading-snug">
           {postData?.title}
         </h2>
         <Image
           alt={postData?.title}
-          className="w-full h-[400px] object-cover rounded-lg"
+          className="w-full h-[500px] object-cover rounded-lg"
           height={600}
           src={postData?.image}
           width={600}
         />
-        <p>{postData?.details}</p>
+        <div
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: postData?.details }}
+        />
 
         <Divider className="my-4" />
 
