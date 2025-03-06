@@ -58,43 +58,54 @@ const CreatePostPage = () => {
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
-
     setImageFile(file);
 
     if (file) {
       const reader = new FileReader();
-
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
       };
-
       reader.readAsDataURL(file);
     }
   };
 
-  const onSubmit = (postInfo: any) => {
-    const formData = new FormData();
+  const onSubmit = async (postInfo: any) => {
+    try {
+      // Validate image file
+      if (!imageFile) {
+        toast.error("Please select a featured image");
+        return;
+      }
 
-    postInfo.isPremium = postInfo?.isPremium === "true";
+      // Validate required fields
+      if (!postInfo.title || !content) {
+        toast.error("Title and content are required");
+        return;
+      }
 
-    const postData = {
-      ...postInfo,
-      details: content,
-      user: user?.userId,
-    };
+      const formData = new FormData();
+      postInfo.isPremium = postInfo?.isPremium === "true";
 
-    formData.append("data", JSON.stringify(postData));
+      const postData = {
+        ...postInfo,
+        details: content,
+        user: user?.userId,
+      };
 
-    formData.append("file", imageFile!);
+      formData.append("data", JSON.stringify(postData));
+      formData.append("file", imageFile);
 
-    console.log(formData.get("file"));
-    console.log(formData.get("data"));
+      handleCreatePost(formData);
 
-    // handleCreatePost(formData);
-
-    // if (!isPending && isSuccess) {
-    //   router.push("/");
-    // }
+      if (isSuccess) {
+        // Clear localStorage after successful post
+        localStorage.removeItem("post");
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      toast.error("Error creating post");
+    }
   };
 
   return (
