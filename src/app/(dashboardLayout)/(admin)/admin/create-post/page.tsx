@@ -1,8 +1,9 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 "use client";
+/* eslint-disable jsx-a11y/img-redundant-alt */
 
+import { toast } from "sonner";
 import { Button } from "@heroui/button";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 import TTForm from "@/src/components/form/TTForm";
@@ -23,9 +24,37 @@ const CreatePostPage = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
 
+  // Load saved content from localStorage on mount
+  useEffect(() => {
+    const savedContent = localStorage.getItem("post");
+    if (savedContent) {
+      setContent(savedContent);
+    }
+  }, []);
+
+  // Debounced save function
+  const saveContentToLocalStorage = useCallback((value: string) => {
+    localStorage.setItem("post", value);
+    toast.success("Saved to drafts", {
+      position: "bottom-right",
+      duration: 2000,
+    });
+  }, []);
+
   const handleContentChange = (value: string) => {
     setContent(value);
   };
+
+  // Auto-save every 5 seconds if content changes
+  useEffect(() => {
+    if (!content) return;
+
+    const timer = setTimeout(() => {
+      saveContentToLocalStorage(content);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [content, saveContentToLocalStorage]);
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];

@@ -6,6 +6,7 @@ import Toolbar from "./Toolbar";
 import Underline from "@tiptap/extension-underline";
 import Blockquote from "@tiptap/extension-blockquote";
 import CodeBlock from "@tiptap/extension-code-block";
+import { useEffect, useCallback } from "react";
 
 const Tiptap = ({
   content,
@@ -14,12 +15,22 @@ const Tiptap = ({
   content: string;
   onChange: (content: string) => void;
 }) => {
-  const handleChange = (newContent: string) => {
-    onChange(newContent);
-  };
+  const handleChange = useCallback(
+    (newContent: string) => {
+      onChange(newContent);
+    },
+    [onChange]
+  );
 
   const editor = useEditor({
-    extensions: [StarterKit, Underline, Blockquote, CodeBlock],
+    extensions: [
+      StarterKit,
+      Underline,
+      Blockquote,
+      CodeBlock.configure({
+        exitOnTripleEnter: true,
+      }),
+    ],
     editorProps: {
       attributes: {
         class:
@@ -27,15 +38,27 @@ const Tiptap = ({
       },
     },
     onUpdate: ({ editor }) => {
-      handleChange(editor.getHTML());
+      const html = editor.getHTML();
+      handleChange(html);
     },
-    immediatelyRender: false,
+    parseOptions: {
+      preserveWhitespace: true,
+    },
   });
+
+  // Handle initial content and updates
+  useEffect(() => {
+    if (editor && content && editor.getHTML() !== content) {
+      editor.commands.setContent(content, false, {
+        preserveWhitespace: true,
+      });
+    }
+  }, [editor, content]);
 
   return (
     <div className="w-full px-4">
       <Toolbar editor={editor!} content={content} />
-      <EditorContent editor={editor} style={{ whiteSpace: "pre-line" }} />
+      <EditorContent editor={editor} />
     </div>
   );
 };
