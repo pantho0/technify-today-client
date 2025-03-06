@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { Editor } from "@tiptap/react";
 import {
   AlignCenter,
@@ -9,6 +9,7 @@ import {
   Code,
   Heading1,
   Heading2,
+  Image,
   Italic,
   List,
   ListOrdered,
@@ -25,6 +26,15 @@ interface ToolbarOptionsProps {
 }
 
 const Toolbar: React.FC<ToolbarOptionsProps> = ({ editor, content }) => {
+  const addImage = useCallback(() => {
+    if (!editor) return;
+
+    const url = window.prompt("URL");
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+    }
+  }, [editor]);
+
   if (!editor) return null;
 
   return (
@@ -184,6 +194,9 @@ const Toolbar: React.FC<ToolbarOptionsProps> = ({ editor, content }) => {
           }
         >
           <Quote className="w-5 h-5" />
+        </button>
+        <button onClick={addImage} className={"text-sky-400"}>
+          <Image className="w-5 h-5" />
         </button>
         <button
           onClick={(e) => {

@@ -8,6 +8,7 @@ import Blockquote from "@tiptap/extension-blockquote";
 import CodeBlock from "@tiptap/extension-code-block";
 import { useEffect, useCallback } from "react";
 import TextAlign from "@tiptap/extension-text-align";
+import Image from "@tiptap/extension-image";
 
 const Tiptap = ({
   content,
@@ -28,6 +29,7 @@ const Tiptap = ({
       StarterKit,
       Underline,
       Blockquote,
+      Image,
       CodeBlock.configure({
         exitOnTripleEnter: true,
       }),
