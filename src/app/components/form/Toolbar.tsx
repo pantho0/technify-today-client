@@ -2,6 +2,9 @@
 import React from "react";
 import { Editor } from "@tiptap/react";
 import {
+  AlignCenter,
+  AlignLeft,
+  AlignRight,
   Bold,
   Code,
   Heading1,
@@ -66,6 +69,47 @@ const Toolbar: React.FC<ToolbarOptionsProps> = ({ editor, content }) => {
         >
           <Italic className="w-5 h-5" />
         </button>
+
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().setTextAlign("left").run();
+          }}
+          className={
+            editor.isActive({ textAlign: "left" })
+              ? "bg-sky-700 text-white p-2 rounded-lg"
+              : "text-sky-400"
+          }
+        >
+          <AlignLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().setTextAlign("center").run();
+          }}
+          className={
+            editor.isActive({ textAlign: "center" })
+              ? "bg-sky-700 text-white p-2 rounded-lg"
+              : "text-sky-400"
+          }
+        >
+          <AlignCenter className="w-5 h-5" />
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            editor.chain().focus().setTextAlign("right").run();
+          }}
+          className={
+            editor.isActive({ textAlign: "right" })
+              ? "bg-sky-700 text-white p-2 rounded-lg"
+              : "text-sky-400"
+          }
+        >
+          <AlignRight className="w-5 h-5" />
+        </button>
+
         <button
           onClick={(e) => {
             e.preventDefault();

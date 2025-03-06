@@ -7,6 +7,7 @@ import Underline from "@tiptap/extension-underline";
 import Blockquote from "@tiptap/extension-blockquote";
 import CodeBlock from "@tiptap/extension-code-block";
 import { useEffect, useCallback } from "react";
+import TextAlign from "@tiptap/extension-text-align";
 
 const Tiptap = ({
   content,
@@ -29,6 +30,9 @@ const Tiptap = ({
       Blockquote,
       CodeBlock.configure({
         exitOnTripleEnter: true,
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
       }),
     ],
     editorProps: {
