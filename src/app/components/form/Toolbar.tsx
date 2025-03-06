@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import { Editor } from "@tiptap/react";
 import {
   AlignCenter,
@@ -26,19 +26,44 @@ interface ToolbarOptionsProps {
 }
 
 const Toolbar: React.FC<ToolbarOptionsProps> = ({ editor, content }) => {
-  const addImage = useCallback(() => {
-    if (!editor) return;
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
-    const url = window.prompt("URL");
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
-    }
+  const handleImageUpload = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (!editor || !event.target.files?.length) return;
+
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (typeof e.target?.result === "string") {
+          editor.chain().focus().setImage({ src: e.target.result }).run();
+        }
+      };
+
+      reader.readAsDataURL(file);
+      // Reset input value so the same file can be selected again
+      event.target.value = "";
+    },
+    [editor]
+  );
+
+  const addImage = useCallback(() => {
+    if (!editor || !imageInputRef.current) return;
+    imageInputRef.current.click();
   }, [editor]);
 
   if (!editor) return null;
 
   return (
     <div className="px-4 py-3 rounded-tl-md rounded-tr-md flex justify-between items-start gap-5 w-full flex-wrap border border-gray-700 bg-white tiptap-toolbar">
+      <input
+        type="file"
+        ref={imageInputRef}
+        onChange={handleImageUpload}
+        accept="image/*"
+        className="hidden"
+      />
       <div className="flex justify-start items-center gap-5 w-full lg:w-10/12 flex-wrap">
         <button
           onClick={(e) => {
