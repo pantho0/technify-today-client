@@ -59,7 +59,7 @@
       }
     ],
     "import/order": [
-      "warn",
+      "0",
       {
         "groups": [
           "type",

@@ -1,23 +1,24 @@
 "use client";
 import TTForm from "@/src/components/form/TTForm";
 import TTInput from "@/src/components/form/TTInput";
+import { useUser } from "@/src/context/user.provider";
+
+import { useCreateComment } from "@/src/hooks/post.hooks";
 import { Button } from "@heroui/button";
 import { Send } from "lucide-react";
 
-export const PostComments = ({
-  postId,
-  user,
-}: {
-  postId: string;
-  user: any;
-}) => {
+export const PostComments = ({ postId }: { postId: string }) => {
+  const { user } = useUser();
+
+  const { mutate: postComment, isPending, isSuccess } = useCreateComment();
+
   const handleComment = async (comment: any) => {
     const commentData = {
       ...comment,
       postId,
-      user,
+      user: user?.userId,
     };
-    console.log(commentData);
+    postComment(commentData);
   };
 
   return (
@@ -27,11 +28,13 @@ export const PostComments = ({
           <TTInput name="comment" label="Add a comment" />
         </div>
         <Button
-          className="absolute right-2 top-1/2 -translate-y-1/2  "
+          className="absolute right-2 top-1/2 -translate-y-1/2"
           color="primary"
+          isLoading={isPending}
           size="sm"
           type="submit"
           variant="ghost"
+          disabled={isPending}
         >
           <Send />
         </Button>

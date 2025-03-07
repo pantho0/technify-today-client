@@ -1,6 +1,7 @@
 "use server";
 import { envConfig } from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { revalidateTag } from "next/cache";
 
 export const getSinglePost = async (id: string) => {
   let fetchOptions = {};
@@ -33,5 +34,15 @@ export const createPost = async (formData: FormData): Promise<any> => {
   } catch (error: any) {
     console.log(error);
     throw new Error("Failed to create post");
+  }
+};
+
+export const createComment = async (comment: any) => {
+  try {
+    const { data } = await axiosInstance.post("/comment", comment);
+    revalidateTag("comment");
+    return data;
+  } catch (error) {
+    throw new Error("Failed to create comment");
   }
 };

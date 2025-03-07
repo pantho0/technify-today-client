@@ -9,12 +9,9 @@ import { getSinglePost } from "@/src/services/post";
 import { IPost } from "@/src/types";
 import CommentCard from "@/src/components/ui/CommentCard";
 import { PostComments } from "@/src/app/components/Post_Comments/PostComments";
-import { Key } from "react";
 
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params?.postId);
-
-  console.log(data?.comments);
 
   const authorInfo = data?.user;
   const postData = data as IPost;
@@ -65,7 +62,7 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
             </div>
             <div className="flex-1">
               <div className="relative">
-                <PostComments postId={data?._id} user={authorInfo?._id} />
+                <PostComments postId={data?._id} />
               </div>
             </div>
           </div>

@@ -30,9 +30,14 @@ const TTForm = ({
   const methods = useForm(formConfig);
   const handleSubmit = methods.handleSubmit;
 
+  const submit: SubmitHandler<any> = (data) => {
+    onSubmit(data);
+    methods.reset();
+  };
+
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>{children}</form>
+      <form onSubmit={handleSubmit(submit)}>{children}</form>
     </FormProvider>
   );
 };
