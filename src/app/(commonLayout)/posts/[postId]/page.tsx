@@ -1,19 +1,19 @@
 import { Button } from "@heroui/button";
-import { Input } from "@heroui/input";
+
 import Image from "next/image";
 import { Divider } from "@heroui/divider";
 import { Heart, ThumbsDown } from "lucide-react";
 import { Tooltip } from "@heroui/tooltip";
 
-import SidebarCard from "@/src/components/ui/SidebarCard";
 import { getSinglePost } from "@/src/services/post";
 import { IPost } from "@/src/types";
 import CommentCard from "@/src/components/ui/CommentCard";
+import { PostComments } from "@/src/app/components/Post_Comments/PostComments";
 
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params?.postId);
 
-  console.log(data);
+  console.log(data?.comments);
 
   const authorInfo = data?.user;
   const postData = data as IPost;
@@ -63,17 +63,8 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
               />
             </div>
             <div className="flex-1">
-              <div className="flex relative">
-                <Input placeholder="Add a comment" size="lg" type="text" />
-                <Button
-                  className="absolute right-2 top-1/2 -translate-y-1/2  "
-                  color="primary"
-                  size="md"
-                  type="submit"
-                  variant="solid"
-                >
-                  Post
-                </Button>
+              <div className="relative">
+                <PostComments postId={data?._id} user={authorInfo?._id} />
               </div>
             </div>
           </div>

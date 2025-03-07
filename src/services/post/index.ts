@@ -6,6 +6,9 @@ export const getSinglePost = async (id: string) => {
   let fetchOptions = {};
 
   fetchOptions = {
+    next: {
+      tags: ["comment"],
+    },
     cache: "no-store",
   };
 

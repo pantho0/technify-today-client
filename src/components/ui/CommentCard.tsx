@@ -8,12 +8,12 @@ const CommentCard = ({ comment }: { comment: any }) => {
           alt="user"
           className="rounded-full"
           height={40}
-          src="https://i.pravatar.cc/150?u=a04258114e29026702d"
+          src={comment?.user?.profileImage}
           width={40}
         />
       </div>
       <div className="flex-1">
-        <p className="font-semibold">John Does</p>
+        <p className="font-semibold">{comment?.user?.fullName}</p>
         <p>{comment?.comment}</p>
       </div>
     </div>
