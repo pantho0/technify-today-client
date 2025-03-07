@@ -9,6 +9,7 @@ import { getSinglePost } from "@/src/services/post";
 import { IPost } from "@/src/types";
 import CommentCard from "@/src/components/ui/CommentCard";
 import { PostComments } from "@/src/app/components/Post_Comments/PostComments";
+import { Key } from "react";
 
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params?.postId);
@@ -71,8 +72,8 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
 
           <div className="mt-4 space-y-4 h-[300px] overflow-y-auto">
             {data?.comments?.length > 0 ? (
-              data?.comments?.map((comment, index) => (
-                <CommentCard key={index} comment={comment} />
+              data?.comments?.map((comment: string) => (
+                <CommentCard key={comment?._id} comment={comment} />
               ))
             ) : (
               <p>No body commented yet</p>
