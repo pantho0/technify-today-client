@@ -53,21 +53,22 @@ interface IUpvote {
 }
 
 export const addUpvote = async (upvoteData: IUpvote) => {
+  console.log("inside", upvoteData);
   try {
-    const { data } = await axiosInstance.post("/posts/upvote", upvoteData);
+    const { data } = await axiosInstance.put("/posts/upvote", upvoteData);
     revalidateTag("post");
     return data;
-  } catch (error) {
-    throw new Error("Failed to add upvote");
+  } catch (error: any) {
+    throw new Error(error?.message);
   }
 };
 
 export const addDownVote = async (downVoteData: IUpvote) => {
   try {
-    const { data } = await axiosInstance.post("/posts/downvote", downVoteData);
+    const { data } = await axiosInstance.put("/posts/downvote", downVoteData);
     revalidateTag("post");
     return data;
-  } catch (error) {
-    throw new Error("Failed to add downvote");
+  } catch (error: any) {
+    throw new Error(error?.message);
   }
 };

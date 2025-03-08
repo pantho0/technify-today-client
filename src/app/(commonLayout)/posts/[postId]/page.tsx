@@ -55,7 +55,7 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
 
           <div className="mt-4 space-y-4 h-[300px] overflow-y-auto">
             {data?.comments?.length > 0 ? (
-              data?.comments?.map((comment: string) => (
+              data?.comments?.map((comment: any) => (
                 <CommentCard key={comment?._id} comment={comment} />
               ))
             ) : (

@@ -1,5 +1,6 @@
 "use client";
 import { useUser } from "@/src/context/user.provider";
+import { useAddDownvote, useAddUpvote } from "@/src/hooks/post.hooks";
 import { IPost } from "@/src/types";
 import { Button } from "@heroui/button";
 import { Tooltip } from "@heroui/tooltip";
@@ -7,12 +8,17 @@ import { Heart, ThumbsDown } from "lucide-react";
 
 export const PostReaction = ({ postData }: { postData: IPost }) => {
   const { user } = useUser();
+  const { mutate: addUpvote, isPending: isPendingUpvote } = useAddUpvote();
+  const { mutate: addDownvote, isPending: isPendingDownvote } =
+    useAddDownvote();
+
   const handleUpVote = () => {
     const upVoteData = {
       postId: postData?._id,
       userId: user?.userId,
     };
-    console.log(upVoteData);
+
+    addUpvote(upVoteData);
   };
 
   const handleDownVote = () => {
@@ -20,7 +26,7 @@ export const PostReaction = ({ postData }: { postData: IPost }) => {
       postId: postData?._id,
       userId: user?.userId,
     };
-    console.log(downVoteData);
+    addDownvote(downVoteData);
   };
   return (
     <div className="flex items-center gap-2 ">
@@ -30,6 +36,7 @@ export const PostReaction = ({ postData }: { postData: IPost }) => {
           className="rounded-full"
           color="primary"
           variant="flat"
+          isLoading={isPendingUpvote}
         >
           {postData?.upVote?.length}
           <Heart />
@@ -41,6 +48,7 @@ export const PostReaction = ({ postData }: { postData: IPost }) => {
           className="rounded-full"
           color="primary"
           variant="flat"
+          isLoading={isPendingDownvote}
         >
           {postData?.downVote?.length}
           <ThumbsDown />
