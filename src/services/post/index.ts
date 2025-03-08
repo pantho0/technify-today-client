@@ -8,7 +8,7 @@ export const getSinglePost = async (id: string) => {
 
   fetchOptions = {
     next: {
-      tags: ["comment"],
+      tags: ["comment", "post"],
     },
     cache: "no-store",
   };
@@ -44,5 +44,30 @@ export const createComment = async (comment: any) => {
     return data;
   } catch (error) {
     throw new Error("Failed to create comment");
+  }
+};
+
+interface IUpvote {
+  postId: string;
+  userId: string;
+}
+
+export const addUpvote = async (upvoteData: IUpvote) => {
+  try {
+    const { data } = await axiosInstance.post("/posts/upvote", upvoteData);
+    revalidateTag("post");
+    return data;
+  } catch (error) {
+    throw new Error("Failed to add upvote");
+  }
+};
+
+export const addDownVote = async (downVoteData: IUpvote) => {
+  try {
+    const { data } = await axiosInstance.post("/posts/downvote", downVoteData);
+    revalidateTag("post");
+    return data;
+  } catch (error) {
+    throw new Error("Failed to add downvote");
   }
 };

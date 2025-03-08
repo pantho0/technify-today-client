@@ -23,7 +23,7 @@ export const PostReaction = ({ postData }: { postData: IPost }) => {
     console.log(downVoteData);
   };
   return (
-    <div className="flex items-center gap-2 gap-2">
+    <div className="flex items-center gap-2 ">
       <Tooltip className="rounded-full" content="Up vote">
         <Button
           onPress={handleUpVote}
