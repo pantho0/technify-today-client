@@ -1,9 +1,5 @@
-import { Button } from "@heroui/button";
-
 import Image from "next/image";
 import { Divider } from "@heroui/divider";
-import { Heart, ThumbsDown } from "lucide-react";
-import { Tooltip } from "@heroui/tooltip";
 
 import { getSinglePost } from "@/src/services/post";
 import { IPost } from "@/src/types";
@@ -37,7 +33,7 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
 
         <Divider className="my-4" />
 
-        <PostReaction />
+        <PostReaction postData={postData} />
 
         <div className="border-1 border-foreground/20 rounded-lg p-4">
           <div className="flex gap-4 border border-foreground/20 rounded-lg p-3">
