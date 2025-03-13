@@ -53,3 +53,12 @@ export const getCurrentUser = async () => {
     exp: decodedToken?.exp,
   };
 };
+
+export const getMe = async () => {
+  try {
+    const { data } = await axiosInstance.get("/users/me");
+    return data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};

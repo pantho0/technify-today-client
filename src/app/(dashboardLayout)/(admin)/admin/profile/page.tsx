@@ -1,41 +1,51 @@
 "use client";
-import { Select, SelectItem } from "@heroui/select";
 
-export const animals = [
-  { key: "cat", label: "Cat" },
-  { key: "dog", label: "Dog" },
-  { key: "elephant", label: "Elephant" },
-  { key: "lion", label: "Lion" },
-  { key: "tiger", label: "Tiger" },
-  { key: "giraffe", label: "Giraffe" },
-  { key: "dolphin", label: "Dolphin" },
-  { key: "penguin", label: "Penguin" },
-  { key: "zebra", label: "Zebra" },
-  { key: "shark", label: "Shark" },
-  { key: "whale", label: "Whale" },
-  { key: "otter", label: "Otter" },
-  { key: "crocodile", label: "Crocodile" },
-];
+import Loading from "@/src/components/ui/Loading";
+import { useGetMe } from "@/src/hooks/auth.hooks";
+import { Button } from "@heroui/button";
+import { Divider } from "@heroui/divider";
+import Image from "next/image";
+import { use } from "react";
 
-const page = () => {
+const ProfilePage = () => {
+  const { data, isLoading } = useGetMe();
+
+  const user = data?.data;
+
   return (
-    <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-      <Select className="max-w-xs" label="Select an animal">
-        {animals?.map((animal) => (
-          <SelectItem key={animal.key}>{animal.label}</SelectItem>
-        ))}
-      </Select>
-      <Select
-        className="max-w-xs"
-        label="Favorite Animal"
-        placeholder="Select an animal"
-      >
-        {animals?.map((animal) => (
-          <SelectItem key={animal.key}>{animal.label}</SelectItem>
-        ))}
-      </Select>
-    </div>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="max-w-7xl mx-auto p-10  mx-6 my-6 rounded-xl border-dotted border-2">
+          <div className="flex items-center justify-center mb-4">
+            <Image
+              alt="user"
+              className="rounded-full"
+              height={120}
+              src={user?.profileImage || null}
+              width={120}
+            />
+          </div>
+          <div>
+            <p className="font-semibold text-2xl text-center">
+              {user?.fullName}
+            </p>
+          </div>
+          <div className="flex justify-center gap-2 mt-3">
+            <Button size="sm">Change Password</Button>
+            <Button size="sm">Change Profile Picture</Button>
+          </div>
+
+          <Divider className="my-8" />
+
+          <div>
+            <p>All Posts</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
-export default page;
+export default ProfilePage;
