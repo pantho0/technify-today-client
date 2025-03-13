@@ -4,6 +4,7 @@ import Loading from "@/src/components/ui/Loading";
 import { useGetMe } from "@/src/hooks/auth.hooks";
 import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
+import { Verified, VerifiedIcon } from "lucide-react";
 import Image from "next/image";
 import { use } from "react";
 
@@ -29,7 +30,10 @@ const ProfilePage = () => {
           </div>
           <div>
             <p className="font-semibold text-2xl text-center">
-              {user?.fullName}
+              {user?.fullName}{" "}
+              {user?.isPremium && (
+                <VerifiedIcon className="inline text-blue-400" />
+              )}
             </p>
           </div>
           <div className="flex justify-center gap-2 mt-3">
