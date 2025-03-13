@@ -14,6 +14,7 @@ import { useUser } from "@/src/context/user.provider";
 import { useCreatePost } from "@/src/hooks/post.hooks";
 import Loading from "@/src/components/ui/Loading";
 import Tiptap from "@/src/app/components/form/Tiptap";
+import { Divider } from "@heroui/divider";
 
 const CreatePostPage = () => {
   const [content, setContent] = useState<string>("");
@@ -109,7 +110,13 @@ const CreatePostPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-10">
+    <div className="max-w-7xl mx-auto p-10 border mx-6 my-6 rounded-xl border-dotted border-2">
+      <div>
+        <h2 className="text-2xl font-semibold leading-snug text-center mb-4">
+          Create Post
+        </h2>
+      </div>
+      <Divider className="my-6" />
       {isPending && <Loading />}
       <TTForm onSubmit={onSubmit}>
         <div className="space-y-4">
