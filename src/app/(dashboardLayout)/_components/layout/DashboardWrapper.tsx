@@ -19,7 +19,7 @@ export const DashboardWrapper = ({ children }: { children: ReactNode }) => {
       >
         <DashboardSidebar />
       </div>
-      <div className="w-full lg:w-4/5">
+      <div className="w-full lg:w-4/5 h-screen overflow-y-auto">
         <button
           className="lg:hidden p-2 bg-gray-800 text-white fixed top-2 left-2 z-20"
           onClick={toggleSidebar}

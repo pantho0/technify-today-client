@@ -27,7 +27,7 @@ const ProfilePage = () => {
       {isLoading || isPostsLoading ? (
         <Loading />
       ) : (
-        <div className="max-w-7xl mx-auto p-10  mx-6 my-6 rounded-xl border-dotted border-2">
+        <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
           <div className="flex items-center justify-center mb-4">
             <Image
               alt="user"
