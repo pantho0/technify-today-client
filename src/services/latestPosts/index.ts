@@ -16,7 +16,7 @@ const getLatestPosts = async () => {
     fetchOptions
   );
 
-  await delay(2000);
+  // await delay(2000);
 
   if (!res.ok) {
     throw new Error("Failed to fetch posts");

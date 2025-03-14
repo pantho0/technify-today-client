@@ -22,6 +22,15 @@ export const getSinglePost = async (id: string) => {
   return await res.json();
 };
 
+export const getMyPosts = async () => {
+  try {
+    const { data } = await axiosInstance.get("/posts/own-posts");
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch posts");
+  }
+};
+
 export const createPost = async (formData: FormData): Promise<any> => {
   try {
     const { data } = await axiosInstance.post("/posts/create-post", formData, {
@@ -29,7 +38,8 @@ export const createPost = async (formData: FormData): Promise<any> => {
         "Content-Type": "multipart/form-data",
       },
     });
-
+    revalidateTag("post");
+    revalidateTag("MY_POSTS");
     return data;
   } catch (error: any) {
     console.log(error);

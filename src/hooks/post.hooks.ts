@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import {
@@ -6,6 +6,7 @@ import {
   addUpvote,
   createComment,
   createPost,
+  getMyPosts,
 } from "../services/post";
 
 export const useCreatePost = () => {
@@ -57,5 +58,12 @@ export const useAddDownvote = () => {
     onError: (error: any) => {
       toast.error(error?.message);
     },
+  });
+};
+
+export const useGetMyPosts = () => {
+  return useQuery<any, Error, any>({
+    queryKey: ["MY_POSTS"],
+    queryFn: async () => await getMyPosts(),
   });
 };
