@@ -52,8 +52,8 @@ const ProfilePage = () => {
 
           <Divider className="my-8" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
-            {allPosts?.map((post: IPost) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 my-6">
+            {[...allPosts].reverse().map((post: IPost) => (
               <Link key={post?._id} href={`/posts/${post?._id}`}>
                 <PostCard post={post} />
               </Link>
