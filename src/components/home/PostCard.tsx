@@ -7,16 +7,11 @@ import moment from "moment";
 
 import { IPost } from "@/src/types";
 import { useUser } from "@/src/context/user.provider";
-import { Edit, EllipsisVertical } from "lucide-react";
-import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import PostSetttings from "../PostSetttings";
 
 const PostCard = ({ post }: { post: IPost }) => {
   const { user } = useUser();
-  if (user?.userId === post.user._id) {
-    console.log("my post");
-  }
   return (
     <Card className="">
       <CardBody className="overflow-visible">
@@ -31,7 +26,7 @@ const PostCard = ({ post }: { post: IPost }) => {
 
           {user?.userId === post.user._id && (
             <div className="absolute top-0 right-4">
-              <PostSetttings />
+              <PostSetttings post={post?._id} />
             </div>
           )}
 

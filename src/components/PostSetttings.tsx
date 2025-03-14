@@ -8,10 +8,10 @@ import {
 import { EllipsisVertical } from "lucide-react";
 import { useUser } from "@/src/context/user.provider";
 
-const PostSetttings = () => {
+const PostSetttings = ({ post }: { post: string }) => {
   const { user } = useUser();
   return (
-    <Dropdown>
+    <Dropdown backdrop="blur">
       <DropdownTrigger>
         <Button
           isIconOnly
@@ -22,7 +22,9 @@ const PostSetttings = () => {
         </Button>
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="edit">Edit Post</DropdownItem>
+        <DropdownItem key="edit" href={`/${user?.role}/update-post/${post}`}>
+          Edit Post
+        </DropdownItem>
         <DropdownItem key="delete" className="text-danger" color="danger">
           Delete Post
         </DropdownItem>
