@@ -10,7 +10,6 @@ import { PostReaction } from "@/src/app/components/Post/PostReaction";
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params?.postId);
 
-  const authorInfo = data?.user;
   const postData = data as IPost;
 
   return (
