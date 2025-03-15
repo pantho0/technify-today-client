@@ -9,6 +9,22 @@ export const loginSchema = z.object({
     .min(6, "Password must be at least 6 characters long"),
 });
 
+export const updatePostSchema = z.object({
+  title: z
+    .string({ required_error: "Title Required" })
+    .min(1, "Title Required"),
+  category: z
+    .string({ required_error: "Category Required" })
+    .min(1, "Category Required"),
+  isPremium: z.string({ required_error: "Is Premium Required" }),
+  content: z
+    .string({ required_error: "Content Required" })
+    .min(1, "Content Required"),
+  image: z
+    .string({ required_error: "Image Required" })
+    .min(1, "Image Required"),
+});
+
 export const registerSchema = z.object({
   firstName: z
     .string({ required_error: "First Name Required" })

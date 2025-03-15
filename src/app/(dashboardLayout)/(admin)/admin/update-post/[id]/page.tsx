@@ -8,10 +8,12 @@ import Loading from "@/src/components/ui/Loading";
 import { postCategories, postStatus } from "@/src/constants";
 import { useUser } from "@/src/context/user.provider";
 import { useUpdatePost } from "@/src/hooks/post.hooks";
+import { updatePostSchema } from "@/src/schemas/login.validation";
 import { getSinglePost } from "@/src/services/post";
 import { IPost } from "@/src/types";
 import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Delete, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -127,7 +129,7 @@ export const UpdatePost = () => {
     handleLoadPost();
   }, [id]);
 
-  if (loading) {
+  if (loading || isLoading) {
     return <Loading />;
   }
 
@@ -140,7 +142,11 @@ export const UpdatePost = () => {
       </div>
       <Divider className="my-6" />
 
-      <TTForm onSubmit={onSubmit} defaultValues={defaultValues}>
+      <TTForm
+        resolver={zodResolver(updatePostSchema)}
+        onSubmit={onSubmit}
+        defaultValues={defaultValues}
+      >
         <div className="space-y-4">
           <TTInput label="Title" name="title" />
           <div className="grid grid-cols-2 gap-4">
