@@ -54,9 +54,7 @@ const ProfilePage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 my-6">
             {[...allPosts].reverse().map((post: IPost) => (
-              <Link key={post?._id} href={`/posts/${post?._id}`}>
-                <PostCard post={post} />
-              </Link>
+              <PostCard key={post._id} post={post} />
             ))}
           </div>
         </div>
