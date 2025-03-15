@@ -20,8 +20,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export const UpdatePost = () => {
-  const { user } = useUser();
-  const { mutate: handleUpdatePost, isLoading, isSuccess } = useUpdatePost();
+  const { mutate: handleUpdatePost, isPending, isSuccess } = useUpdatePost();
   const router = useRouter();
   const [content, setContent] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -46,10 +45,10 @@ export const UpdatePost = () => {
         category: data.category || "",
         isPremium: data.isPremium || null,
         content: data.details || "",
-        image: data.image || null,
+        image: null,
       });
       setContent(data.details || "");
-      setImagePreview(data.image || "");
+      setImagePreview("");
     } catch (error) {
       console.error("Failed to load post:", error);
     } finally {
@@ -108,7 +107,6 @@ export const UpdatePost = () => {
       const postData = {
         ...postInfo,
         details: content,
-        user: user?.userId,
       };
 
       formData.append("data", JSON.stringify(postData));
@@ -129,9 +127,11 @@ export const UpdatePost = () => {
     handleLoadPost();
   }, [id]);
 
-  if (loading || isLoading) {
+  if (loading || isPending) {
     return <Loading />;
   }
+
+  console.log(isSuccess);
 
   return (
     <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
@@ -143,7 +143,7 @@ export const UpdatePost = () => {
       <Divider className="my-6" />
 
       <TTForm
-        resolver={zodResolver(updatePostSchema)}
+        // resolver={zodResolver(updatePostSchema)}
         onSubmit={onSubmit}
         defaultValues={defaultValues}
       >
