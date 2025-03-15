@@ -113,10 +113,6 @@ export const UpdatePost = () => {
       formData.append("file", imageFile);
 
       handleUpdatePost([formData, id]);
-
-      if (isSuccess) {
-        router.push("/");
-      }
     } catch (error) {
       console.error("Submit error:", error);
       toast.error("Error updating post");
@@ -131,7 +127,9 @@ export const UpdatePost = () => {
     return <Loading />;
   }
 
-  console.log(isSuccess);
+  if (isSuccess && !isPending) {
+    router.push("/");
+  }
 
   return (
     <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
