@@ -6,6 +6,7 @@ import {
   addUpvote,
   createComment,
   createPost,
+  deletePost,
   getMyPosts,
   updatePost,
 } from "../services/post";
@@ -29,6 +30,19 @@ export const useUpdatePost = () => {
     mutationFn: async ([postData, id]) => await updatePost(postData, id),
     onSuccess: () => {
       toast.success("Post Updated Successfully");
+    },
+    onError: (error: any) => {
+      toast.error(error?.message);
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["DELETE_POST"],
+    mutationFn: async (id) => await deletePost(id),
+    onSuccess: () => {
+      toast.success("Post Deleted Successfully");
     },
     onError: (error: any) => {
       toast.error(error?.message);

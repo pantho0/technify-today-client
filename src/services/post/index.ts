@@ -70,6 +70,18 @@ export const updatePost = async (
   }
 };
 
+export const deletePost = async (id: string) => {
+  try {
+    const { data } = await axiosInstance.put(`/posts/delete-post/${id}`);
+    revalidateTag("post");
+    revalidateTag("MY_POSTS");
+    return data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error("Failed to delete post");
+  }
+};
+
 export const createComment = async (comment: any) => {
   try {
     const { data } = await axiosInstance.post("/comment", comment);

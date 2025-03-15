@@ -7,9 +7,14 @@ import {
 } from "@heroui/dropdown";
 import { EllipsisVertical } from "lucide-react";
 import { useUser } from "@/src/context/user.provider";
+import { useDeletePost } from "../hooks/post.hooks";
 
 const PostSetttings = ({ post }: { post: string }) => {
   const { user } = useUser();
+  const { mutate: deletePost } = useDeletePost();
+  const handleDelete = (id: string) => {
+    deletePost(id);
+  };
   return (
     <Dropdown backdrop="blur">
       <DropdownTrigger>
@@ -25,7 +30,12 @@ const PostSetttings = ({ post }: { post: string }) => {
         <DropdownItem key="edit" href={`/${user?.role}/update-post/${post}`}>
           Edit Post
         </DropdownItem>
-        <DropdownItem key="delete" className="text-danger" color="danger">
+        <DropdownItem
+          onPress={() => handleDelete(post)}
+          key="delete"
+          className="text-danger"
+          color="danger"
+        >
           Delete Post
         </DropdownItem>
       </DropdownMenu>
