@@ -11,7 +11,7 @@ export interface IPost {
   title: string;
   category: string;
   details: string;
-  isPremium: boolean;
+  isPremium: boolean | string;
   upVote: string[];
   downVote: string[];
   comments: string[];

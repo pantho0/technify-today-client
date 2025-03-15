@@ -47,6 +47,29 @@ export const createPost = async (formData: FormData): Promise<any> => {
   }
 };
 
+export const updatePost = async (
+  formData: FormData,
+  id: string
+): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.patch(
+      `/posts/update-post/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    revalidateTag("post");
+    revalidateTag("MY_POSTS");
+    return data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error("Failed to update post");
+  }
+};
+
 export const createComment = async (comment: any) => {
   try {
     const { data } = await axiosInstance.post("/comment", comment);

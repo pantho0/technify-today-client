@@ -7,6 +7,7 @@ import {
   createComment,
   createPost,
   getMyPosts,
+  updatePost,
 } from "../services/post";
 
 export const useCreatePost = () => {
@@ -15,6 +16,19 @@ export const useCreatePost = () => {
     mutationFn: async (postData) => await createPost(postData),
     onSuccess: () => {
       toast.success("Post Created Successfully");
+    },
+    onError: (error: any) => {
+      toast.error(error?.message);
+    },
+  });
+};
+
+export const useUpdatePost = () => {
+  return useMutation<any, Error, [FormData, string]>({
+    mutationKey: ["UPDATE_POST"],
+    mutationFn: async ([postData, id]) => await updatePost(postData, id),
+    onSuccess: () => {
+      toast.success("Post Updated Successfully");
     },
     onError: (error: any) => {
       toast.error(error?.message);

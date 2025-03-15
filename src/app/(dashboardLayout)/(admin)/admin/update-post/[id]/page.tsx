@@ -6,14 +6,21 @@ import TTInput from "@/src/components/form/TTInput";
 import TTSelect from "@/src/components/form/TTSelect";
 import Loading from "@/src/components/ui/Loading";
 import { postCategories, postStatus } from "@/src/constants";
+import { useUser } from "@/src/context/user.provider";
+import { useUpdatePost } from "@/src/hooks/post.hooks";
 import { getSinglePost } from "@/src/services/post";
+import { IPost } from "@/src/types";
 import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
 import { Delete, Trash } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export const UpdatePost = () => {
+  const { user } = useUser();
+  const { mutate: handleUpdatePost, isLoading, isSuccess } = useUpdatePost();
+  const router = useRouter();
   const [content, setContent] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
@@ -28,7 +35,6 @@ export const UpdatePost = () => {
     image: null,
   });
 
-  console.log(defaultValues);
   const handleLoadPost = async () => {
     try {
       setLoading(true);
@@ -75,8 +81,46 @@ export const UpdatePost = () => {
     });
   };
 
-  const onSubmit = async (data: any) => {
-    console.log(data);
+  const onSubmit = async (postInfo: IPost) => {
+    try {
+      // Validate image file
+      if (!imageFile) {
+        toast.error("Please select a featured image");
+        return;
+      }
+
+      // Validate required fields
+      if (
+        !postInfo.title ||
+        !content ||
+        !postInfo?.isPremium ||
+        !postInfo?.category
+      ) {
+        toast.error("Title, content, isPremium, and category are required");
+        return;
+      }
+
+      const formData = new FormData();
+      postInfo.isPremium = postInfo?.isPremium === "true";
+
+      const postData = {
+        ...postInfo,
+        details: content,
+        user: user?.userId,
+      };
+
+      formData.append("data", JSON.stringify(postData));
+      formData.append("file", imageFile);
+
+      handleUpdatePost([formData, id]);
+
+      if (isSuccess) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      toast.error("Error updating post");
+    }
   };
 
   useEffect(() => {
