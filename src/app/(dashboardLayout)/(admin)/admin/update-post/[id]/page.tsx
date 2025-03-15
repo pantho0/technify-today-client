@@ -4,18 +4,51 @@ import Tiptap from "@/src/app/components/form/Tiptap";
 import TTForm from "@/src/components/form/TTForm";
 import TTInput from "@/src/components/form/TTInput";
 import TTSelect from "@/src/components/form/TTSelect";
+import Loading from "@/src/components/ui/Loading";
 import { postCategories, postStatus } from "@/src/constants";
+import { getSinglePost } from "@/src/services/post";
 import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
+import { Delete, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const UpdatePost = () => {
   const [content, setContent] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
-  const { id } = useParams();
-  console.log(id);
+  const [loading, setLoading] = useState(true); // Track loading state
+  const { id } = useParams<any>();
+  const [post, setPost] = useState<any>(null);
+  const [defaultValues, setDefaultValues] = useState({
+    title: "",
+    category: "",
+    isPremium: null,
+    content: "",
+    image: null,
+  });
+
+  console.log(defaultValues);
+  const handleLoadPost = async () => {
+    try {
+      setLoading(true);
+      const { data } = await getSinglePost(id);
+      setDefaultValues({
+        title: data.title || "",
+        category: data.category || "",
+        isPremium: data.isPremium || null,
+        content: data.details || "",
+        image: data.image || null,
+      });
+      setContent(data.details || "");
+      setImagePreview(data.image || "");
+    } catch (error) {
+      console.error("Failed to load post:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleContentChange = (value: string) => {
     setContent(value);
   };
@@ -33,9 +66,27 @@ export const UpdatePost = () => {
     }
   };
 
+  const handleDeleteImage = () => {
+    setImageFile(null);
+    setImagePreview("");
+    setDefaultValues({
+      ...defaultValues,
+      image: null,
+    });
+  };
+
   const onSubmit = async (data: any) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    handleLoadPost();
+  }, [id]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
       <div>
@@ -45,7 +96,7 @@ export const UpdatePost = () => {
       </div>
       <Divider className="my-6" />
 
-      <TTForm onSubmit={onSubmit}>
+      <TTForm onSubmit={onSubmit} defaultValues={defaultValues}>
         <div className="space-y-4">
           <TTInput label="Title" name="title" />
           <div className="grid grid-cols-2 gap-4">
@@ -68,6 +119,11 @@ export const UpdatePost = () => {
             {imagePreview && (
               <div>
                 <div className="relative size-48 rounded-xl border-2 border-dashed p-2">
+                  <div className="absolute top-2 right-2">
+                    <Button isIconOnly onPress={handleDeleteImage}>
+                      <Trash />
+                    </Button>
+                  </div>
                   <img
                     alt="image"
                     className="w-full h-full object-cover rounded-xl"
