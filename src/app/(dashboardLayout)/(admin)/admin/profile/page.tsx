@@ -14,17 +14,18 @@ import { use } from "react";
 
 const ProfilePage = () => {
   const { data, isLoading } = useGetMe();
-  const { data: posts, isLoading: isPostsLoading } = useGetMyPosts();
+  // const { data: posts, isLoading: isPostsLoading } = useGetMyPosts();
 
-  const allPosts = posts?.data;
+  // const allPosts = posts?.data;
 
-  console.log(allPosts);
+  // console.log(allPosts);
 
-  const user = data?.data;
+  // const user = data?.data;
 
   return (
     <>
-      {isLoading || isPostsLoading ? (
+      <p>checking</p>
+      {/* {isLoading || isPostsLoading ? (
         <Loading />
       ) : (
         <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
@@ -58,7 +59,7 @@ const ProfilePage = () => {
             ))}
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

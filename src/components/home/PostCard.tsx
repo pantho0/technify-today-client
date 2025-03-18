@@ -16,20 +16,20 @@ const PostCard = ({ post }: { post: IPost }) => {
     <Card className="">
       <CardBody className="overflow-visible">
         <div className="space-y-6">
-          <Link href={`/posts/${post._id}`}>
-            <img
-              className="rounded-md w-full h-[250px] object-cover"
-              src={post.image}
-              alt={post.title}
-            />
-          </Link>
-
+          <div className="w-full">
+            <Link href={`/posts/${post._id}`}>
+              <img
+                className="rounded-md w-[600px] h-[250px] object-cover object-center"
+                src={post.image}
+                alt={post.title}
+              />
+            </Link>
+          </div>
           {user?.userId === post.user._id && (
             <div className="absolute top-0 right-4">
               <PostSetttings post={post?._id} />
             </div>
           )}
-
           <div className="bg-primary/30 inset-0 backdrop-blur-md inline-block px-3 py-1 rounded-md">
             <h3 className="inline-block text-primary text-[14px] font-semibold">
               <Link href={`/category/${post.category}`}>{post.category}</Link>

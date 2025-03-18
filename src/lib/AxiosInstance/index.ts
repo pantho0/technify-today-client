@@ -2,6 +2,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 
 import { envConfig } from "@/src/config/envConfig";
+import { getNewAccessToken } from "@/src/services/auth";
 
 const axiosInstance = axios.create({
   baseURL: envConfig.backendUrl,
@@ -27,8 +28,18 @@ axiosInstance.interceptors.response.use(
   function (response) {
     return response;
   },
-  function (error) {
-    return Promise.reject(error);
+  async function (error) {
+    const config = error.config;
+    if (error?.response?.status === 401 && !config.sent) {
+      config.sent = true;
+      const res = await getNewAccessToken();
+      const accessToken = res?.data;
+      config.headers["Authorization"] = accessToken;
+      (await cookies()).set("accessToken", accessToken);
+      return await axiosInstance(config);
+    } else {
+      return Promise.reject(error);
+    }
   }
 );
 

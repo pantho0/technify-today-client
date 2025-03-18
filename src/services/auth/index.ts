@@ -12,7 +12,7 @@ export const loginUser = async (userData: FieldValues) => {
 
     if (data.success) {
       (await cookies()).set("accessToken", data.data?.accessToken);
-      // (await cookies()).set("refreshToken", data.refreshToken);
+      (await cookies()).set("refreshToken", data.data?.refreshToken);
     }
 
     return data;
@@ -60,5 +60,23 @@ export const getMe = async () => {
     return data;
   } catch (error: any) {
     throw new Error(error);
+  }
+};
+
+export const getNewAccessToken = async () => {
+  try {
+    const refreshToken = (await cookies()).get("refreshToken")?.value;
+
+    const res = await axiosInstance({
+      url: "/auth/refresh-token",
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        cookie: `refreshToken=${refreshToken}`,
+      },
+    });
+    return res.data;
+  } catch (error: any) {
+    throw new Error("Failed to get new access token");
   }
 };
