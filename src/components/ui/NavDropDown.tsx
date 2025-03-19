@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { logoutUser } from "@/src/services/auth";
 import { useUser } from "@/src/context/user.provider";
+import { protectedRoutes } from "@/src/constants";
 
 const NavDropDown = () => {
   const router = useRouter();
