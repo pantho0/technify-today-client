@@ -63,6 +63,18 @@ export const getMe = async () => {
   }
 };
 
+export const changePassword = async (passwordData: any) => {
+  try {
+    const { data } = await axiosInstance.put(
+      "/auth/change-password",
+      passwordData
+    );
+    return data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const getNewAccessToken = async () => {
   try {
     const refreshToken = (await cookies()).get("refreshToken")?.value;
