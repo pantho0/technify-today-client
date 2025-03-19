@@ -60,7 +60,19 @@ export default function ChangePasswordModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    const passwordData = {
+      ...data,
+    };
+
+    if (passwordData.oldPassword === passwordData.newPassword) {
+      alert("New password cannot be the same as old password");
+      return;
+    }
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
   };
 
   return (
@@ -77,31 +89,34 @@ export default function ChangePasswordModal() {
               </ModalHeader>
               <ModalBody>
                 <TTForm onSubmit={onSubmit}>
-                  <TTInput
-                    label="Current Password"
-                    name="currentPassword"
-                    type="password"
-                  />
-                  <TTInput
-                    label="New Password"
-                    name="newPassword"
-                    type="password"
-                  />
-                  <TTInput
-                    label="Confirm Password"
-                    name="confirmPassword"
-                    type="password"
-                  />
+                  <div className="my-2">
+                    <TTInput
+                      label="Current Password"
+                      name="oldPassword"
+                      type="password"
+                    />
+                  </div>
+                  <div className="my-2">
+                    <TTInput
+                      label="New Password"
+                      name="newPassword"
+                      type="password"
+                    />
+                  </div>
+                  <div className="my-2">
+                    <TTInput
+                      label="Confirm Password"
+                      name="confirmPassword"
+                      type="password"
+                    />
+                  </div>{" "}
+                  <div className="flex justify-end">
+                    <Button type="submit" color="primary">
+                      Change Password
+                    </Button>
+                  </div>
                 </TTForm>
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Sign in
-                </Button>
-              </ModalFooter>
             </>
           )}
         </ModalContent>
