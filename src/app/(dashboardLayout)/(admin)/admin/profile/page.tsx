@@ -10,22 +10,19 @@ import { Divider } from "@heroui/divider";
 
 import { VerifiedIcon } from "lucide-react";
 import Image from "next/image";
-import { use } from "react";
+import ChangePasswordModal from "../../../_components/modals/ChangePassword";
 
 const ProfilePage = () => {
   const { data, isLoading } = useGetMe();
-  // const { data: posts, isLoading: isPostsLoading } = useGetMyPosts();
+  const { data: posts, isLoading: isPostsLoading } = useGetMyPosts();
 
-  // const allPosts = posts?.data;
+  const allPosts = posts?.data;
 
-  // console.log(allPosts);
-
-  // const user = data?.data;
+  const user = data?.data;
 
   return (
     <>
-      <p>checking</p>
-      {/* {isLoading || isPostsLoading ? (
+      {isLoading || isPostsLoading ? (
         <Loading />
       ) : (
         <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
@@ -47,7 +44,7 @@ const ProfilePage = () => {
             </p>
           </div>
           <div className="flex justify-center gap-2 mt-3">
-            <Button size="sm">Change Password</Button>
+            <ChangePasswordModal />
             <Button size="sm">Change Profile Picture</Button>
           </div>
 
@@ -59,7 +56,7 @@ const ProfilePage = () => {
             ))}
           </div>
         </div>
-      )} */}
+      )}
     </>
   );
 };
