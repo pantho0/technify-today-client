@@ -57,8 +57,15 @@ const LoginPage = () => {
             </div>
           </TTForm>
 
-          <div className="text-center mt-4">
-            Don&lsquo;t have account ? <Link href={"/register"}>Register</Link>
+          <div>
+            <div className="text-center mt-4">
+              Forgot Your Password ?{" "}
+              <Link href={"/forgot-password"}>Click Here</Link>
+            </div>
+            <div className="text-center">
+              Don&lsquo;t have account ?{" "}
+              <Link href={"/register"}>Register</Link>
+            </div>
           </div>
         </div>
       </div>
