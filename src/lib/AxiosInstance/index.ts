@@ -40,6 +40,10 @@ axiosInstance.interceptors.response.use(
     } else if (error?.response?.status === 403) {
       (await cookies()).delete("accessToken");
       (await cookies()).delete("refreshToken");
+    } else if (error?.response?.status === 500) {
+      (await cookies()).delete("accessToken");
+      (await cookies()).delete("refreshToken");
+      window.location.href = "/login";
     } else {
       return Promise.reject(error);
     }
