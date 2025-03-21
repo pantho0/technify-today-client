@@ -92,3 +92,26 @@ export const getNewAccessToken = async () => {
     throw new Error("Failed to get new access token");
   }
 };
+
+export const forgotPassword = async (email: string) => {
+  try {
+    const { data } = await axiosInstance.post("/auth/forget-password", {
+      email,
+    });
+    return data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+// export const resetPassword = async (passwordData: any) => {
+//   try {
+//     const { data } = await axiosInstance.put(
+//       "/auth/reset-password",
+//       passwordData
+//     );
+//     return data;
+//   } catch (error: any) {
+//     throw new Error(error);
+//   }
+// };

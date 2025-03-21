@@ -4,6 +4,7 @@ import { toast } from "sonner";
 
 import {
   changePassword,
+  forgotPassword,
   getMe,
   loginUser,
   registerUser,
@@ -52,5 +53,18 @@ export const useGetMe = () => {
   return useQuery<any, Error, any>({
     queryKey: ["USER_GET_ME"],
     queryFn: async () => await getMe(),
+  });
+};
+
+export const useForgotPassword = () => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["FORGOT_PASSWORD"],
+    mutationFn: async (email: string) => await forgotPassword(email),
+    onSuccess: () => {
+      toast.success("Password Reset Link Sent Successfully");
+    },
+    onError: (error: any) => {
+      toast.error(error?.message);
+    },
   });
 };
