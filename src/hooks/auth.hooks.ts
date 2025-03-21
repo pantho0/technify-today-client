@@ -8,6 +8,7 @@ import {
   getMe,
   loginUser,
   registerUser,
+  resetPassword,
 } from "../services/auth";
 
 export const useLogin = () => {
@@ -62,6 +63,19 @@ export const useForgotPassword = () => {
     mutationFn: async (email: string) => await forgotPassword(email),
     onSuccess: () => {
       toast.success("Password Reset Link Sent Successfully");
+    },
+    onError: (error: any) => {
+      toast.error(error?.message);
+    },
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation<any, Error, any>({
+    mutationKey: ["RESET_PASSWORD"],
+    mutationFn: async (passwordData: any) => await resetPassword(passwordData),
+    onSuccess: () => {
+      toast.success("Password Reset Successfully");
     },
     onError: (error: any) => {
       toast.error(error?.message);

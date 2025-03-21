@@ -104,14 +104,18 @@ export const forgotPassword = async (email: string) => {
   }
 };
 
-// export const resetPassword = async (passwordData: any) => {
-//   try {
-//     const { data } = await axiosInstance.put(
-//       "/auth/reset-password",
-//       passwordData
-//     );
-//     return data;
-//   } catch (error: any) {
-//     throw new Error(error);
-//   }
-// };
+export const resetPassword = async (passwordData: any) => {
+  try {
+    const { data } = await axiosInstance({
+      url: "/auth/reset-password",
+      method: "POST",
+      data: passwordData,
+      headers: {
+        Authorization: `${passwordData.token}`,
+      },
+    });
+    return data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
