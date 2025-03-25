@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetUsers } from "@/src/hooks/user.hooks";
 import { Chip } from "@heroui/chip";
 import { Divider } from "@heroui/divider";
 import {
@@ -202,6 +203,8 @@ const statusColorMap = {
 };
 
 export default function App() {
+  const { data: allUsers, isPending, isSuccess } = useGetUsers();
+  console.log(allUsers);
   const renderCell = React.useCallback((user, columnKey) => {
     const cellValue = user[columnKey];
 

@@ -1,9 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getUsers } from "../services/user";
 
 export const useGetUsers = () => {
-  return useMutation<any, Error, any>({
-    mutationKey: ["USER"],
-    mutationFn: async () => await getUsers(),
+  return useQuery<any, Error, any>({
+    queryKey: ["USER"],
+    queryFn: async () => await getUsers(),
   });
 };
