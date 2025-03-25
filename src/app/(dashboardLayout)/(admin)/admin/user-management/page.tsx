@@ -1,6 +1,7 @@
 "use client";
 
 import { Chip } from "@heroui/chip";
+import { Divider } from "@heroui/divider";
 import {
   Table,
   TableBody,
@@ -261,26 +262,34 @@ export default function App() {
   }, []);
 
   return (
-    <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={users}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
+      <div>
+        <h2 className="text-2xl font-semibold leading-snug text-center mb-4">
+          User Management
+        </h2>
+      </div>
+      <Divider className="my-6" />
+      <Table aria-label="Example table with custom cells">
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn
+              key={column.uid}
+              align={column.uid === "actions" ? "center" : "start"}
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody items={users}>
+          {(item) => (
+            <TableRow key={item.id}>
+              {(columnKey) => (
+                <TableCell>{renderCell(item, columnKey)}</TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
