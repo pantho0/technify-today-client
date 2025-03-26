@@ -222,7 +222,7 @@ export default function App() {
             <p className="text-bold text-sm capitalize">{cellValue}</p>
           </div>
         );
-      case "status":
+      case "isDeleted":
         return (
           <Chip
             className="capitalize"
@@ -230,7 +230,7 @@ export default function App() {
             size="sm"
             variant="flat"
           >
-            {user?.isDeleted ? "Deleted" : "Active"}
+            {user?.isDeleted === false ? "Active" : "Deleted"}
           </Chip>
         );
       case "actions":
