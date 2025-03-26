@@ -1,8 +1,6 @@
 "use client";
-
 import { useGetUsers } from "@/src/hooks/user.hooks";
 import { Chip } from "@heroui/chip";
-import { Divider } from "@heroui/divider";
 import {
   Table,
   TableBody,
@@ -18,64 +16,64 @@ import React from "react";
 export const columns = [
   { name: "NAME", uid: "name" },
   { name: "ROLE", uid: "role" },
-  { name: "STATUS", uid: "status" },
+  { name: "STATUS", uid: "isDeleted" },
   { name: "ACTIONS", uid: "actions" },
 ];
 
-export const users = [
-  {
-    id: 1,
-    name: "Tony Reichert",
-    role: "CEO",
-    team: "Management",
-    status: "active",
-    age: "29",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    email: "tony.reichert@example.com",
-  },
-  {
-    id: 2,
-    name: "Zoey Lang",
-    role: "Technical Lead",
-    team: "Development",
-    status: "paused",
-    age: "25",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    email: "zoey.lang@example.com",
-  },
-  {
-    id: 3,
-    name: "Jane Fisher",
-    role: "Senior Developer",
-    team: "Development",
-    status: "active",
-    age: "22",
-    avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-    email: "jane.fisher@example.com",
-  },
-  {
-    id: 4,
-    name: "William Howard",
-    role: "Community Manager",
-    team: "Marketing",
-    status: "vacation",
-    age: "28",
-    avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
-    email: "william.howard@example.com",
-  },
-  {
-    id: 5,
-    name: "Kristen Copper",
-    role: "Sales Manager",
-    team: "Sales",
-    status: "active",
-    age: "24",
-    avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
-    email: "kristen.cooper@example.com",
-  },
-];
+// export const users = [
+//   {
+//     id: 1,
+//     name: "Tony Reichert",
+//     role: "CEO",
+//     team: "Management",
+//     status: "active",
+//     age: "29",
+//     avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+//     email: "tony.reichert@example.com",
+//   },
+//   {
+//     id: 2,
+//     name: "Zoey Lang",
+//     role: "Technical Lead",
+//     team: "Development",
+//     status: "paused",
+//     age: "25",
+//     avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+//     email: "zoey.lang@example.com",
+//   },
+//   {
+//     id: 3,
+//     name: "Jane Fisher",
+//     role: "Senior Developer",
+//     team: "Development",
+//     status: "active",
+//     age: "22",
+//     avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+//     email: "jane.fisher@example.com",
+//   },
+//   {
+//     id: 4,
+//     name: "William Howard",
+//     role: "Community Manager",
+//     team: "Marketing",
+//     status: "vacation",
+//     age: "28",
+//     avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
+//     email: "william.howard@example.com",
+//   },
+//   {
+//     id: 5,
+//     name: "Kristen Copper",
+//     role: "Sales Manager",
+//     team: "Sales",
+//     status: "active",
+//     age: "24",
+//     avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
+//     email: "kristen.cooper@example.com",
+//   },
+// ];
 
-export const EyeIcon = (props) => {
+export const EyeIcon = (props: any) => {
   return (
     <svg
       aria-hidden="true"
@@ -105,7 +103,7 @@ export const EyeIcon = (props) => {
   );
 };
 
-export const DeleteIcon = (props) => {
+export const DeleteIcon = (props: any) => {
   return (
     <svg
       aria-hidden="true"
@@ -156,7 +154,7 @@ export const DeleteIcon = (props) => {
   );
 };
 
-export const EditIcon = (props) => {
+export const EditIcon = (props: any) => {
   return (
     <svg
       aria-hidden="true"
@@ -197,46 +195,42 @@ export const EditIcon = (props) => {
 };
 
 const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
+  false: "success",
+  true: "danger",
 };
 
 export default function App() {
-  const { data: allUsers, isPending, isSuccess } = useGetUsers();
-  console.log(allUsers);
-  const renderCell = React.useCallback((user, columnKey) => {
+  const { data } = useGetUsers();
+  const users = data?.data;
+  const renderCell = React.useCallback((user: any, columnKey: any) => {
     const cellValue = user[columnKey];
 
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
-            name={cellValue}
+            avatarProps={{ radius: "lg", src: user?.profileImage }}
+            description={user?.email}
+            name={user?.fullName}
           >
-            {user.email}
+            {user?.email}
           </User>
         );
       case "role":
         return (
           <div className="flex flex-col">
             <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">
-              {user.team}
-            </p>
           </div>
         );
       case "status":
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.status]}
+            color={statusColorMap[user?.isDeleted]}
             size="sm"
             variant="flat"
           >
-            {cellValue}
+            {user?.isDeleted ? "Deleted" : "Active"}
           </Chip>
         );
       case "actions":
@@ -265,34 +259,26 @@ export default function App() {
   }, []);
 
   return (
-    <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
-      <div>
-        <h2 className="text-2xl font-semibold leading-snug text-center mb-4">
-          User Management
-        </h2>
-      </div>
-      <Divider className="my-6" />
-      <Table aria-label="Example table with custom cells">
-        <TableHeader columns={columns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody items={users}>
-          {(item) => (
-            <TableRow key={item.id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+    <Table aria-label="Example table with custom cells">
+      <TableHeader columns={columns}>
+        {(column) => (
+          <TableColumn
+            key={column.uid}
+            align={column.uid === "actions" ? "center" : "start"}
+          >
+            {column.name}
+          </TableColumn>
+        )}
+      </TableHeader>
+      <TableBody items={users ?? []}>
+        {(item: any) => (
+          <TableRow key={item._id}>
+            {(columnKey) => (
+              <TableCell>{renderCell(item, columnKey)}</TableCell>
+            )}
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
   );
 }
