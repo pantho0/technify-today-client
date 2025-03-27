@@ -1,6 +1,7 @@
 "use server";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { revalidateTag } from "next/cache";
 
 export const getUsers = async () => {
   try {
