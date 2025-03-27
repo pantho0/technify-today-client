@@ -1,5 +1,9 @@
 "use client";
-import { useDeleteUser, useGetUsers } from "@/src/hooks/user.hooks";
+import {
+  useBlockUser,
+  useDeleteUser,
+  useGetUsers,
+} from "@/src/hooks/user.hooks";
 import { Chip } from "@heroui/chip";
 import { Divider } from "@heroui/divider";
 import {
@@ -12,7 +16,13 @@ import {
 } from "@heroui/table";
 import { Tooltip } from "@heroui/tooltip";
 import { User } from "@heroui/user";
-import { ArchiveRestore } from "lucide-react";
+import {
+  ArchiveRestore,
+  Ban,
+  BlocksIcon,
+  ToggleLeft,
+  ToggleRight,
+} from "lucide-react";
 import React from "react";
 import Swal from "sweetalert2";
 
@@ -205,7 +215,8 @@ const statusColorMap: Record<string, any> = {
 
 export default function App() {
   const { data } = useGetUsers();
-  const { mutate: deleteUser, isPending } = useDeleteUser();
+  const { mutate: deleteUser } = useDeleteUser();
+  const { mutate: blockUser } = useBlockUser();
   const users = data?.data;
 
   const handleToggleDelResUsr = (email: string) => {
@@ -230,6 +241,30 @@ export default function App() {
       }
     });
   };
+
+  const handleToggleBlockUnblockUsr = (email: string) => {
+    Swal.fire({
+      title: "Are you sure to block the user?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      theme: "dark",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, block it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Blocked!",
+          text: "User has been blocked.",
+          icon: "success",
+          theme: "dark",
+        });
+        blockUser(email);
+      }
+    });
+  };
+
   const renderCell = React.useCallback((user: any, columnKey: any) => {
     const cellValue = user[columnKey];
 
@@ -280,11 +315,28 @@ export default function App() {
                 <EyeIcon />
               </span>
             </Tooltip>
-            <Tooltip content="Edit user">
+            {user?.isBlocked === false ? (
+              <Tooltip color="danger" content="Block user">
+                <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                  <div onClick={() => handleToggleBlockUnblockUsr(user?.email)}>
+                    <ToggleLeft size={18} />
+                  </div>
+                </span>
+              </Tooltip>
+            ) : (
+              <Tooltip color="success" content="Unblock user">
+                <span className="text-lg text-success cursor-pointer active:opacity-50">
+                  <div onClick={() => handleToggleBlockUnblockUsr(user?.email)}>
+                    <ToggleRight size={18} />
+                  </div>
+                </span>
+              </Tooltip>
+            )}
+            {/* <Tooltip content="Edit user">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EditIcon />
               </span>
-            </Tooltip>
+            </Tooltip> */}
             {user?.isDeleted === false ? (
               <Tooltip color="danger" content="Delete user">
                 <span className="text-lg text-danger cursor-pointer active:opacity-50">
