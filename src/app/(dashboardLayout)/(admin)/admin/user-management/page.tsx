@@ -208,9 +208,10 @@ export default function App() {
 
   const handleDeleteUser = (email: string) => {
     Swal.fire({
-      title: "Are you sure?",
+      title: "Are you sure to delete the user?",
       text: "You won't be able to revert this!",
       icon: "warning",
+      theme: "dark",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -219,12 +220,13 @@ export default function App() {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
+          text: "User has been deleted.",
           icon: "success",
+          theme: "dark",
         });
+        deleteUser(email);
       }
     });
-    // deleteUser(email);
   };
   const renderCell = React.useCallback((user: any, columnKey: any) => {
     const cellValue = user[columnKey];
