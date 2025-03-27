@@ -19,7 +19,8 @@ import Swal from "sweetalert2";
 export const columns = [
   { name: "NAME", uid: "name" },
   { name: "ROLE", uid: "role" },
-  { name: "STATUS", uid: "isDeleted" },
+  { name: "Active Status", uid: "isDeleted" },
+  { name: "Blocked Status", uid: "isBlocked" },
   { name: "ACTIONS", uid: "actions" },
 ];
 
@@ -197,7 +198,7 @@ export const EditIcon = (props: any) => {
   );
 };
 
-const statusColorMap = {
+const statusColorMap: Record<string, any> = {
   false: "success",
   true: "danger",
 };
@@ -260,6 +261,17 @@ export default function App() {
             {user?.isDeleted === false ? "Active" : "Deleted"}
           </Chip>
         );
+      case "isBlocked":
+        return (
+          <Chip
+            className="capitalize"
+            color={statusColorMap[user?.isBlocked]}
+            size="sm"
+            variant="flat"
+          >
+            {user?.isBlocked === false ? "Active" : "Blocked"}
+          </Chip>
+        );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -285,7 +297,7 @@ export default function App() {
               <Tooltip color="success" content="Restore user">
                 <span className="text-lg text-success cursor-pointer active:opacity-50">
                   <div onClick={() => handleToggleDelResUsr(user?.email)}>
-                    <ArchiveRestore size={16} />
+                    <ArchiveRestore size={18} />
                   </div>
                 </span>
               </Tooltip>

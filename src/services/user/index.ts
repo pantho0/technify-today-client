@@ -1,7 +1,6 @@
 "use server";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
-import { revalidateTag } from "next/cache";
 
 export const getUsers = async () => {
   try {
@@ -18,5 +17,14 @@ export const deleteUser = async (email: string) => {
     return data;
   } catch (error) {
     throw new Error("Failed to delete user");
+  }
+};
+
+export const blockUser = async (email: string) => {
+  try {
+    const { data } = await axiosInstance.put("/users/block-user", { email });
+    return data;
+  } catch (error) {
+    throw new Error("Failed to block user");
   }
 };
