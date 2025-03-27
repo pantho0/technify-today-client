@@ -12,6 +12,7 @@ import {
 } from "@heroui/table";
 import { Tooltip } from "@heroui/tooltip";
 import { User } from "@heroui/user";
+import { ArchiveRestore } from "lucide-react";
 import React from "react";
 import Swal from "sweetalert2";
 
@@ -206,7 +207,7 @@ export default function App() {
   const { mutate: deleteUser, isPending } = useDeleteUser();
   const users = data?.data;
 
-  const handleDeleteUser = (email: string) => {
+  const handleToggleDelResUsr = (email: string) => {
     Swal.fire({
       title: "Are you sure to delete the user?",
       text: "You won't be able to revert this!",
@@ -272,13 +273,23 @@ export default function App() {
                 <EditIcon />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <div onClick={() => handleDeleteUser(user?.email)}>
-                  <DeleteIcon />
-                </div>
-              </span>
-            </Tooltip>
+            {user?.isDeleted === false ? (
+              <Tooltip color="danger" content="Delete user">
+                <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                  <div onClick={() => handleToggleDelResUsr(user?.email)}>
+                    <DeleteIcon />
+                  </div>
+                </span>
+              </Tooltip>
+            ) : (
+              <Tooltip color="success" content="Restore user">
+                <span className="text-lg text-success cursor-pointer active:opacity-50">
+                  <div onClick={() => handleToggleDelResUsr(user?.email)}>
+                    <ArchiveRestore size={16} />
+                  </div>
+                </span>
+              </Tooltip>
+            )}
           </div>
         );
       default:
