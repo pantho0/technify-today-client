@@ -1,5 +1,5 @@
 "use client";
-import { useGetUsers } from "@/src/hooks/user.hooks";
+import { useDeleteUser, useGetUsers } from "@/src/hooks/user.hooks";
 import { Chip } from "@heroui/chip";
 import { Divider } from "@heroui/divider";
 import {
@@ -13,6 +13,7 @@ import {
 import { Tooltip } from "@heroui/tooltip";
 import { User } from "@heroui/user";
 import React from "react";
+import Swal from "sweetalert2";
 
 export const columns = [
   { name: "NAME", uid: "name" },
@@ -202,7 +203,29 @@ const statusColorMap = {
 
 export default function App() {
   const { data } = useGetUsers();
+  const { mutate: deleteUser, isPending } = useDeleteUser();
   const users = data?.data;
+
+  const handleDeleteUser = (email: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+    // deleteUser(email);
+  };
   const renderCell = React.useCallback((user: any, columnKey: any) => {
     const cellValue = user[columnKey];
 
@@ -249,7 +272,9 @@ export default function App() {
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
+                <div onClick={() => handleDeleteUser(user?.email)}>
+                  <DeleteIcon />
+                </div>
               </span>
             </Tooltip>
           </div>
