@@ -117,3 +117,12 @@ export const addDownVote = async (downVoteData: IUpvote) => {
     throw new Error(error?.message);
   }
 };
+
+export const searchPost = async (searchTerm: string) => {
+  try {
+    const res = await axiosInstance.get(`posts?searchTerm=${searchTerm}`);
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to search posts");
+  }
+};

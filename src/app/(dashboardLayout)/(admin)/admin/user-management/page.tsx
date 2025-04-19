@@ -317,17 +317,18 @@ export default function App() {
             </Tooltip>
             {user?.isBlocked === false ? (
               <Tooltip color="danger" content="Block user">
-                <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                <span className="text-lg text-success cursor-pointer active:opacity-50">
                   <div onClick={() => handleToggleBlockUnblockUsr(user?.email)}>
-                    <ToggleLeft size={18} />
+                    <ToggleRight size={18} />
                   </div>
                 </span>
               </Tooltip>
             ) : (
               <Tooltip color="success" content="Unblock user">
-                <span className="text-lg text-success cursor-pointer active:opacity-50">
+                <span className="text-lg text-danger cursor-pointer active:opacity-50">
                   <div onClick={() => handleToggleBlockUnblockUsr(user?.email)}>
-                    <ToggleRight size={18} />
+                    {" "}
+                    <ToggleLeft size={18} />
                   </div>
                 </span>
               </Tooltip>
