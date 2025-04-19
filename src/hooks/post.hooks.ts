@@ -8,8 +8,10 @@ import {
   createPost,
   deletePost,
   getMyPosts,
+  searchPost,
   updatePost,
 } from "../services/post";
+import { IPost } from "../types";
 
 export const useCreatePost = () => {
   return useMutation<any, Error, FormData>({
@@ -93,5 +95,12 @@ export const useGetMyPosts = () => {
   return useQuery<any, Error, any>({
     queryKey: ["MY_POSTS"],
     queryFn: async () => await getMyPosts(),
+  });
+};
+
+export const useSearchPost = () => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["SEARCH_POST"],
+    mutationFn: async (searchTerm: string) => await searchPost(searchTerm),
   });
 };
