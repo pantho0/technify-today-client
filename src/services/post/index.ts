@@ -121,7 +121,7 @@ export const addDownVote = async (downVoteData: IUpvote) => {
 export const searchPost = async (searchTerm: string) => {
   try {
     const res = await axiosInstance.get(`/posts?searchTerm=${searchTerm}`);
-    return res.data?.result;
+    return res.data;
   } catch (error) {
     throw new Error("Failed to search posts");
   }
