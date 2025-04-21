@@ -57,6 +57,14 @@ const CreatePostPage = () => {
     return () => clearTimeout(timer);
   }, [content, saveContentToLocalStorage]);
 
+  useEffect(() => {
+    if (isSuccess && !isPending) {
+      // Clear localStorage after successful post
+      localStorage.removeItem("post");
+      router.push("/feeds");
+    }
+  }, [isSuccess, isPending, router]);
+
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
     setImageFile(file);
@@ -97,12 +105,6 @@ const CreatePostPage = () => {
       formData.append("file", imageFile);
 
       handleCreatePost(formData);
-
-      if (isSuccess) {
-        // Clear localStorage after successful post
-        localStorage.removeItem("post");
-        router.push("/");
-      }
     } catch (error) {
       console.error("Submit error:", error);
       toast.error("Error creating post");

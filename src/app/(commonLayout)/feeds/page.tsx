@@ -1,5 +1,5 @@
 import { Button } from "@heroui/button";
-import { Link } from "@heroui/link";
+import { Link, LinkIcon } from "@heroui/link";
 
 import PostCard from "@/src/components/home/PostCard";
 import getLatestPosts from "@/src/services/latestPosts";
@@ -15,9 +15,11 @@ const FeedsPage = async () => {
   return (
     <div className="container mx-auto space-y-10">
       <div className="flex justify-end w-2/4 mx-auto ">
-        <Button color="primary" radius="sm" size="md">
-          Create Post
-        </Button>
+        <Link href="/admin/create-post">
+          <Button color="primary" radius="sm" size="md">
+            Create Post
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 w-2/4 mx-auto gap-10">
