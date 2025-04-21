@@ -8,10 +8,12 @@ import {
 import { EllipsisVertical } from "lucide-react";
 import { useUser } from "@/src/context/user.provider";
 import { useDeletePost } from "../hooks/post.hooks";
+import { useRouter } from "next/navigation";
 
 const PostSetttings = ({ post }: { post: string }) => {
   const { user } = useUser();
   const { mutate: deletePost } = useDeletePost();
+  const router = useRouter();
   const handleDelete = (id: string) => {
     deletePost(id);
   };
@@ -27,7 +29,10 @@ const PostSetttings = ({ post }: { post: string }) => {
         </Button>
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="edit" href={`/${user?.role}/update-post/${post}`}>
+        <DropdownItem
+          key="edit"
+          onPress={() => router.push(`/${user?.role}/update-post/${post}`)}
+        >
           Edit Post
         </DropdownItem>
         <DropdownItem
