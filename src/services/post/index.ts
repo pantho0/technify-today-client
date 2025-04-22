@@ -43,7 +43,7 @@ export const createPost = async (formData: FormData): Promise<any> => {
     return data;
   } catch (error: any) {
     console.log(error);
-    throw new Error("Failed to create post");
+    throw new Error(error?.message);
   }
 };
 

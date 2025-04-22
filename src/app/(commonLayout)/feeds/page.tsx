@@ -1,5 +1,5 @@
 import { Button } from "@heroui/button";
-import { Link, LinkIcon } from "@heroui/link";
+import { Link } from "@heroui/link";
 
 import PostCard from "@/src/components/home/PostCard";
 import getLatestPosts from "@/src/services/latestPosts";
