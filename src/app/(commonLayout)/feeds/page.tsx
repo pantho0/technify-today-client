@@ -12,28 +12,51 @@ import { Spinner } from "@heroui/spinner";
 
 const FeedsPage = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
-
-  console.log(posts);
+  const [isAllPostLoaded, setIsAllPostLoaded] = useState(false);
 
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  console.log(page);
+
+  // const [hasMore, setHasMore] = useState(true);
 
   const fetchPosts = async () => {
+    if (isAllPostLoaded) return;
     const res = await getAllPosts(page);
     const newPosts = res?.data?.result;
 
     if (!newPosts || newPosts.length === 0) {
-      setHasMore(false);
+      setIsAllPostLoaded(true);
       return;
     }
 
-    setPosts((prev) => [...prev, ...newPosts]);
+    setPosts((prev) => {
+      const existingPosts = new Set(prev.map((post) => post._id));
+      const filteredNewPosts = newPosts.filter(
+        (post: any) => !existingPosts.has(post._id)
+      );
+      return [...prev, ...filteredNewPosts];
+    });
     setPage((prev) => prev + 1);
   };
 
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  const refreshPosts = async () => {
+    const res = await getAllPosts(1);
+    const freshPosts = res?.data?.result;
+
+    if (!freshPosts || freshPosts.length === 0) {
+      setPosts([]);
+      setIsAllPostLoaded(true);
+      return;
+    }
+
+    setPosts(freshPosts);
+    setPage(2);
+    setIsAllPostLoaded(false);
+  };
 
   if (!posts) {
     return <div>No posts found</div>;
@@ -52,16 +75,30 @@ const FeedsPage = () => {
       <InfiniteScroll
         dataLength={posts.length}
         next={fetchPosts}
-        hasMore={hasMore}
-        loader={<Spinner />}
+        hasMore={true}
+        refreshFunction={refreshPosts}
+        pullDownToRefresh
+        pullDownToRefreshThreshold={80}
+        pullDownToRefreshContent={
+          <h3 style={{ textAlign: "center" }}>&#8595; Pull down to refresh</h3>
+        }
+        releaseToRefreshContent={
+          <h3 style={{ textAlign: "center" }}>&#8593; Release to refresh</h3>
+        }
+        loader={
+          <div className="w-full flex justify-center py-4">
+            <Spinner />
+          </div>
+        }
         endMessage={
           <p className="text-center text-gray-500 my-4">
             <b>Yay! You have seen it all</b>
           </p>
         }
+        scrollThreshold={0.95}
       >
         <div className="grid grid-cols-1 w-2/4 mx-auto gap-10">
-          {posts?.map((post: IPost, idx) => <PostCard key={idx} post={post} />)}
+          {posts?.map((post: IPost) => <PostCard key={post._id} post={post} />)}
         </div>
       </InfiniteScroll>
     </div>

@@ -109,7 +109,7 @@ p {
 }
 
 .ProseMirror code {
-  font-family: 'Menlo', 'Monaco', 'Courier New', Courier, monospace;
+  font-family: "Menlo", "Monaco", "Courier New", Courier, monospace;
   font-size: 0.9rem;
   line-height: 1.5;
 }
