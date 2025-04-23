@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 
 const LatestPostPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isPaginate, setIspaginate] = useState(false);
   const {
     mutate: handleLoadPost,
     data,
@@ -23,8 +24,9 @@ const LatestPostPage = () => {
   }, [currentPage, setCurrentPage]);
 
   useEffect(() => {
-    if (isSuccess && topRef.current) {
+    if (isSuccess && isPaginate && topRef.current) {
       topRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      setIspaginate(false);
     }
   }, [isSuccess]);
 
@@ -47,7 +49,9 @@ const LatestPostPage = () => {
       </div>
       <Pagination
         showControls
-        onChange={(page: number) => setCurrentPage(page)}
+        onChange={(page: number) => {
+          setCurrentPage(page), setIspaginate(true);
+        }}
         initialPage={1}
         total={data?.data?.meta?.totalPage}
       />
