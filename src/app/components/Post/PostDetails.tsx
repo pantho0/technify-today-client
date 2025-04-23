@@ -1,13 +1,16 @@
 "use client";
 import { Button } from "@heroui/button";
+import { FileText } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { usePDF } from "react-to-pdf";
+import { toast } from "sonner";
 
 export const PostDetails = ({ postData }: { postData: any }) => {
   const { theme, setTheme } = useTheme();
   const { toPDF, targetRef } = usePDF({
     filename: `${postData?.title}.pdf` || `page.pdf+${Date.now()}`,
+    resolution: 2,
     method: "save",
     page: {
       format: "a4",
@@ -24,11 +27,16 @@ export const PostDetails = ({ postData }: { postData: any }) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     toPDF();
     setTheme("dark");
+    toast.success("PDF Downloaded");
   };
 
   return (
-    <div>
-      <Button onPress={handlePdf}>Download as PDF</Button>
+    <div className="space-y-3">
+      <div className="flex justify-end ">
+        <Button className="bg-[#675DD2] text-white" onPress={handlePdf}>
+          Download as PDF <FileText className="animate-ping" />
+        </Button>
+      </div>
       <div ref={targetRef} className="space-y-8">
         <h2 className="text-4xl font-semibold leading-snug">
           {postData?.title}
