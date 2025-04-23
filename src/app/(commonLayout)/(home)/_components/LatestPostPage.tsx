@@ -47,14 +47,16 @@ const LatestPostPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
         {posts?.map((post: IPost) => <PostCard key={post._id} post={post} />)}
       </div>
-      <Pagination
-        showControls
-        onChange={(page: number) => {
-          setCurrentPage(page), setIspaginate(true);
-        }}
-        initialPage={1}
-        total={data?.data?.meta?.totalPage}
-      />
+      <div className="flex justify-center">
+        <Pagination
+          showControls
+          onChange={(page: number) => {
+            setCurrentPage(page), setIspaginate(true);
+          }}
+          initialPage={1}
+          total={data?.data?.meta?.totalPage}
+        />
+      </div>
     </div>
   );
 };
