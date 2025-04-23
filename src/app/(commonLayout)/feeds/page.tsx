@@ -9,12 +9,14 @@ import { useEffect, useState } from "react";
 import { getAllPosts } from "@/src/services/post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Spinner } from "@heroui/spinner";
+import { ArrowUp } from "lucide-react";
 
 const FeedsPage = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isAllPostLoaded, setIsAllPostLoaded] = useState(false);
+  const [showTopBtn, setShowTopBtn] = useState(false);
 
   const fetchPosts = async () => {
     if (isAllPostLoaded) return;
@@ -58,6 +60,23 @@ const FeedsPage = () => {
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) setShowTopBtn(true);
+      else setShowTopBtn(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   if (!posts) {
     return <div>No posts found</div>;
@@ -108,6 +127,15 @@ const FeedsPage = () => {
           </div>
         </InfiniteScroll>
       </div>
+
+      {showTopBtn && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-10 right-10 bg-primary text-white rounded-full p-2 animate-pulse  shadow-lg hover:bg-primary/80 transition"
+        >
+          <ArrowUp className="size-5" />
+        </button>
+      )}
     </div>
   );
 };
