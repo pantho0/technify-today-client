@@ -7,11 +7,18 @@ import {
   createComment,
   createPost,
   deletePost,
+  getAllPosts,
   getMyPosts,
   searchPost,
   updatePost,
 } from "../services/post";
-import { IPost } from "../types";
+
+export const useLatestPost = () => {
+  return useMutation<any, Error, any>({
+    mutationKey: ["LATEST_POSTS"],
+    mutationFn: async (page: Number) => await getAllPosts(page),
+  });
+};
 
 export const useCreatePost = () => {
   return useMutation<any, Error, FormData>({

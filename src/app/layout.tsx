@@ -7,6 +7,7 @@ import "./globals.css";
 
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
+import Footer from "../components/home/Footer";
 
 export const metadata: Metadata = {
   title: {

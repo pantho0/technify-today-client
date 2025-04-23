@@ -22,6 +22,15 @@ export const getSinglePost = async (id: string) => {
   return await res.json();
 };
 
+export const getAllPosts = async (page: Number = 1) => {
+  try {
+    const { data } = await axiosInstance.get(`/posts?page=${page}`);
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};
+
 export const getMyPosts = async () => {
   try {
     const { data } = await axiosInstance.get("/posts/own-posts");
