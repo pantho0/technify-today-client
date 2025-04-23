@@ -12,12 +12,9 @@ import { Spinner } from "@heroui/spinner";
 
 const FeedsPage = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
-  const [isAllPostLoaded, setIsAllPostLoaded] = useState(false);
-
   const [page, setPage] = useState(1);
-  console.log(page);
-
-  // const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+  const [isAllPostLoaded, setIsAllPostLoaded] = useState(false);
 
   const fetchPosts = async () => {
     if (isAllPostLoaded) return;
@@ -26,6 +23,7 @@ const FeedsPage = () => {
 
     if (!newPosts || newPosts.length === 0) {
       setIsAllPostLoaded(true);
+      setHasMore(false);
       return;
     }
 
@@ -39,24 +37,27 @@ const FeedsPage = () => {
     setPage((prev) => prev + 1);
   };
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
   const refreshPosts = async () => {
     const res = await getAllPosts(1);
     const freshPosts = res?.data?.result;
 
     if (!freshPosts || freshPosts.length === 0) {
       setPosts([]);
+      setPage(2);
       setIsAllPostLoaded(true);
+      setHasMore(false);
       return;
     }
 
     setPosts(freshPosts);
     setPage(2);
     setIsAllPostLoaded(false);
+    setHasMore(true);
   };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   if (!posts) {
     return <div>No posts found</div>;
@@ -72,35 +73,41 @@ const FeedsPage = () => {
         </Link>
       </div>
 
-      <InfiniteScroll
-        dataLength={posts.length}
-        next={fetchPosts}
-        hasMore={true}
-        refreshFunction={refreshPosts}
-        pullDownToRefresh
-        pullDownToRefreshThreshold={80}
-        pullDownToRefreshContent={
-          <h3 style={{ textAlign: "center" }}>&#8595; Pull down to refresh</h3>
-        }
-        releaseToRefreshContent={
-          <h3 style={{ textAlign: "center" }}>&#8593; Release to refresh</h3>
-        }
-        loader={
-          <div className="w-full flex justify-center py-4">
-            <Spinner />
+      <div className="min-h-screen">
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={fetchPosts}
+          hasMore={hasMore}
+          refreshFunction={refreshPosts}
+          pullDownToRefresh
+          pullDownToRefreshThreshold={80}
+          pullDownToRefreshContent={
+            <h3 style={{ textAlign: "center" }}>
+              &#8595; Pull down to refresh
+            </h3>
+          }
+          releaseToRefreshContent={
+            <h3 style={{ textAlign: "center" }}>&#8593; Release to refresh</h3>
+          }
+          loader={
+            <div className="w-full flex justify-center py-4">
+              <Spinner />
+            </div>
+          }
+          endMessage={
+            <p className="text-center text-gray-500 my-4">
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+          scrollThreshold={0.95}
+        >
+          <div className="grid grid-cols-1 w-2/4 mx-auto gap-10">
+            {posts?.map((post: IPost) => (
+              <PostCard key={post._id} post={post} />
+            ))}
           </div>
-        }
-        endMessage={
-          <p className="text-center text-gray-500 my-4">
-            <b>Yay! You have seen it all</b>
-          </p>
-        }
-        scrollThreshold={0.95}
-      >
-        <div className="grid grid-cols-1 w-2/4 mx-auto gap-10">
-          {posts?.map((post: IPost) => <PostCard key={post._id} post={post} />)}
-        </div>
-      </InfiniteScroll>
+        </InfiniteScroll>
+      </div>
     </div>
   );
 };
