@@ -6,6 +6,7 @@ import { IPost } from "@/src/types";
 import CommentCard from "@/src/components/ui/CommentCard";
 import { PostComments } from "@/src/app/components/Post/PostComments";
 import { PostReaction } from "@/src/app/components/Post/PostReaction";
+import { PostDetails } from "@/src/app/components/Post/PostDetails";
 
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params?.postId);
@@ -15,20 +16,7 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   return (
     <div className="container  px-4 py-8">
       <div className="space-y-8">
-        <h2 className="text-4xl font-semibold leading-snug">
-          {postData?.title}
-        </h2>
-        <Image
-          alt={postData?.title}
-          className="w-full h-[500px] object-cover rounded-lg"
-          height={600}
-          src={postData?.image}
-          width={600}
-        />
-        <div
-          className="prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: postData?.details }}
-        />
+        <PostDetails postData={postData} />
 
         <Divider className="my-4" />
 
