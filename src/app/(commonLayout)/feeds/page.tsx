@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import { getAllPosts } from "@/src/services/post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Spinner } from "@heroui/spinner";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, FilePen, SlidersHorizontalIcon } from "lucide-react";
+import { Tooltip } from "@heroui/tooltip";
 
 const FeedsPage = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -84,11 +85,16 @@ const FeedsPage = () => {
 
   return (
     <div className="container mx-auto space-y-10">
-      <div className="flex justify-end w-2/4 mx-auto ">
+      <div className="flex justify-end w-2/4 mx-auto gap-2 ">
         <Link href="/admin/create-post">
-          <Button color="primary" radius="sm" size="md">
-            Create Post
-          </Button>
+          <Tooltip content="Create Post">
+            <FilePen />
+          </Tooltip>
+        </Link>
+        <Link href="/admin/create-post">
+          <Tooltip content="Filter Post">
+            <SlidersHorizontalIcon />
+          </Tooltip>
         </Link>
       </div>
 
