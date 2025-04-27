@@ -24,10 +24,11 @@ const FeedsPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const [isAllPostLoaded, setIsAllPostLoaded] = useState(false);
   const [showTopBtn, setShowTopBtn] = useState(false);
+  const [selectedCategories, setSelectecCategories] = useState<string[]>([]);
 
   const fetchPosts = async () => {
     if (isAllPostLoaded) return;
-    const res = await getAllPosts(page);
+    const res = await getAllPosts(page, selectedCategories);
     const newPosts = res?.data?.result;
 
     if (!newPosts || newPosts.length === 0) {
@@ -37,6 +38,10 @@ const FeedsPage = () => {
     }
 
     setPosts((prev) => {
+      if (page === 1) {
+        return newPosts;
+      }
+
       const existingPosts = new Set(prev.map((post) => post._id));
       const filteredNewPosts = newPosts.filter(
         (post: any) => !existingPosts.has(post._id)
@@ -47,7 +52,7 @@ const FeedsPage = () => {
   };
 
   const refreshPosts = async () => {
-    const res = await getAllPosts(1);
+    const res = await getAllPosts(1, selectedCategories);
     const freshPosts = res?.data?.result;
 
     if (!freshPosts || freshPosts.length === 0) {
@@ -67,6 +72,28 @@ const FeedsPage = () => {
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    const refreshPostAfterFilterChange = async () => {
+      const res = await getAllPosts(1, selectedCategories);
+      const freshPosts = res?.data?.result;
+
+      if (!freshPosts || freshPosts.length === 0) {
+        setPosts([]);
+        setPage(2);
+        setIsAllPostLoaded(true);
+        setHasMore(false);
+        return;
+      }
+
+      setPosts(freshPosts);
+      setPage(2);
+      setIsAllPostLoaded(false);
+      setHasMore(true);
+    };
+
+    refreshPostAfterFilterChange();
+  }, [selectedCategories]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,7 +125,15 @@ const FeedsPage = () => {
           </Tooltip>
         </Link>
 
-        <PostFilterDropDown />
+        <PostFilterDropDown
+          onSelectionChange={(keys) => {
+            setSelectecCategories(keys);
+            setPage(1);
+            setPosts([]);
+            setIsAllPostLoaded(false);
+            setHasMore(true);
+          }}
+        />
 
         <Link href="/admin/create-post">
           <Tooltip content="Refresh Post">

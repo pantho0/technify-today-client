@@ -10,7 +10,11 @@ import { Tooltip } from "@heroui/tooltip";
 import { SlidersHorizontalIcon } from "lucide-react";
 import React from "react";
 
-export const PostFilterDropDown = () => {
+export const PostFilterDropDown = ({
+  onSelectionChange,
+}: {
+  onSelectionChange: (keys: string[]) => void;
+}) => {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set(["text"]));
 
   console.log(selectedKeys);
@@ -19,6 +23,12 @@ export const PostFilterDropDown = () => {
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
+
+  const handleSelectionChange = (keys: any) => {
+    setSelectedKeys(keys);
+    onSelectionChange(Array.from(keys));
+  };
+
   return (
     <div>
       <Dropdown>
@@ -30,19 +40,18 @@ export const PostFilterDropDown = () => {
           </div>
         </DropdownTrigger>
         <DropdownMenu
-          disallowEmptySelection
           aria-label="Multiple selection example"
           closeOnSelect={false}
           selectedKeys={selectedKeys}
           selectionMode="multiple"
           variant="flat"
-          onSelectionChange={setSelectedKeys}
+          onSelectionChange={handleSelectionChange}
         >
-          <DropdownItem key="text">Text</DropdownItem>
-          <DropdownItem key="number">Number</DropdownItem>
-          <DropdownItem key="date">Date</DropdownItem>
-          <DropdownItem key="single_date">Single Date</DropdownItem>
-          <DropdownItem key="iteration">Iteration</DropdownItem>
+          <DropdownItem key="Development">Development</DropdownItem>
+          <DropdownItem key="design">design</DropdownItem>
+          <DropdownItem key="other">other</DropdownItem>
+          <DropdownItem key="mobile">mobile</DropdownItem>
+          <DropdownItem key="cloud">cloud</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </div>
