@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@heroui/button";
+
 import { Link } from "@heroui/link";
 
 import PostCard from "@/src/components/home/PostCard";
@@ -9,8 +9,14 @@ import { useEffect, useState } from "react";
 import { getAllPosts } from "@/src/services/post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Spinner } from "@heroui/spinner";
-import { ArrowUp, FilePen, SlidersHorizontalIcon } from "lucide-react";
+import {
+  ArrowUp,
+  FilePen,
+  RefreshCw,
+  SlidersHorizontalIcon,
+} from "lucide-react";
 import { Tooltip } from "@heroui/tooltip";
+import { PostFilterDropDown } from "@/src/components/ui/PostFilterDropDown";
 
 const FeedsPage = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -91,9 +97,12 @@ const FeedsPage = () => {
             <FilePen />
           </Tooltip>
         </Link>
+
+        <PostFilterDropDown />
+
         <Link href="/admin/create-post">
-          <Tooltip content="Filter Post">
-            <SlidersHorizontalIcon />
+          <Tooltip content="Refresh Post">
+            <RefreshCw />
           </Tooltip>
         </Link>
       </div>

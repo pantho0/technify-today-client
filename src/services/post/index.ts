@@ -22,13 +22,30 @@ export const getSinglePost = async (id: string) => {
   return await res.json();
 };
 
-export const getAllPosts = async (page: Number = 1) => {
-  try {
-    const { data } = await axiosInstance.get(`/posts?page=${page}`);
-    return data;
-  } catch (error: any) {
-    throw new Error(error?.message);
+export const getAllPosts = async (page: Number = 1, filters: string[] = []) => {
+  let queryParams = new URLSearchParams();
+  queryParams.append("page", String(page));
+
+  filters.forEach((filter) => {
+    queryParams.append("category", filter);
+  });
+
+  let fetchOptions = {};
+  fetchOptions = {
+    next: {
+      tags: ["refresh", "post"],
+      revalidateTag: 5,
+    },
+  };
+
+  const res = await fetch(
+    `${envConfig.backendUrl}/posts?${queryParams.toString()}`,
+    fetchOptions
+  );
+  if (!res.ok) {
+    throw new Error("Fetching failed");
   }
+  return await res.json();
 };
 
 export const getMyPosts = async () => {
