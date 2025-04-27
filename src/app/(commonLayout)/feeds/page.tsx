@@ -20,6 +20,7 @@ import { PostFilterDropDown } from "@/src/components/ui/PostFilterDropDown";
 
 const FeedsPage = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [revalidatePosts, setRevalidatePosts] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isAllPostLoaded, setIsAllPostLoaded] = useState(false);
@@ -52,6 +53,7 @@ const FeedsPage = () => {
   };
 
   const refreshPosts = async () => {
+    setRevalidatePosts(true); // Trigger re-fetch
     const res = await getAllPosts(1, selectedCategories);
     const freshPosts = res?.data?.result;
 
@@ -60,6 +62,7 @@ const FeedsPage = () => {
       setPage(2);
       setIsAllPostLoaded(true);
       setHasMore(false);
+      setRevalidatePosts(false);
       return;
     }
 
@@ -67,6 +70,7 @@ const FeedsPage = () => {
     setPage(2);
     setIsAllPostLoaded(false);
     setHasMore(true);
+    setRevalidatePosts(false);
   };
 
   useEffect(() => {
@@ -135,11 +139,11 @@ const FeedsPage = () => {
           }}
         />
 
-        <Link href="/admin/create-post">
+        <button className="text-primary" onClick={refreshPosts}>
           <Tooltip content="Refresh Post">
             <RefreshCw />
           </Tooltip>
-        </Link>
+        </button>
       </div>
 
       <div className="min-h-screen">
