@@ -24,15 +24,10 @@ export const PostFilterDropDown = ({
     [selectedKeys]
   );
 
-  // const handleSelectionChange = (keys: any) => {
-  //   setSelectedKeys(keys);
-  //   onSelectionChange(Array.from(keys));
-  // };
-
   const handleSelectionChange = (keys: any) => {
     const selected = keys ? Array.from(keys) : [];
-    setSelectedKeys(new Set(selected));
-    onSelectionChange(selected);
+    setSelectedKeys(new Set(selected) as Set<string>);
+    onSelectionChange(selected as string[]);
   };
 
   return (

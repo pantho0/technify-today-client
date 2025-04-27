@@ -174,7 +174,7 @@ const FeedsPage = () => {
           }
           endMessage={
             <p className="text-center text-gray-500 my-4">
-              <b>Yay! You have seen it all</b>
+              <b>No more data to load!!</b>
             </p>
           }
           scrollThreshold={0.95}
