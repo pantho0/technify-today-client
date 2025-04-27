@@ -26,9 +26,11 @@ export const getAllPosts = async (page: Number = 1, filters: string[] = []) => {
   let queryParams = new URLSearchParams();
   queryParams.append("page", String(page));
 
-  filters.forEach((filter) => {
-    queryParams.append("category", filter);
-  });
+  if (filters.length > 0) {
+    filters.forEach((filter) => {
+      queryParams.append("category", filter);
+    });
+  }
 
   let fetchOptions = {};
   fetchOptions = {
@@ -38,10 +40,9 @@ export const getAllPosts = async (page: Number = 1, filters: string[] = []) => {
     },
   };
 
-  const res = await fetch(
-    `${envConfig.backendUrl}/posts?${queryParams.toString()}`,
-    fetchOptions
-  );
+  const url = `${envConfig.backendUrl}/posts?${queryParams.toString() ? `${queryParams.toString()}` : ""}`;
+
+  const res = await fetch(url, fetchOptions);
   if (!res.ok) {
     throw new Error("Fetching failed");
   }

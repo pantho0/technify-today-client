@@ -26,7 +26,7 @@ const FeedsPage = () => {
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [selectedCategories, setSelectecCategories] = useState<string[]>([]);
 
-  const fetchPosts = async () => {
+  const fetchPosts = async (pageNum = page) => {
     if (isAllPostLoaded) return;
     const res = await getAllPosts(page, selectedCategories);
     const newPosts = res?.data?.result;
@@ -70,7 +70,7 @@ const FeedsPage = () => {
   };
 
   useEffect(() => {
-    fetchPosts();
+    fetchPosts(1);
   }, []);
 
   useEffect(() => {

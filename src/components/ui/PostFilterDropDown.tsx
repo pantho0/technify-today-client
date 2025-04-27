@@ -15,7 +15,7 @@ export const PostFilterDropDown = ({
 }: {
   onSelectionChange: (keys: string[]) => void;
 }) => {
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set(["text"]));
+  const [selectedKeys, setSelectedKeys] = React.useState(new Set<string>());
 
   console.log(selectedKeys);
 
@@ -24,9 +24,15 @@ export const PostFilterDropDown = ({
     [selectedKeys]
   );
 
+  // const handleSelectionChange = (keys: any) => {
+  //   setSelectedKeys(keys);
+  //   onSelectionChange(Array.from(keys));
+  // };
+
   const handleSelectionChange = (keys: any) => {
-    setSelectedKeys(keys);
-    onSelectionChange(Array.from(keys));
+    const selected = keys ? Array.from(keys) : [];
+    setSelectedKeys(new Set(selected));
+    onSelectionChange(selected);
   };
 
   return (
