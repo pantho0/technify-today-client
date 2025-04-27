@@ -53,11 +53,16 @@ export const PostFilterDropDown = ({
           variant="flat"
           onSelectionChange={handleSelectionChange}
         >
-          <DropdownItem key="Development">Development</DropdownItem>
-          <DropdownItem key="design">design</DropdownItem>
-          <DropdownItem key="other">other</DropdownItem>
-          <DropdownItem key="mobile">mobile</DropdownItem>
-          <DropdownItem key="cloud">cloud</DropdownItem>
+          <DropdownItem key="software">Software</DropdownItem>
+          <DropdownItem key="networking">Networking</DropdownItem>
+          <DropdownItem key="hardware">Hardware</DropdownItem>
+          <DropdownItem key="security">Security</DropdownItem>
+          <DropdownItem key="web">Web</DropdownItem>
+          <DropdownItem key="cloud">Cloud</DropdownItem>
+          <DropdownItem key="mobile">Mobile</DropdownItem>
+          <DropdownItem key="design">Design</DropdownItem>
+          <DropdownItem key="database">Database</DropdownItem>
+          <DropdownItem key="other">Other</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </div>

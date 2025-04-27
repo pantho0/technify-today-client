@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Tooltip } from "@heroui/tooltip";
 import { PostFilterDropDown } from "@/src/components/ui/PostFilterDropDown";
+import { toast } from "sonner";
 
 const FeedsPage = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -65,7 +66,7 @@ const FeedsPage = () => {
       setRevalidatePosts(false);
       return;
     }
-
+    toast.success("Latest Post Loaded");
     setPosts(freshPosts);
     setPage(2);
     setIsAllPostLoaded(false);
@@ -123,27 +124,31 @@ const FeedsPage = () => {
   return (
     <div className="container mx-auto space-y-10">
       <div className="flex justify-end w-2/4 mx-auto gap-2 ">
-        <Link href="/admin/create-post">
-          <Tooltip content="Create Post">
-            <FilePen />
-          </Tooltip>
-        </Link>
+        <div className="border-primary-50 border-2 rounded-lg p-2 flex gap-2">
+          <Link href="/admin/create-post">
+            <Tooltip content="Create Post">
+              <FilePen />
+            </Tooltip>
+          </Link>
 
-        <PostFilterDropDown
-          onSelectionChange={(keys) => {
-            setSelectecCategories(keys);
-            setPage(1);
-            setPosts([]);
-            setIsAllPostLoaded(false);
-            setHasMore(true);
-          }}
-        />
+          <div className="cursor-pointer">
+            <PostFilterDropDown
+              onSelectionChange={(keys) => {
+                setSelectecCategories(keys);
+                setPage(1);
+                setPosts([]);
+                setIsAllPostLoaded(false);
+                setHasMore(true);
+              }}
+            />
+          </div>
 
-        <button className="text-primary" onClick={refreshPosts}>
-          <Tooltip content="Refresh Post">
-            <RefreshCw />
-          </Tooltip>
-        </button>
+          <button className="text-primary" onClick={refreshPosts}>
+            <Tooltip content="Refresh Post">
+              <RefreshCw />
+            </Tooltip>
+          </button>
+        </div>
       </div>
 
       <div className="min-h-screen">
