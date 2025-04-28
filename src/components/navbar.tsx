@@ -25,6 +25,7 @@ import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/theme-switch";
 import { GithubIcon, Logo } from "@/src/components/icons";
 import SearchBar from "./ui/SearchBar";
+import { LogInIcon } from "lucide-react";
 
 export const Navbar = () => {
   const { user } = useUser();
@@ -39,7 +40,7 @@ export const Navbar = () => {
               href="/"
             >
               <Logo />
-              <p className="font-bold text-inherit text-lg ml-1">
+              <p className="font-bold text-inherit text-sm md:text-lg ml-1">
                 Technify <span>Today</span>
               </p>
             </NextLink>
@@ -72,7 +73,7 @@ export const Navbar = () => {
           <NavbarItem className="hidden sm:flex gap-2">
             <ThemeSwitch />
           </NavbarItem>
-          <NavbarItem className="hidden md:flex">
+          <NavbarItem>
             {user?.email ? (
               <NavDropDown />
             ) : (
@@ -85,9 +86,20 @@ export const Navbar = () => {
           </NavbarItem>
         </NavbarContent>
 
-        <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+        <NavbarContent className="md:hidden" justify="end">
           <ThemeSwitch />
           <NavbarMenuToggle />
+          <div className="mt-[6px]">
+            <NavbarItem>
+              {user?.email ? (
+                <NavDropDown />
+              ) : (
+                <Link href="/login">
+                  <LogInIcon />
+                </Link>
+              )}
+            </NavbarItem>
+          </div>
         </NavbarContent>
 
         <NavbarMenu>
