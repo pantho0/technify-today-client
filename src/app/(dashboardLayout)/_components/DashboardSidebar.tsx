@@ -27,7 +27,7 @@ const DashboardSidebar = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <div className="flex items-center gap-2 p-5">
         <Link className="text-inherit" href="/">
           <Image alt="logo" height={32} src="/logo.png" width={32} />

@@ -13,7 +13,7 @@ export const DashboardWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex h-screen">
       <div
-        className={`fixed border-r border-gray-200 lg:relative lg:w-1/5 h-screen overflow-y-auto overflow-x-hidden transform transition-transform duration-300 ease-in-out ${
+        className={`fixed border-r border-gray-200 bg-foreground-100/30 lg:relative lg:w-1/5 h-screen overflow-y-auto overflow-x-hidden transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 z-10`}
       >

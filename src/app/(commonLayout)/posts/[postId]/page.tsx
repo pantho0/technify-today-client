@@ -33,7 +33,7 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
                 width={40}
               />
             </div>
-            <div className="md:flex-1">
+            <div className="flex-1">
               <div className="relative">
                 <PostComments postId={data?._id} />
               </div>
