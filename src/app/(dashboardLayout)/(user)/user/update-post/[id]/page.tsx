@@ -6,14 +6,11 @@ import TTInput from "@/src/components/form/TTInput";
 import TTSelect from "@/src/components/form/TTSelect";
 import Loading from "@/src/components/ui/Loading";
 import { postCategories, postStatus } from "@/src/constants";
-
 import { useUpdatePost } from "@/src/hooks/post.hooks";
-
 import { getSinglePost } from "@/src/services/post";
 import { IPost } from "@/src/types";
 import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
-
 import { Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
