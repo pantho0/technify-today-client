@@ -112,7 +112,7 @@ const CreatePostPage = () => {
   };
 
   return (
-    <div className="max-w-7xl  md:p-4  mx-6 my-6 rounded-xl border-dotted border-2">
+    <div className="max-w-7xl p-2  md:p-4  mx-6 my-6 rounded-xl border-dotted border-2">
       <div>
         <h2 className="text-2xl font-semibold leading-snug text-center mb-4">
           Create Post
@@ -139,32 +139,35 @@ const CreatePostPage = () => {
             content={content}
             onChange={(newContent: string) => handleContentChange(newContent)}
           />
-          <div>
-            {imagePreview && (
-              <div>
-                <div className="relative size-48 rounded-xl border-2 border-dashed p-2">
-                  <img
-                    alt="image"
-                    className="w-full h-full object-cover rounded-xl"
-                    src={imagePreview}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-          <div>
-            <label className="flex h-14 w-full bg-primary text-white cursor-pointer items-center justify-center rounded-md border-2 border-default-100 shadow-sm  transition-all duration-100 hover:border-default-400">
-              Upload Image:
+          <div className="w-full">
+            <label className="flex flex-col items-center justify-center w-full h-64 rounded-xl border-2 border-dashed text-gray-400 cursor-pointer hover:bg-primary/10 transition-all overflow-hidden">
+              {imagePreview ? (
+                <img
+                  alt="Preview Image"
+                  src={imagePreview}
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <span className="text-lg font-semibold text-primary">
+                  Click to upload image
+                </span>
+              )}
               <input
-                className="w-full hidden"
-                name="image"
                 type="file"
+                name="image"
+                className="hidden"
                 onChange={handleImage}
               />
             </label>
           </div>
-          <div className="w-1/2 mx-auto p-2">
-            <Button className="w-full" size="lg" type="submit">
+
+          <div className="w-full mx-auto p-2">
+            <Button
+              className="w-full rounded-none bg-primary-300
+            "
+              size="lg"
+              type="submit"
+            >
               Create
             </Button>
           </div>
