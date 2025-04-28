@@ -16,6 +16,7 @@ interface IUserContext {
   userId: any;
   role: any;
   email: any;
+  image: any;
   iat: any;
   exp: any;
 }

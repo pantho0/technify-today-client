@@ -31,11 +31,7 @@ const NavDropDown = () => {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Avatar
-          className="cursor-pointer"
-          size="md"
-          src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-        />
+        <Avatar className="cursor-pointer" size="md" src={user?.image} />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem
