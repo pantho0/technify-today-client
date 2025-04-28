@@ -179,7 +179,7 @@ const FeedsPage = () => {
           }
           scrollThreshold={0.8}
         >
-          <div className="grid grid-cols-1 md:w-2/4 mx-auto gap-10">
+          <div className="grid grid-cols-1 max-w-2xl mx-auto gap-6">
             {posts?.map((post: IPost) => (
               <PostCard key={post._id} post={post} />
             ))}
