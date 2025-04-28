@@ -28,3 +28,21 @@ export const blockUser = async (email: string) => {
     throw new Error("Failed to block user");
   }
 };
+
+export const uploadProfileImage = async (formData: FormData) => {
+  try {
+    const { data } = await axiosInstance.put(
+      "/users/update-profile-picture",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error?.message);
+  }
+};
