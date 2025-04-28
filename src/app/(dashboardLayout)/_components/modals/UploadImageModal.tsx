@@ -13,9 +13,11 @@ import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { useUserImageUpload } from "@/src/hooks/user.hooks";
 import Loading from "@/src/components/ui/Loading"; // assuming you have a Loading spinner component
+import { useRouter } from "next/navigation";
 
 export default function UploadImageModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router = useRouter();
   const {
     mutate: handleUserImageUpload,
     isPending,
@@ -53,10 +55,15 @@ export default function UploadImageModal() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Image uploaded successfully");
-      onCloseRef.current(); // ✅ properly close using the real onClose
+      onCloseRef.current();
       setImagePreview("");
       setImageFile(null);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
+
     if (isError) {
       toast.error("Failed to upload image");
     }
