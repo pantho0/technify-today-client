@@ -27,17 +27,18 @@ export const PostComments = ({ postId }: { postId: string }) => {
         <div className="w-full">
           <TTInput name="comment" label="Add a comment" />
         </div>
-        <Button
-          className="absolute right-2 top-1/2 -translate-y-1/2"
-          color="primary"
-          isLoading={isPending}
-          size="sm"
-          type="submit"
-          variant="ghost"
-          disabled={isPending}
-        >
-          <Send />
-        </Button>
+        <div className="w-2">
+          <Button
+            className="absolute right-2 top-1/2 -translate-y-1/2"
+            color="primary"
+            isLoading={isPending}
+            type="submit"
+            variant="bordered"
+            disabled={isPending}
+          >
+            <Send className="size-5" />
+          </Button>
+        </div>
       </TTForm>
     </div>
   );

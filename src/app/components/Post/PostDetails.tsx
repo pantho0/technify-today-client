@@ -38,12 +38,12 @@ export const PostDetails = ({ postData }: { postData: any }) => {
         </Button>
       </div>
       <div ref={targetRef} className="space-y-8">
-        <h2 className="text-4xl font-semibold leading-snug">
+        <h2 className="text-2xlmd:text-4xl font-semibold leading-snug">
           {postData?.title}
         </h2>
         <Image
           alt={postData?.title}
-          className="w-full h-[500px] object-cover rounded-lg"
+          className="w-full md:h-[500px] object-cover rounded-lg"
           height={600}
           src={postData?.image}
           width={600}

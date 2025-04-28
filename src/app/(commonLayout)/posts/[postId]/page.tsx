@@ -14,7 +14,7 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const postData = data as IPost;
 
   return (
-    <div className="container  px-4 py-8">
+    <div className="container px-[2px]  md:px-4 py-8">
       <div className="space-y-8">
         <PostDetails postData={postData} />
 
@@ -23,8 +23,8 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
         <PostReaction postData={postData} />
 
         <div className="border-1 border-foreground/20 rounded-lg p-4">
-          <div className="flex gap-4 border border-foreground/20 rounded-lg p-3">
-            <div className="w-14 h-14">
+          <div className="flex gap-1 flex-row md:gap-4 border border-foreground/20 rounded-lg p-3">
+            <div className="size-7 md:w-14 md:h-14">
               <Image
                 alt="user"
                 className="rounded-full"
@@ -33,7 +33,7 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
                 width={40}
               />
             </div>
-            <div className="flex-1">
+            <div className="md:flex-1">
               <div className="relative">
                 <PostComments postId={data?._id} />
               </div>
