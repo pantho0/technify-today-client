@@ -61,9 +61,9 @@ const SearchBar = () => {
         />
 
         {searchResult.length > 0 && (
-          <div className="absolute  right-40 mt-2 bg-gray-200 backdrop-blur-md border border-gray-200 shadow-lg rounded-md max-h-80 overflow-y-auto z-50 p-3">
+          <div className="absolute  mx-6 right-0 mt-2  bg-gray-200 backdrop-blur-md border border-gray-200 shadow-lg rounded-md max-h-80 overflow-y-auto z-50 p-3">
             {searchResult.map((post: IPost, idx) => (
-              <div>
+              <div key={post._id || idx}>
                 <Link href={`/posts/${post._id}`} key={post._id || idx}>
                   <div className=" flex items-center gap-3 p-2 text-black hover:bg-primary hover:text-white cursor-pointer rounded-md transition-all">
                     <img
@@ -82,8 +82,10 @@ const SearchBar = () => {
         )}
 
         {isPending && (
-          <div className="absolute w-96 right-40 mt-2  bg-gray-200 bg-black/50 backdrop-blur-md border border-gray-200 shadow-md rounded-md z-50 p-3">
-            <p className="text-sm text-black">Searching...</p>
+          <div className="absolute  md:right-40 mt-2 md:mx-0 bg-gray-200 backdrop-blur-md border border-gray-200 shadow-lg rounded-md max-h-80 overflow-y-auto z-50 p-3">
+            <div className="w-full block">
+              <p className="text-sm text-black">Searching...</p>
+            </div>
           </div>
         )}
       </form>

@@ -54,7 +54,7 @@ const FeedsPage = () => {
   };
 
   const refreshPosts = async () => {
-    setRevalidatePosts(true); // Trigger re-fetch
+    setRevalidatePosts(true);
     const res = await getAllPosts(1, selectedCategories);
     const freshPosts = res?.data?.result;
 

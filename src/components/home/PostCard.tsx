@@ -31,25 +31,29 @@ const PostCard = ({ post }: { post: IPost }) => {
             </div>
           )}
           <div className="bg-primary/30 inset-0 backdrop-blur-md inline-block px-3 py-1 rounded-md">
-            <h3 className="inline-block text-primary text-[14px] font-semibold">
-              <Link href={`/category/${post.category}`}>{post.category}</Link>
+            <h3 className="inline-block text-primary font-semibold text-[14px] ">
+              <Link href={`/category/${post.category}`}>
+                {post.category.toUpperCase()}
+              </Link>
             </h3>
           </div>
 
           <div>
             <Link href={`/posts/${post._id}`} className="text-decoration-none">
-              <p className="text-2xl font-semibold">{post.title}</p>
+              <p className="font-semibold text-xl md:text-2xl ">{post.title}</p>
             </Link>
           </div>
         </div>
       </CardBody>
-      <CardFooter className="justify-between">
+      <CardFooter className="justify-between gap-1">
         <User
+          className="avatarFontSize"
           avatarProps={{
             src: post.user.profileImage,
           }}
           name={post.user.fullName}
         />
+
         <p>{moment(post.createdAt).format("LL")}</p>
       </CardFooter>
     </Card>
