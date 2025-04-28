@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable jsx-a11y/img-redundant-alt */
 
 import { toast } from "sonner";
 import { Button } from "@heroui/button";
@@ -46,7 +45,6 @@ const CreatePostPage = () => {
     setContent(value);
   };
 
-  // Auto-save every 5 seconds if content changes
   useEffect(() => {
     if (!content) return;
 
@@ -163,8 +161,7 @@ const CreatePostPage = () => {
 
           <div className="w-full mx-auto p-2">
             <Button
-              className="w-full rounded-none bg-primary-300
-            "
+              className="w-full rounded-none bg-primary-300"
               size="lg"
               type="submit"
             >

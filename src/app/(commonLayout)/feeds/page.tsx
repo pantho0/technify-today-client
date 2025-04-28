@@ -177,7 +177,7 @@ const FeedsPage = () => {
               <b>No more data to load!!</b>
             </p>
           }
-          scrollThreshold={0.95}
+          scrollThreshold={0.8}
         >
           <div className="grid grid-cols-1 w-2/4 mx-auto gap-10">
             {posts?.map((post: IPost) => (

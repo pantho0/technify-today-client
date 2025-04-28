@@ -11,6 +11,7 @@ import { Divider } from "@heroui/divider";
 import { VerifiedIcon } from "lucide-react";
 import Image from "next/image";
 import ChangePasswordModal from "../../../_components/modals/ChangePassword";
+import UploadImageModal from "../../../_components/modals/UploadImageModal";
 
 const ProfilePage = () => {
   const { data, isLoading } = useGetMe();
@@ -45,7 +46,7 @@ const ProfilePage = () => {
           </div>
           <div className="flex justify-center gap-2 mt-3">
             <ChangePasswordModal />
-            <Button size="sm">Change Profile Picture</Button>
+            <UploadImageModal />
           </div>
 
           <Divider className="my-8" />
