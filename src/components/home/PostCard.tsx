@@ -15,14 +15,16 @@ const PostCard = ({ post }: { post: IPost }) => {
   return (
     <Card className="">
       <CardBody className="overflow-visible">
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div className="w-full">
             <Link href={`/posts/${post._id}`}>
-              <img
-                className="rounded-md w-[600px] h-[250px] object-cover object-center"
-                src={post.image}
-                alt={post.title}
-              />
+              <div className="w-full aspect-video overflow-hidden rounded-md">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="object-cover object-center w-full h-full"
+                />
+              </div>
             </Link>
           </div>
           {user?.userId === post.user._id && (
@@ -30,8 +32,8 @@ const PostCard = ({ post }: { post: IPost }) => {
               <PostSetttings post={post?._id} />
             </div>
           )}
-          <div className="bg-primary/30 inset-0 backdrop-blur-md inline-block px-3 py-1 rounded-md">
-            <h3 className="inline-block text-primary font-semibold text-[14px] ">
+          <div className="bg-primary/30 inset-0 backdrop-blur-md inline-block px-2 py-1 rounded-md">
+            <h3 className="inline-block text-primary font-semibold text-[12px] ">
               <Link href={`/category/${post.category}`}>
                 {post.category.toUpperCase()}
               </Link>
@@ -40,11 +42,12 @@ const PostCard = ({ post }: { post: IPost }) => {
 
           <div>
             <Link href={`/posts/${post._id}`} className="text-decoration-none">
-              <p className="font-semibold text-xl md:text-2xl ">{post.title}</p>
+              <p className="font-semibold text-lg md:text-xl ">{post.title}</p>
             </Link>
           </div>
         </div>
       </CardBody>
+
       <CardFooter className="justify-between gap-1">
         <User
           className="avatarFontSize"
