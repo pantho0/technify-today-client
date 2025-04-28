@@ -43,10 +43,10 @@ export const PostDetails = ({ postData }: { postData: any }) => {
         </h2>
         <Image
           alt={postData?.title}
-          className="w-full md:h-[500px] object-cover rounded-lg"
-          height={600}
+          className="w-full md:h-[550px]  object-cover rounded-lg"
+          height={550}
           src={postData?.image}
-          width={600}
+          width={550}
         />
         <div
           className="prose max-w-none"
