@@ -64,13 +64,13 @@ export const Navbar = () => {
         </NavbarContent>
 
         <NavbarContent
-          className="hidden sm:flex basis-1/5 sm:basis-full"
+          className="hidden basis-1/5 sm:basis-full md:flex"
           justify="end"
         >
           <NavbarItem className="hidden md:flex ">
             <SearchBar />
           </NavbarItem>
-          <NavbarItem className="hidden sm:flex gap-2">
+          <NavbarItem className="hidden gap-2">
             <ThemeSwitch />
           </NavbarItem>
           <NavbarItem>
