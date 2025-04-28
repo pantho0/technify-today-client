@@ -5,7 +5,6 @@ import Loading from "@/src/components/ui/Loading";
 import { useGetMe } from "@/src/hooks/auth.hooks";
 import { useGetMyPosts } from "@/src/hooks/post.hooks";
 import { IPost } from "@/src/types";
-import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
 
 import { VerifiedIcon } from "lucide-react";

@@ -37,10 +37,12 @@ axiosInstance.interceptors.response.use(
       config.headers["Authorization"] = accessToken;
       (await cookies()).set("accessToken", accessToken);
       return await axiosInstance(config);
-    } else if (error?.response?.status === 403) {
+    } else if (error?.response?.status === 403 && !config.sent) {
+      config.sent = true;
       (await cookies()).delete("accessToken");
       (await cookies()).delete("refreshToken");
-    } else if (error?.response?.status === 500) {
+    } else if (error?.response?.status === 500 && !config.sent) {
+      config.sent = true;
       (await cookies()).delete("accessToken");
       (await cookies()).delete("refreshToken");
       window.location.href = "/login";
