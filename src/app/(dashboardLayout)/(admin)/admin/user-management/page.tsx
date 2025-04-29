@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/src/components/ui/Loading";
 import {
   useBlockUser,
   useDeleteUser,
@@ -33,59 +34,6 @@ export const columns = [
   { name: "Blocked Status", uid: "isBlocked" },
   { name: "ACTIONS", uid: "actions" },
 ];
-
-// export const users = [
-//   {
-//     id: 1,
-//     name: "Tony Reichert",
-//     role: "CEO",
-//     team: "Management",
-//     status: "active",
-//     age: "29",
-//     avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-//     email: "tony.reichert@example.com",
-//   },
-//   {
-//     id: 2,
-//     name: "Zoey Lang",
-//     role: "Technical Lead",
-//     team: "Development",
-//     status: "paused",
-//     age: "25",
-//     avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-//     email: "zoey.lang@example.com",
-//   },
-//   {
-//     id: 3,
-//     name: "Jane Fisher",
-//     role: "Senior Developer",
-//     team: "Development",
-//     status: "active",
-//     age: "22",
-//     avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-//     email: "jane.fisher@example.com",
-//   },
-//   {
-//     id: 4,
-//     name: "William Howard",
-//     role: "Community Manager",
-//     team: "Marketing",
-//     status: "vacation",
-//     age: "28",
-//     avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
-//     email: "william.howard@example.com",
-//   },
-//   {
-//     id: 5,
-//     name: "Kristen Copper",
-//     role: "Sales Manager",
-//     team: "Sales",
-//     status: "active",
-//     age: "24",
-//     avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
-//     email: "kristen.cooper@example.com",
-//   },
-// ];
 
 export const EyeIcon = (props: any) => {
   return (
@@ -214,7 +162,7 @@ const statusColorMap: Record<string, any> = {
 };
 
 export default function App() {
-  const { data } = useGetUsers();
+  const { data, isLoading } = useGetUsers();
   const { mutate: deleteUser } = useDeleteUser();
   const { mutate: blockUser } = useBlockUser();
   const users = data?.data;
@@ -333,11 +281,6 @@ export default function App() {
                 </span>
               </Tooltip>
             )}
-            {/* <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip> */}
             {user?.isDeleted === false ? (
               <Tooltip color="danger" content="Delete user">
                 <span className="text-lg text-danger cursor-pointer active:opacity-50">
@@ -370,27 +313,31 @@ export default function App() {
         </h2>
       </div>
       <Divider className="my-6" />
-      <Table aria-label="Example table with custom cells">
-        <TableHeader columns={columns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody items={users ?? []}>
-          {(item: any) => (
-            <TableRow key={item._id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Table aria-label="Example table with custom cells">
+          <TableHeader columns={columns}>
+            {(column) => (
+              <TableColumn
+                key={column.uid}
+                align={column.uid === "actions" ? "center" : "start"}
+              >
+                {column.name}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={users ?? []}>
+            {(item: any) => (
+              <TableRow key={item._id}>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 }
