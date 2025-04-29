@@ -22,7 +22,9 @@ const SidebarOptions = ({ links }: { links: SidebarOptionProps[] }) => {
         return (
           <Link key={link.href} href={link.href}>
             <Button
-              className={`w-full justify-start ${isActive ? "bg-primary text-white" : "text-white"}`}
+              className={`w-full justify-start 
+                ${isActive ? "bg-primary text-white" : "text-foreground-700"} 
+                dark:${isActive ? "bg-gray-700 text-white" : "text-white"}`}
               variant={isActive ? "solid" : "ghost"}
             >
               {link.icon}
