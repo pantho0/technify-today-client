@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Divider } from "@heroui/divider";
 
 import { getSinglePost } from "@/src/services/post";
@@ -7,6 +6,7 @@ import CommentCard from "@/src/components/ui/CommentCard";
 import { PostComments } from "@/src/app/components/Post/PostComments";
 import { PostReaction } from "@/src/app/components/Post/PostReaction";
 import { PostDetails } from "@/src/app/components/Post/PostDetails";
+import PostCommentImageHolder from "@/src/app/components/Post/PostCommentImageHolder";
 
 const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
   const { data } = await getSinglePost(params?.postId);
@@ -25,13 +25,7 @@ const PostDetailsPage = async ({ params }: { params: { postId: string } }) => {
         <div className="border-1 border-foreground/20 rounded-lg p-4">
           <div className="flex gap-1 flex-row md:gap-4 border border-foreground/20 rounded-lg p-3">
             <div className="size-7 md:w-14 md:h-14">
-              <Image
-                alt="user"
-                className="rounded-full"
-                height={40}
-                src="https://i.pravatar.cc/150?u=a04258114e29026702d"
-                width={40}
-              />
+              <PostCommentImageHolder />
             </div>
             <div className="flex-1">
               <div className="relative">
