@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import aboutusBanner from "../../../../public/aboutus.jpg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -20,12 +21,12 @@ const AboutUsPage = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header Image with overlay */}
-      <div className="w-full h-64 relative overflow-hidden">
+      <div className="w-full h-64 relative overflow-hidden rounded-lg">
         <Image
-          src="/about-banner.jpg"
+          src={aboutusBanner}
           alt="About Us Banner"
           fill
-          className="object-cover"
+          className="object-cover rounded-lg"
           priority
         />
         <motion.div
