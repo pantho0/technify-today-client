@@ -123,7 +123,7 @@ const FeedsPage = () => {
 
   return (
     <div className="container mx-auto space-y-10">
-      <div className="flex justify-end w-2/4 mx-auto gap-2 ">
+      <div className="flex justify-end w-full mx-auto gap-2 ">
         <div className="border-primary-50 border-2 rounded-lg p-2 flex gap-2">
           <Link href="/admin/create-post">
             <Tooltip content="Create Post">
