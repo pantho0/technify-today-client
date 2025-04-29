@@ -36,16 +36,18 @@ const LoginPage = () => {
     <>
       {isPending && <Loading />}
 
-      <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center space-y-2">
-        <Image alt="logo" height={100} src={"/logo.png"} width={100} />
-        <h3 className="my-2 text-2xl font-bold">User Login</h3>
-        <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
-        <div className="w-[35%]">
+      <div className="flex min-h-[calc(100vh-200px)] w-full flex-col items-center justify-center px-4 py-8">
+        <Image alt="logo" height={80} src="/logo.png" width={80} />
+        <h3 className="my-2 text-2xl font-bold text-center">User Login</h3>
+        <p className="mb-4 text-center text-sm text-gray-400">
+          Welcome Back! Let's Get Started
+        </p>
+
+        <div className="w-full max-w-sm sm:max-w-md md:max-w-lg">
           <TTForm resolver={zodResolver(loginSchema)} onSubmit={onSubmit}>
             <div className="space-y-4">
               <TTInput label="Email" name="email" type="email" />
               <TTInput label="Password" name="password" type="password" />
-
               <Button
                 className="w-full"
                 color="primary"
@@ -57,15 +59,19 @@ const LoginPage = () => {
             </div>
           </TTForm>
 
-          <div>
-            <div className="text-center mt-4">
-              Forgot Your Password ?{" "}
-              <Link href={"/forgot-password"}>Click Here</Link>
-            </div>
-            <div className="text-center">
-              Don&lsquo;t have account ?{" "}
-              <Link href={"/register"}>Register</Link>
-            </div>
+          <div className="mt-6 space-y-2 text-center text-sm ">
+            <p>
+              Forgot Your Password?{" "}
+              <Link href="/forgot-password" className="text-primary underline">
+                Click Here
+              </Link>
+            </p>
+            <p>
+              Don’t have an account?{" "}
+              <Link href="/register" className="text-primary underline">
+                Register
+              </Link>
+            </p>
           </div>
         </div>
       </div>

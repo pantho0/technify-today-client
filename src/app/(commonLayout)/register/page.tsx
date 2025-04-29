@@ -28,11 +28,14 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-center space-y-2">
-      <Image alt="logo" height={100} src={"/logo.png"} width={100} />
-      <h3 className="my-2 text-2xl font-bold">Register User</h3>
-      <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
-      <div className="w-[35%]">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center px-4 py-10">
+      <Image alt="logo" height={80} src="/logo.png" width={80} />
+      <h3 className="my-2 text-2xl font-bold text-center">Register User</h3>
+      <p className="mb-4 text-center text-gray-600">
+        Welcome! Let's Get Started
+      </p>
+
+      <div className="w-full max-w-sm sm:max-w-md md:max-w-lg">
         <TTForm resolver={zodResolver(registerSchema)} onSubmit={onSubmit}>
           <div className="space-y-4">
             <TTInput label="First Name" name="firstName" type="text" />
@@ -46,14 +49,18 @@ const RegisterPage = () => {
               color="primary"
               radius="none"
               type="submit"
+              isLoading={isPending}
             >
-              Login
+              Register
             </Button>
           </div>
         </TTForm>
 
-        <div className="text-center mt-4">
-          Already have an account ? <Link href={"/login"}>Login Here</Link>
+        <div className="mt-6 text-center text-sm text-gray-700">
+          Already have an account?{" "}
+          <Link href="/login" className="text-primary underline">
+            Login Here
+          </Link>
         </div>
       </div>
     </div>

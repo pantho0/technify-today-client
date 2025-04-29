@@ -5,6 +5,7 @@ import { IPost } from "@/src/types";
 import { Button } from "@heroui/button";
 import { Tooltip } from "@heroui/tooltip";
 import { Heart, ThumbsDown } from "lucide-react";
+import { toast } from "sonner";
 
 export const PostReaction = ({ postData }: { postData: IPost }) => {
   const { user } = useUser();
@@ -13,6 +14,10 @@ export const PostReaction = ({ postData }: { postData: IPost }) => {
     useAddDownvote();
 
   const handleUpVote = () => {
+    if (!user || !user.userId) {
+      toast.error("Please log in to upvote a post.");
+      return;
+    }
     const upVoteData = {
       postId: postData?._id,
       userId: user?.userId,
@@ -22,6 +27,10 @@ export const PostReaction = ({ postData }: { postData: IPost }) => {
   };
 
   const handleDownVote = () => {
+    if (!user || !user.userId) {
+      toast.error("Please log in to downvote a post.");
+      return;
+    }
     const downVoteData = {
       postId: postData?._id,
       userId: user?.userId,
