@@ -110,18 +110,18 @@ const CreatePostPage = () => {
   };
 
   return (
-    <div className="max-w-7xl p-2  md:p-4  mx-6 my-6 rounded-xl border-dotted border-2">
-      <div>
-        <h2 className="text-2xl font-semibold leading-snug text-center mb-4">
+    <div className="max-w-7xl p-6 mx-6 my-8 rounded-xl border border-gray-200 shadow-lg bg-white dark:bg-gray-800 dark:border-gray-700">
+      <div className="text-center mb-6">
+        <h2 className="text-3xl font-semibold text-gray-800 dark:text-white">
           Create Post
         </h2>
       </div>
       <Divider className="my-6" />
       {isPending && <Loading />}
       <TTForm onSubmit={onSubmit}>
-        <div className="space-y-4">
+        <div className="space-y-6">
           <TTInput label="Title" name="title" />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <TTSelect
               label="Category"
               name="category"
@@ -133,17 +133,19 @@ const CreatePostPage = () => {
               options={postStatus}
             />
           </div>
-          <Tiptap
-            content={content}
-            onChange={(newContent: string) => handleContentChange(newContent)}
-          />
+          <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm">
+            <Tiptap
+              content={content}
+              onChange={(newContent: string) => handleContentChange(newContent)}
+            />
+          </div>
           <div className="w-full">
             <label className="flex flex-col items-center justify-center w-full h-64 rounded-xl border-2 border-dashed text-gray-400 cursor-pointer hover:bg-primary/10 transition-all overflow-hidden">
               {imagePreview ? (
                 <img
                   alt="Preview Image"
                   src={imagePreview}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain rounded-md"
                 />
               ) : (
                 <span className="text-lg font-semibold text-primary">
@@ -159,13 +161,13 @@ const CreatePostPage = () => {
             </label>
           </div>
 
-          <div className="w-full mx-auto p-2">
+          <div className="w-full mx-auto p-4">
             <Button
-              className="w-full rounded-none bg-primary-300"
+              className="w-full rounded-lg bg-primary-500 hover:bg-primary-400 transition-all"
               size="lg"
               type="submit"
             >
-              Create
+              Create Post
             </Button>
           </div>
         </div>
