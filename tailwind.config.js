@@ -77,4 +77,9 @@ module.exports = {
   },
   darkMode: "class",
   plugins: [heroui(), require("@tailwindcss/typography")],
+  variants: {
+    extend: {
+      scale: ["before"],
+    },
+  },
 };

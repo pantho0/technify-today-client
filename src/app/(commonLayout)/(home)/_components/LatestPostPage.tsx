@@ -49,7 +49,7 @@ const LatestPostPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
         {posts?.map((post: IPost) => <PostCard key={post._id} post={post} />)}
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center w-full">
         <Pagination
           showControls
           onChange={(page: number) => {
