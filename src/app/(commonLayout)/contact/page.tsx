@@ -1,6 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useRef } from "react";
+import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -16,6 +19,35 @@ const fadeInUp = {
 };
 
 const ContactPage = () => {
+  const formjs = useRef();
+
+  const sendEmail = (e: any) => {
+    e.preventDefault();
+    const toastId = toast.loading("Sending message...", { duration: 2000 });
+    emailjs
+      .sendForm(
+        process.env.NEXT_PUBLIC_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_TEMPLATE_ID as string,
+        formjs.current!,
+        {
+          publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY as string,
+        }
+      )
+      .then(
+        () => {
+          toast.success("Message sent", { id: toastId, duration: 2000 });
+          e.target.reset();
+        },
+        (error: any) => {
+          console.log(error);
+          toast.error("Something went wrong. Please try again", {
+            id: toastId,
+            duration: 2000,
+          });
+        }
+      );
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground py-16 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -48,6 +80,8 @@ const ContactPage = () => {
 
         {/* Contact Form */}
         <motion.form
+          ref={formjs as any}
+          onSubmit={sendEmail}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
