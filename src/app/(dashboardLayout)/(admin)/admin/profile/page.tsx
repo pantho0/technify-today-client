@@ -16,7 +16,7 @@ const ProfilePage = () => {
   const { data, isLoading } = useGetMe();
   const { data: posts, isLoading: isPostsLoading } = useGetMyPosts();
 
-  const allPosts = posts?.data;
+  const allPosts = posts?.data?.result;
 
   const user = data?.data;
 
