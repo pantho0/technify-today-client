@@ -9,12 +9,7 @@ import { useEffect, useState } from "react";
 import { getAllPosts } from "@/src/services/post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Spinner } from "@heroui/spinner";
-import {
-  ArrowUp,
-  FilePen,
-  RefreshCw,
-  SlidersHorizontalIcon,
-} from "lucide-react";
+import { ArrowUp, FilePen, RefreshCw } from "lucide-react";
 import { Tooltip } from "@heroui/tooltip";
 import { PostFilterDropDown } from "@/src/components/ui/PostFilterDropDown";
 import { toast } from "sonner";
@@ -30,7 +25,7 @@ const FeedsPage = () => {
 
   const fetchPosts = async (pageNum = page) => {
     if (isAllPostLoaded) return;
-    const res = await getAllPosts(page, selectedCategories);
+    const res = await getAllPosts(pageNum, selectedCategories);
     const newPosts = res?.data?.result;
 
     if (!newPosts || newPosts.length === 0) {
@@ -158,7 +153,7 @@ const FeedsPage = () => {
           hasMore={hasMore}
           refreshFunction={refreshPosts}
           pullDownToRefresh
-          pullDownToRefreshThreshold={80}
+          pullDownToRefreshThreshold={90}
           pullDownToRefreshContent={
             <h3 style={{ textAlign: "center" }}>
               &#8595; Pull down to refresh
@@ -177,7 +172,7 @@ const FeedsPage = () => {
               <b>No more data to load!!</b>
             </p>
           }
-          scrollThreshold={0.8}
+          scrollThreshold={0.7}
         >
           <div className="grid grid-cols-1 max-w-2xl mx-auto gap-6">
             {posts?.map((post: IPost) => (
