@@ -2,6 +2,7 @@
 import { envConfig } from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
 
 export const getSinglePost = async (id: string) => {
   let fetchOptions = {};
@@ -36,7 +37,7 @@ export const getAllPosts = async (page: Number = 1, filters: string[] = []) => {
   fetchOptions = {
     next: {
       tags: ["refresh", "post"],
-      revalidateTag: 5,
+      revalidateTag: 60,
     },
   };
 
@@ -49,13 +50,30 @@ export const getAllPosts = async (page: Number = 1, filters: string[] = []) => {
   return await res.json();
 };
 
-export const getMyPosts = async () => {
-  try {
-    const { data } = await axiosInstance.get("/posts/own-posts");
-    return data;
-  } catch (error) {
-    throw new Error("Failed to fetch posts");
+export const getMyPosts = async (page: number = 1) => {
+  const cookieStore = cookies();
+  const accessToken = (await cookieStore).get("accessToken")?.value;
+
+  let queryParams = new URLSearchParams();
+  queryParams.append("page", String(page));
+
+  const url = `${envConfig.backendUrl}/posts/own-posts?${queryParams.toString() ? `${queryParams.toString()}` : ""}`;
+
+  const res = await fetch(url, {
+    headers: {
+      Authorization: accessToken || "",
+      "Content-Type": "application/json",
+    },
+    next: {
+      tags: ["own_posts"],
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("Fetching failed");
   }
+
+  return await res.json();
 };
 
 export const createPost = async (formData: FormData): Promise<any> => {
