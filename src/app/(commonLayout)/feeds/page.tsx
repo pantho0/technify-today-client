@@ -22,30 +22,40 @@ const FeedsPage = () => {
   const [isAllPostLoaded, setIsAllPostLoaded] = useState(false);
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [selectedCategories, setSelectecCategories] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchPosts = async (pageNum = page) => {
-    if (isAllPostLoaded) return;
-    const res = await getAllPosts(pageNum, selectedCategories);
-    const newPosts = res?.data?.result;
+    if (isAllPostLoaded || isLoading) return;
 
-    if (!newPosts || newPosts.length === 0) {
-      setIsAllPostLoaded(true);
-      setHasMore(false);
-      return;
-    }
+    setIsLoading(true);
+    try {
+      const res = await getAllPosts(pageNum, selectedCategories);
+      const newPosts = res?.data?.result;
 
-    setPosts((prev) => {
-      if (page === 1) {
-        return newPosts;
+      if (!newPosts || newPosts.length === 0) {
+        setIsAllPostLoaded(true);
+        setHasMore(false);
+        return;
       }
 
-      const existingPosts = new Set(prev.map((post) => post._id));
-      const filteredNewPosts = newPosts.filter(
-        (post: any) => !existingPosts.has(post._id)
-      );
-      return [...prev, ...filteredNewPosts];
-    });
-    setPage((prev) => prev + 1);
+      setPosts((prev) => {
+        if (pageNum === 1) {
+          return newPosts;
+        }
+
+        const existingPosts = new Set(prev.map((post) => post._id));
+        const filteredNewPosts = newPosts.filter(
+          (post: any) => !existingPosts.has(post._id)
+        );
+        return [...prev, ...filteredNewPosts];
+      });
+      setPage(pageNum + 1);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      toast.error("Failed to load more posts");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const refreshPosts = async () => {
@@ -172,7 +182,7 @@ const FeedsPage = () => {
               <b>No more data to load!!</b>
             </p>
           }
-          scrollThreshold={0.7}
+          scrollThreshold={0.8}
         >
           <div className="grid grid-cols-1 max-w-2xl mx-auto gap-6">
             {posts?.map((post: IPost) => (
