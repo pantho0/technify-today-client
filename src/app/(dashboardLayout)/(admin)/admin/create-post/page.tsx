@@ -110,7 +110,7 @@ const CreatePostPage = () => {
   };
 
   return (
-    <div className="max-w-7xl p-2  md:p-4  mx-6 my-6 rounded-xl border-dotted border-2">
+    <div className="max-w-7xl p-2  md:p-4  m-3 rounded-3xl border">
       <div>
         <h2 className="text-2xl font-semibold leading-snug text-center mb-4">
           Create Post

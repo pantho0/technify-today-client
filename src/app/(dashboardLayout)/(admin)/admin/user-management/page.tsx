@@ -306,7 +306,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
+    <div className="max-w-7xl  p-10 m-3 rounded-3xl border">
       <div>
         <h2 className="text-2xl font-semibold leading-snug text-center mb-4">
           User Management
