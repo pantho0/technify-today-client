@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@heroui/link";
+import { motion, useInView } from "framer-motion";
 
 import PostCard from "@/src/components/home/PostCard";
 
@@ -165,40 +166,88 @@ const FeedsPage = () => {
           pullDownToRefresh
           pullDownToRefreshThreshold={90}
           pullDownToRefreshContent={
-            <h3 style={{ textAlign: "center" }}>
-              &#8595; Pull down to refresh
-            </h3>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-center"
+            >
+              <h3>↓ Pull down to refresh</h3>
+            </motion.div>
           }
           releaseToRefreshContent={
-            <h3 style={{ textAlign: "center" }}>&#8593; Release to refresh</h3>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-center"
+            >
+              <h3>↑ Release to refresh</h3>
+            </motion.div>
           }
           loader={
-            <div className="w-full flex justify-center py-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className="w-full flex justify-center py-4"
+            >
               <Spinner />
-            </div>
+            </motion.div>
           }
           endMessage={
-            <p className="text-center text-gray-500 my-4">
-              <b>No more data to load!!</b>
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-center text-gray-500 my-4"
+            >
+              <p><b>No more data to load!!</b></p>
+            </motion.div>
           }
           scrollThreshold={0.8}
         >
-          <div className="grid grid-cols-1 max-w-2xl mx-auto gap-6">
-            {posts?.map((post: IPost) => (
-              <PostCard key={post._id} post={post} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 max-w-2xl mx-auto gap-6"
+          >
+            {posts?.map((post: IPost, index) => (
+              <motion.div
+                key={post._id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.05,
+                  ease: "easeOut"
+                }}
+                className="w-full"
+              >
+                <PostCard post={post} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </InfiniteScroll>
       </div>
 
       {showTopBtn && (
-        <button
+        <motion.button
           onClick={scrollToTop}
-          className="fixed bottom-10 right-10 bg-primary text-white rounded-full p-2 animate-pulse  shadow-lg hover:bg-primary/80 transition"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 17
+          }}
+          className="fixed bottom-10 right-10 bg-primary text-white rounded-full p-2 shadow-lg hover:bg-primary/80 transition"
         >
           <ArrowUp className="size-5" />
-        </button>
+        </motion.button>
       )}
     </div>
   );
