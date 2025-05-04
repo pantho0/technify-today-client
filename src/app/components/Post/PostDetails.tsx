@@ -1,4 +1,7 @@
 "use client";
+import PostSetttings from "@/src/components/PostSetttings";
+import { useUser } from "@/src/context/user.provider";
+import { IPost } from "@/src/types";
 import { Button } from "@heroui/button";
 import { FileText } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -6,8 +9,9 @@ import Image from "next/image";
 import { usePDF } from "react-to-pdf";
 import { toast } from "sonner";
 
-export const PostDetails = ({ postData }: { postData: any }) => {
+export const PostDetails = ({ postData }: { postData: IPost }) => {
   const { theme, setTheme } = useTheme();
+  const { user } = useUser();
   const { toPDF, targetRef } = usePDF({
     filename: `${postData?.title}.pdf` || `page.pdf+${Date.now()}`,
     resolution: 2,
@@ -32,10 +36,15 @@ export const PostDetails = ({ postData }: { postData: any }) => {
 
   return (
     <div className="space-y-3">
-      <div className="flex justify-end ">
+      <div className="flex justify-end gap-2 ">
         <Button className="bg-[#675DD2] text-white" onPress={handlePdf}>
           Download as PDF <FileText className="animate-ping" />
         </Button>
+        {user?.userId === postData.user._id && (
+          <div className="">
+            <PostSetttings post={postData?._id} />
+          </div>
+        )}
       </div>
       <div ref={targetRef} className="space-y-8">
         <h2 className="text-2xlmd:text-4xl font-semibold leading-snug">

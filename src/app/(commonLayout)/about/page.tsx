@@ -180,17 +180,17 @@ const AboutUsPage = () => {
               {
                 name: "Alice",
                 role: "Developer",
-                img: "/team/alice.jpg",
+                img: "https://i.pravatar.cc/150?u=1",
               },
               {
                 name: "Bob",
                 role: "Content Strategist",
-                img: "/team/bob.jpg",
+                img: "https://i.pravatar.cc/150?u=2",
               },
               {
                 name: "Charlie",
                 role: "UI/UX Designer",
-                img: "/team/charlie.jpg",
+                img: "https://i.pravatar.cc/150?u=3",
               },
             ].map((member, i) => (
               <div
