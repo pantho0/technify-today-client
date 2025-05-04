@@ -129,7 +129,7 @@ export const UpdatePost = () => {
   }
 
   return (
-    <div className="max-w-7xl  p-10  mx-6 my-6 rounded-xl border-dotted border-2">
+    <div className="max-w-7xl  p-10 rounded-xl border m-3 ">
       <div>
         <h2 className="text-2xl font-semibold leading-snug text-center mb-4">
           Update Post
