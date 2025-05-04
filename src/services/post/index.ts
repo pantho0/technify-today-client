@@ -51,29 +51,14 @@ export const getAllPosts = async (page: Number = 1, filters: string[] = []) => {
 };
 
 export const getMyPosts = async (page: number = 1) => {
-  const cookieStore = cookies();
-  const accessToken = (await cookieStore).get("accessToken")?.value;
-
-  let queryParams = new URLSearchParams();
+  const queryParams = new URLSearchParams();
   queryParams.append("page", String(page));
+  queryParams.append("sort", "-createdAt");
 
-  const url = `${envConfig.backendUrl}/posts/own-posts?${queryParams.toString() ? `${queryParams.toString()}` : ""}`;
-
-  const res = await fetch(url, {
-    headers: {
-      Authorization: accessToken || "",
-      "Content-Type": "application/json",
-    },
-    next: {
-      tags: ["own_posts"],
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error("Fetching failed");
-  }
-
-  return await res.json();
+  const res = await axiosInstance.get(
+    `/posts/own-posts?${queryParams.toString()}`
+  );
+  return res.data;
 };
 
 export const createPost = async (formData: FormData): Promise<any> => {

@@ -20,6 +20,13 @@ export const useLatestPost = () => {
   });
 };
 
+export const useGetMyPosts = () => {
+  return useMutation<any, Error, any>({
+    mutationKey: ["MY_POSTS"],
+    mutationFn: async (page: number) => await getMyPosts(page),
+  });
+};
+
 export const useCreatePost = () => {
   return useMutation<any, Error, FormData>({
     mutationKey: ["CREATE_POST"],
@@ -95,13 +102,6 @@ export const useAddDownvote = () => {
     onError: (error: any) => {
       toast.error(error?.message);
     },
-  });
-};
-
-export const useGetMyPosts = () => {
-  return useQuery<any, Error, any>({
-    queryKey: ["MY_POSTS"],
-    queryFn: async () => await getMyPosts(),
   });
 };
 
