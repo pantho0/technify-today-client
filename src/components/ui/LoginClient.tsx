@@ -15,7 +15,8 @@ import { loginSchema } from "@/src/schemas/login.validation";
 import Loading from "@/src/components/ui/Loading";
 import { useUser } from "@/src/context/user.provider";
 
-const LoginClient = () => {
+const LoginClient = ({ autoRegData }: { autoRegData: any }) => {
+  
   const { mutate: handleLogin, isPending, isSuccess } = useLogin();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
