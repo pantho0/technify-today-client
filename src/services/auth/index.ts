@@ -28,7 +28,6 @@ export const socialLoginUser = async (userData: any) => {
     if (data.success) {
       (await cookies()).set("accessToken", data.data?.accessToken);
       (await cookies()).set("refreshToken", data.data?.refreshToken);
-      (await cookies()).set("next-auth.session-token", "");
     }
     return data;
   } catch (error: any) {
@@ -39,6 +38,7 @@ export const socialLoginUser = async (userData: any) => {
 export const logoutUser = async () => {
   (await cookies()).delete("accessToken");
   (await cookies()).delete("refreshToken");
+  (await cookies()).set("next-auth.session-token", "");
 };
 
 export const registerUser = async (userData: FieldValues) => {

@@ -1,6 +1,8 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { cookies } from 'next/headers';
+import { nameBuilder } from "./NameBuilder";
+import { socialLoginUser } from "../services/auth";
+import { envConfig } from "../config/envConfig";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,42 +19,19 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user, account }) {
-      if (account && user) {
-        // Store the access token and refresh token in the JWT token
-        return {
-          ...token,
-          accessToken: account.access_token,
-          refreshToken: account.refresh_token,
-          user,
-        };
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      // Send properties to the client
-      return {
-        ...session,
-        accessToken: token.accessToken,
-        refreshToken: token.refreshToken,
-        user: {
-          ...session.user,
-          id: token.sub,
-        },
-      };
-    },
-    async redirect({ url, baseUrl }) {
-      // Redirect to the home page after sign in
-      return baseUrl;
+  events: {
+    async signIn({ user }) {
+      const nameData = nameBuilder(user.name || "");
+      await socialLoginUser({
+        firstName: nameData?.firstName,
+        middleName: nameData?.middleName,
+        lastName: nameData?.lastName,
+        email: user.email,
+        image: user.image,
+        password: envConfig.defaultSecurityKey,
+      });
     },
   },
+
   secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/login',
-    error: '/login',
-  },
 };
