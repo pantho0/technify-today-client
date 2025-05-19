@@ -16,7 +16,9 @@ import Loading from "@/src/components/ui/Loading";
 import { useUser } from "@/src/context/user.provider";
 
 const LoginClient = ({ autoRegData }: { autoRegData: any }) => {
-  
+  const defaultPassword = "defTech@123&&%%%";
+  const regDataWithDefaultPass = { ...autoRegData, password: defaultPassword };
+  console.log(regDataWithDefaultPass);
   const { mutate: handleLogin, isPending, isSuccess } = useLogin();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
@@ -33,6 +35,10 @@ const LoginClient = ({ autoRegData }: { autoRegData: any }) => {
       router.push(redirect || "/");
     }
   }, [isPending, isSuccess]);
+
+  const socialLoginHandler = () => {
+    signIn("google", { callbackUrl: redirect || "/" });
+  };
 
   return (
     <>
@@ -62,9 +68,7 @@ const LoginClient = ({ autoRegData }: { autoRegData: any }) => {
                 className="w-full"
                 color="secondary"
                 radius="none"
-                onPress={() =>
-                  signIn("google", { callbackUrl: redirect || "/" })
-                }
+                onPress={socialLoginHandler}
               >
                 Login With Google
               </Button>
