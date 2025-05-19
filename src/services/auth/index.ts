@@ -21,6 +21,21 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
+export const socialLoginUser = async (userData: any) => {
+  try {
+    const { data } = await axiosInstance.post("/auth/social-login", userData);
+
+    if (data.success) {
+      (await cookies()).set("accessToken", data.data?.accessToken);
+      (await cookies()).set("refreshToken", data.data?.refreshToken);
+      (await cookies()).set("next-auth.session-token", "");
+    }
+    return data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const logoutUser = async () => {
   (await cookies()).delete("accessToken");
   (await cookies()).delete("refreshToken");

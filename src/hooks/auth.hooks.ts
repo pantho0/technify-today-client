@@ -9,6 +9,7 @@ import {
   loginUser,
   registerUser,
   resetPassword,
+  socialLoginUser,
 } from "../services/auth";
 
 export const useLogin = () => {
@@ -20,6 +21,20 @@ export const useLogin = () => {
     },
     onError: (error: any) => {
       toast.error(error?.message);
+    },
+  });
+};
+
+export const useSocialLogin = () => {
+  return useMutation<any, Error, any>({
+    mutationKey: ["USER_SOCIAL_LOGIN"],
+    mutationFn: async (userData: any) => await socialLoginUser(userData),
+    onSuccess: () => {
+      toast.success("User Logged In Successfully");
+    },
+    onError: (error: any) => {
+      toast.error(error?.message);
+      console.log(error?.message);
     },
   });
 };

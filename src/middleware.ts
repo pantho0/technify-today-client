@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
     }
 
     return NextResponse.redirect(
-      new URL(`/login?redirect=${pathname}`, request.url),
+      new URL(`/login?redirect=${pathname}`, request.url)
     );
   }
 
@@ -47,7 +47,7 @@ export async function middleware(request: NextRequest) {
   }
 
   return NextResponse.redirect(
-    new URL(`/login?redirect=${pathname}`, request.url),
+    new URL(`/login?redirect=${pathname}`, request.url)
   );
 }
 

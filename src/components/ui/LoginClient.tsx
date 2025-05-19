@@ -1,5 +1,5 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import Image from "next/image";
@@ -10,16 +10,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import TTInput from "@/src/components/form/TTInput";
 import TTForm from "@/src/components/form/TTForm";
-import { useLogin } from "@/src/hooks/auth.hooks";
+import { useLogin, useSocialLogin } from "@/src/hooks/auth.hooks";
 import { loginSchema } from "@/src/schemas/login.validation";
 import Loading from "@/src/components/ui/Loading";
 import { useUser } from "@/src/context/user.provider";
+import { nameBuilder } from "@/src/utils/NameBuilder";
 
-const LoginClient = ({ autoRegData }: { autoRegData: any }) => {
-  const defaultPassword = "defTech@123&&%%%";
-  const regDataWithDefaultPass = { ...autoRegData, password: defaultPassword };
-  console.log(regDataWithDefaultPass);
+const LoginClient = () => {
   const { mutate: handleLogin, isPending, isSuccess } = useLogin();
+  const { mutate: handleSocialLogin, isSuccess: isSocialSuccess } =
+    useSocialLogin();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
   const router = useRouter();
@@ -31,13 +31,38 @@ const LoginClient = ({ autoRegData }: { autoRegData: any }) => {
   };
 
   useEffect(() => {
-    if (!isPending && isSuccess) {
+    if ((!isPending && isSuccess) || isSocialSuccess) {
       router.push(redirect || "/");
     }
-  }, [isPending, isSuccess]);
+  }, [isPending, isSuccess, isSocialSuccess, redirect, router]);
 
-  const socialLoginHandler = () => {
-    signIn("google", { callbackUrl: redirect || "/" });
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      const result = await signIn("google", {
+        redirect: false,
+        callbackUrl: redirect || "/",
+      });
+
+      if (result?.error) {
+        console.error("google login failed", result.error);
+        setLoading(false);
+      }
+
+      const session = await getSession();
+      const nameData = nameBuilder(session?.user?.name || "");
+      handleSocialLogin({
+        firstName: nameData?.firstName,
+        middleName: nameData?.middleName,
+        lastName: nameData?.lastName,
+        email: session?.user?.email || "",
+        image: session?.user?.image || "",
+        password: "defTToday@5685858",
+      });
+    } catch (error: any) {
+      console.error("google login failed", error);
+      setLoading(false);
+    }
   };
 
   return (
@@ -68,7 +93,7 @@ const LoginClient = ({ autoRegData }: { autoRegData: any }) => {
                 className="w-full"
                 color="secondary"
                 radius="none"
-                onPress={socialLoginHandler}
+                onPress={handleGoogleLogin}
               >
                 Login With Google
               </Button>
